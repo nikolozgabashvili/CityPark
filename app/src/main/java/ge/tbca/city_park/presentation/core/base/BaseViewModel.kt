@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
-abstract class BaseViewModel<STATE, SIDE_EFFECT, EVENT>(
+abstract class BaseViewModel<STATE, EFFECT, EVENT>(
     initialState: STATE
 ) : ViewModel() {
 
@@ -15,14 +15,14 @@ abstract class BaseViewModel<STATE, SIDE_EFFECT, EVENT>(
         private set
 
 
-    private val _effect = Channel<SIDE_EFFECT>()
+    private val _effect = Channel<EFFECT>()
     val effect = _effect.receiveAsFlow()
 
     protected fun updateState(reducer: STATE.() -> STATE) {
         state = reducer(state)
     }
 
-    protected suspend fun sendSideEffect(sideEffect: SIDE_EFFECT) {
+    protected suspend fun sendSideEffect(sideEffect: EFFECT) {
         _effect.send(sideEffect)
     }
 
