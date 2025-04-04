@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.theme
+package ge.tbca.city_park.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.FontFamily
