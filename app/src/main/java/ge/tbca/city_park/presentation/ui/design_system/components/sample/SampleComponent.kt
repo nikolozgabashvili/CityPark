@@ -10,7 +10,6 @@ fun SampleComponent(
     modifier: Modifier = Modifier
 ) {
 
-
 }
 
 @AppPreview
