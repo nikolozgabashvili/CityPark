@@ -7,30 +7,23 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
-abstract class BaseViewModel<STATE, UI_STATE, SIDE_EFFECT, EVENT>(
-    initialState: STATE,
-    initialUiState: UI_STATE
+abstract class BaseViewModel<STATE, SIDE_EFFECT, EVENT>(
+    initialState: STATE
 ) : ViewModel() {
 
     var state by mutableStateOf(initialState)
         private set
 
-    var uiState by mutableStateOf(initialUiState)
-        private set
 
-    private val _sideEffects = Channel<SIDE_EFFECT>()
-    val sideEffects = _sideEffects.receiveAsFlow()
+    private val _effect = Channel<SIDE_EFFECT>()
+    val effect = _effect.receiveAsFlow()
 
     protected fun updateState(reducer: STATE.() -> STATE) {
         state = reducer(state)
     }
 
-    protected fun updateUiState(reducer: UI_STATE.() -> UI_STATE) {
-        uiState = reducer(uiState)
-    }
-
     protected suspend fun sendSideEffect(sideEffect: SIDE_EFFECT) {
-        _sideEffects.send(sideEffect)
+        _effect.send(sideEffect)
     }
 
     abstract fun onEvent(event: EVENT)
