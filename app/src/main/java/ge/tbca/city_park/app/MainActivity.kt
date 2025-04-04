@@ -36,9 +36,7 @@ class MainActivity : ComponentActivity() {
                             value = TextFieldValue(),
                             onValueChange = {}
                         )
-
                     }
-
                 }
             }
         }
