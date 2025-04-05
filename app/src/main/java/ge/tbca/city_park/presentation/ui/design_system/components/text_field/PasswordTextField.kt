@@ -115,8 +115,8 @@ private fun PasswordTextFieldPreview() {
             PasswordTextField(
                 value = "value",
                 startIcon = Icons.Rounded.Lock,
-                label = "Labefffffffl",
-                errorText = "asdas",
+                label = "Label",
+                errorText = "error Text",
                 onTextChanged = {},
                 onToggleTextVisibility = {}
             )

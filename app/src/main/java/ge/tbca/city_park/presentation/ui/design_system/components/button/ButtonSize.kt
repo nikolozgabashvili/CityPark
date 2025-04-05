@@ -19,7 +19,7 @@ enum class ButtonSize {
                 iconSize = Dimen.iconLarge,
                 textStyle = TextStyles.titleMedium,
                 inPadding = Dimen.buttonPaddingInLarge,
-                outPadding = Dimen.buttonPaddingOuTLarge
+                outPadding = Dimen.buttonPaddingOutLarge
             )
 
             MEDIUM -> ButtonStyleParams(

@@ -23,7 +23,7 @@ data class AppDimens(
     val buttonMedium:Dp = 40.dp,
     val buttonSmall:Dp = 32.dp,
     val buttonPaddingInLarge:Dp =12.dp,
-    val buttonPaddingOuTLarge:Dp =24.dp,
+    val buttonPaddingOutLarge:Dp =24.dp,
     val buttonPaddingInMedium:Dp =12.dp,
     val buttonPaddingOutMedium:Dp =20.dp,
     val buttonPaddingInSmall:Dp =8.dp,
