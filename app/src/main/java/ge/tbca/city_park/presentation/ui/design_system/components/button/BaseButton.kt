@@ -81,10 +81,8 @@ fun BaseButton(
 
             Row(
                 Modifier
-                    .align(Alignment.Center)
                     .alpha(contentAlpha)
             ) {
-
                 startIcon?.let { vector ->
                     Icon(
                         imageVector = vector,
