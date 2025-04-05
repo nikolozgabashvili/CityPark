@@ -54,7 +54,7 @@ fun Divider(
 
 @Composable
 @AppPreview
-fun DividerPreview() {
+private fun DividerPreview() {
     AppTheme {
         Divider(
             text = "Or",
