@@ -1,6 +1,9 @@
 package ge.tbca.city_park.presentation.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
@@ -27,8 +30,13 @@ val displayFontFamily = FontFamily(
     )
 )
 
+val TextStyles: Typography
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.typography
 
-val baseline = Typography()
+
+private val baseline = Typography()
 
 val AppTypography = Typography(
     displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
