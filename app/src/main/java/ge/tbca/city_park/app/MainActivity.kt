@@ -24,11 +24,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
                     Column(
-                        Modifier
+                        modifier = Modifier
                             .padding(innerPadding)
                             .consumeWindowInsets(innerPadding)
                             .imePadding()
                     ) {
+
 
                     }
 
