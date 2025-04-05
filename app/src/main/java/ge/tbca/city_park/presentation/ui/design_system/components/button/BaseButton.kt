@@ -57,6 +57,7 @@ fun BaseButton(
     )
 
     val isEnabled = enabled && !loading
+
     Button(
         contentPadding = PaddingValues(horizontal = buttonParams.outPadding),
         modifier = modifier.height(buttonParams.buttonHeight),
@@ -73,7 +74,6 @@ fun BaseButton(
                     composition = composition,
                     progress = { progress },
                     modifier = Modifier
-                        .align(Alignment.Center)
                         .size(buttonParams.iconSize)
                 )
 
