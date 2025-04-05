@@ -16,14 +16,16 @@ val Dimen: AppDimens
 
 
 data class AppDimens(
+    val appPadding: Dp = 20.dp,
+
     val sizeExtraSmall: Dp = 2.dp,
     val sizeSmall: Dp = 4.dp,
 
-    val primaryButtonHeight: Dp = 56.dp,
-    val secondaryButtonHeight: Dp = 40.dp,
-
     val authTextFieldHeight: Dp = 56.dp,
 
-    val paddingStart: Dp = 24.dp,
-    val paddingEnd: Dp = 24.dp,
+    val size8: Dp = 8.dp,
+    val size16: Dp = 16.dp,
+    val size24: Dp = 24.dp,
+    val size32: Dp = 32.dp,
+    val size230: Dp = 230.dp,
 )

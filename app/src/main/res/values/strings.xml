@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">cityPark</string>
+    <string name="hello">გამარჯობა</string>
+    <string name="log_into_the_system">შედი სისტემაში</string>
+    <string name="or">ან</string>
+    <string name="email_or_phone_number">მობილური ან ელ.ფოსტა</string>
+    <string name="password">პაროლი</string>
+    <string name="forgot_password">პაროლის აღდგენა</string>
+    <string name="login">ავტორიზაცია</string>
+    <string name="dont_have_an_account">არ გაქვს ანგარიში? დარეგისტრირდი</string>
 </resources>
