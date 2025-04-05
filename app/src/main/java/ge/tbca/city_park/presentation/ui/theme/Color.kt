@@ -1,6 +1,14 @@
 package ge.tbca.city_park.presentation.ui.theme
 import androidx.compose.ui.graphics.Color
 
+val PrimaryButtonColor = Color(0xFF34383C)
+val SecondaryButtonColor = Color(0x1434383C)
+val PrimaryTextColor = Color(0xFF34383C)
+val PrimaryIconColor = Color(0xFF34383C)
+val SecondaryTextColor = Color(0xA334383C)
+val SecondaryIconColor = Color(0xA334383C)
+val White = Color(0xFFFFFFFF)
+
 val primaryLight = Color(0xFF000000)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFF1B1B1B)
@@ -216,10 +224,4 @@ val surfaceContainerLowDarkHighContrast = Color(0xFF1F1F1F)
 val surfaceContainerDarkHighContrast = Color(0xFF303030)
 val surfaceContainerHighDarkHighContrast = Color(0xFF3B3B3B)
 val surfaceContainerHighestDarkHighContrast = Color(0xFF474747)
-
-
-
-
-
-
 
