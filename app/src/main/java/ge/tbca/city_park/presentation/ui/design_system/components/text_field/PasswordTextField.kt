@@ -73,7 +73,7 @@ fun PasswordTextField(
         },
         singleLine = true,
         isError = errorText != null,
-        shape = RoundedCornerShape(Dimen.size12),
+        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
             imeAction = imeAction

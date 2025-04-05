@@ -27,6 +27,8 @@ data class AppDimens(
     val size24: Dp = 24.dp,
     val size32: Dp = 32.dp,
 
+    val roundedCornerMediumSize :Dp = 12.dp,
+
     val buttonLarge: Dp = 56.dp,
     val buttonMedium:Dp = 40.dp,
     val buttonSmall:Dp = 32.dp,

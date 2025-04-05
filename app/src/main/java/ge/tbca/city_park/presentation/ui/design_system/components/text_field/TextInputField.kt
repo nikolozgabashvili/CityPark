@@ -70,7 +70,7 @@ fun TextInputField(
         },
         singleLine = true,
         isError = errorText != null,
-        shape = RoundedCornerShape(Dimen.size12),
+        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
         trailingIcon = endIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
