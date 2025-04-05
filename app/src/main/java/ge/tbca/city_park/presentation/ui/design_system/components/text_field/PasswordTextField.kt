@@ -16,6 +16,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,7 +26,7 @@ import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.Dimen
 import ge.tbca.city_park.presentation.ui.theme.TextStyles
-import ge.tbca.city_park.presentation.ui.util.AppPreview
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 
 @Composable
 fun PasswordTextField(
@@ -39,13 +40,18 @@ fun PasswordTextField(
     enabled: Boolean = true,
     startIcon: ImageVector? = null,
     imeAction: ImeAction = ImeAction.None,
-    keyboardType: KeyboardType = KeyboardType.Unspecified,
 ) {
 
-    val visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
+    val visualTransformation =
+        if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
     val endIcon = if (isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility
 
-    val colors = TextFieldDefaults.colors(errorTrailingIconColor = AppColors.onSurfaceVariant)
+    val colors = TextFieldDefaults.colors(
+        unfocusedContainerColor = Color.Transparent,
+        errorContainerColor = Color.Transparent,
+        focusedContainerColor = Color.Transparent,
+        errorTrailingIconColor = AppColors.onSurfaceVariant
+    )
 
     OutlinedTextField(
         modifier = modifier,
@@ -67,8 +73,11 @@ fun PasswordTextField(
         },
         singleLine = true,
         isError = errorText != null,
-        shape = RoundedCornerShape(Dimen.sizeSmall),
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        shape = RoundedCornerShape(Dimen.size12),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = imeAction
+        ),
         leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
         trailingIcon = {
             Icon(

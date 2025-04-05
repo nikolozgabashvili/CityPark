@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,8 +13,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Visibility
-import androidx.compose.material.icons.rounded.VisibilityOff
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -23,18 +22,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
 import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
-import ge.tbca.city_park.presentation.ui.design_system.components.text_input.AuthTextField
+import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
+import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
 import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.AppTypography
 import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.util.AppPreview
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
 @Composable
@@ -87,33 +87,40 @@ private fun RegisterScreen(
         // google login button
         PrimaryButton(
             modifier = Modifier
-                .padding(top = Dimen.size32)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(top = Dimen.size32),
             text = "",
             onClick = { onEvent(RegisterEvent.GoogleLoginButtonClicked) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        Divider(text = stringResource(R.string.or))
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(R.string.or)
+        )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        AuthTextField(
+        TextInputField(
             modifier = Modifier.fillMaxWidth(),
-            text = state.email,
-            hint = stringResource(R.string.email),
+            value = state.email,
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next,
+            startIcon = Icons.Rounded.Email,
+            label = stringResource(R.string.email),
             onTextChanged = { onEvent(RegisterEvent.EmailChanged(it)) },
         )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
-        AuthTextField(
+        PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
-            text = state.password,
-            hint = stringResource(R.string.password),
-            isTextVisible = state.isPasswordVisible,
-            trailingIcon = if (state.isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
+            value = state.password,
+            label = stringResource(R.string.password),
+            startIcon = Icons.Rounded.Lock,
+            imeAction = ImeAction.Next,
+            isPasswordVisible = state.isPasswordVisible,
             onTextChanged = { onEvent(RegisterEvent.PasswordChanged(it)) },
             onToggleTextVisibility = { onEvent(RegisterEvent.PasswordVisibilityChanged) }
         )
@@ -131,21 +138,23 @@ private fun RegisterScreen(
 
                 Spacer(modifier = Modifier.height(Dimen.size8))
 
-                Column {  }
             }
         }
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
-        AuthTextField(
+        PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
-            text = state.repeatPassword,
-            hint = stringResource(R.string.repeat_password),
-            isTextVisible = state.isRepeatPasswordVisible,
-            trailingIcon = if (state.isRepeatPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
+            value = state.repeatPassword,
+            imeAction = ImeAction.Done,
+            startIcon = Icons.Rounded.Lock,
+            label = stringResource(R.string.repeat_password),
+            isPasswordVisible = state.isRepeatPasswordVisible,
             onTextChanged = { onEvent(RegisterEvent.RepeatPasswordChanged(it)) },
             onToggleTextVisibility = { onEvent(RegisterEvent.RepeatPasswordVisibilityChanged) }
         )
+
+        Spacer(modifier=Modifier.height(Dimen.size16))
 
         Spacer(modifier = Modifier.weight(1f))
 

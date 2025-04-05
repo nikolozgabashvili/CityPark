@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.util.AppPreview
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 
 @Composable
 fun TertiaryButton(

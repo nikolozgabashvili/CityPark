@@ -13,7 +13,7 @@ import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.Dimen
 import ge.tbca.city_park.presentation.ui.theme.TextStyles
-import ge.tbca.city_park.presentation.ui.util.AppPreview
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 
 @Composable
 fun Divider(
@@ -24,7 +24,6 @@ fun Divider(
 ) {
     Row(
         modifier = modifier
-            .padding(horizontal = Dimen.size24)
             .fillMaxWidth()
     ) {
         HorizontalDivider(

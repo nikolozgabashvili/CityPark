@@ -10,13 +10,31 @@ class LoginViewModel @Inject constructor() :
 
     override fun onEvent(event: LoginEvent) {
         when (event) {
-            is LoginEvent.EmailChanged -> {}
+            is LoginEvent.EmailChanged -> updateEmail(event.email)
+
             is LoginEvent.ForgotPasswordClicked -> {}
             is LoginEvent.LoginButtonClicked -> {}
             is LoginEvent.GoogleLoginButtonClicked -> {}
-            is LoginEvent.PasswordChanged -> {}
-            is LoginEvent.PasswordVisibilityChanged -> {}
+            is LoginEvent.PasswordChanged -> updatePassword(event.password)
+            is LoginEvent.PasswordVisibilityChanged -> updatePasswordVisibility()
             is LoginEvent.RegisterHereClicked -> {}
         }
+    }
+
+    private fun updatePasswordVisibility() {
+        updateState { copy(isPasswordVisible = !isPasswordVisible) }
+    }
+
+    private fun updatePassword(password: String) {
+        updateState {
+            copy(password = password)
+        }
+    }
+
+    private fun updateEmail(email: String) {
+        updateState {
+            copy(email = email)
+        }
+
     }
 }

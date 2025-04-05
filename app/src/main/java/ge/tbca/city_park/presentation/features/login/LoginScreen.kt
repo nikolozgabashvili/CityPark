@@ -11,22 +11,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Visibility
-import androidx.compose.material.icons.rounded.VisibilityOff
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
+import ge.tbca.city_park.presentation.ui.design_system.components.button.ButtonSize
 import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
+import ge.tbca.city_park.presentation.ui.design_system.components.button.TertiaryButton
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
-import ge.tbca.city_park.presentation.ui.design_system.components.text_input.AuthTextField
+import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
+import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
 import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.AppTypography
 import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.util.AppPreview
+import ge.tbca.city_park.presentation.ui.theme.TextStyles
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
 @Composable
@@ -60,20 +67,20 @@ private fun LoginScreen(
         Text(
             text = stringResource(R.string.hello),
             color = AppColors.primary,
-            style = AppTypography.headlineLarge
+            style = TextStyles.headlineLarge.copy(fontWeight = FontWeight(700))//todo have separate file for font weight
         )
 
         Spacer(modifier = Modifier.height(Dimen.size8))
 
         Text(
             text = stringResource(R.string.log_into_the_system),
-            color = AppColors.primary,
-            style = AppTypography.bodyMedium
+            color = AppColors.secondary,
+            style = TextStyles.bodyMedium
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        // google login button
+        // todo google login button
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             text = "",
@@ -86,21 +93,25 @@ private fun LoginScreen(
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        AuthTextField(
+        TextInputField(
             modifier = Modifier.fillMaxWidth(),
-            text = state.email,
-            hint = stringResource(R.string.email_or_phone_number),
+            value = state.email,
+            label = stringResource(R.string.email),
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Email,
+            startIcon = Icons.Rounded.Email,
             onTextChanged = { onEvent(LoginEvent.EmailChanged(it)) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
-        AuthTextField(
+        PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
-            text = state.password,
-            hint = stringResource(R.string.password),
-            isTextVisible = state.isPasswordVisible,
-            trailingIcon = if (state.isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
+            value = state.password,
+            startIcon = Icons.Rounded.Lock,
+            label = stringResource(R.string.password),
+            isPasswordVisible = state.isPasswordVisible,
+            imeAction = ImeAction.Done,
             onTextChanged = { onEvent(LoginEvent.PasswordChanged(it)) },
             onToggleTextVisibility = { onEvent(LoginEvent.PasswordVisibilityChanged) }
         )
@@ -108,27 +119,36 @@ private fun LoginScreen(
         Spacer(modifier = Modifier.height(Dimen.size16))
 
         Text(
-            modifier = Modifier.clickable { onEvent(LoginEvent.ForgotPasswordClicked) },
+            modifier = Modifier.clickable(
+                onClick = { onEvent(LoginEvent.ForgotPasswordClicked) },
+                enabled = !state.isLoading,
+                interactionSource = null,
+                indication = null
+            ),
             text = stringResource(R.string.forgot_password),
             style = AppTypography.bodyMedium,
             color = AppColors.primary
         )
+        Spacer(modifier = Modifier.height(Dimen.size16))
 
         Spacer(modifier = Modifier.weight(1f))
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
+            buttonSize = ButtonSize.MEDIUM,
             text = stringResource(R.string.login),
             onClick = { onEvent(LoginEvent.LoginButtonClicked) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
-        Text(
-            modifier = Modifier.clickable { onEvent(LoginEvent.RegisterHereClicked) },
+        TertiaryButton(
+            modifier = Modifier.fillMaxWidth(),
+            buttonSize = ButtonSize.MEDIUM,
             text = stringResource(R.string.dont_have_an_account),
-            style = AppTypography.bodyMedium,
-            color = AppColors.primary
+            onClick = {
+                onEvent(LoginEvent.RegisterHereClicked)
+            }
         )
     }
 }
