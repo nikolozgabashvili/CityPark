@@ -57,11 +57,10 @@ fun TextInputField(
         isError = errorText != null,
         shape = RoundedCornerShape(Dimen.sizeSmall),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-        leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = "TODO") } },
-        trailingIcon = endIcon?.let { { Icon(imageVector = it, contentDescription = "TODO") } },
+        leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
+        trailingIcon = endIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
     )
 }
-
 
 
 @AppPreview

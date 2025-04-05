@@ -68,7 +68,7 @@ fun PasswordTextField(
         isError = errorText != null,
         shape = RoundedCornerShape(Dimen.sizeSmall),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-        leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = "TODO") } },
+        leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
         trailingIcon = {
             Icon(
                 modifier = Modifier
@@ -78,7 +78,7 @@ fun PasswordTextField(
                         interactionSource = null,
                         indication = null
                     ),
-                imageVector = endIcon, contentDescription = "TODO"
+                imageVector = endIcon, contentDescription = null
             )
         }
 
