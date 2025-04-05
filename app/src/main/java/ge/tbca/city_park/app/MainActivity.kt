@@ -39,59 +39,11 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(innerPadding)
                             .consumeWindowInsets(innerPadding)
-                            .imePadding(),
-                        verticalArrangement = Arrangement.spacedBy(Dimen.size24)
-                    ) {
-
-                        var password by remember { mutableStateOf("") }
-                        var passwordVisible by remember { mutableStateOf(false) }
-                        var input by remember { mutableStateOf("") }
-                        var loading by remember { mutableStateOf(false) }
-                        var error: String? by remember { mutableStateOf(null) }
-                        TextInputField(
-                            modifier = Modifier.fillMaxWidth(),
-                            value = input,
-                            label = "label",
-                            onTextChanged = {
-                                input = it
-                            }
-                        )
-
-                        PasswordTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            value = password,
-                            errorText = error,
-                            isPasswordVisible = passwordVisible,
-                            label = "label",
-                            onTextChanged = {
-                                password = it
-                                error = null
-                            },
-                            onToggleTextVisibility = {
-                                println(passwordVisible)
-                                passwordVisible = !passwordVisible
-                            }
-                        )
-
-                        PrimaryButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Loading",
-                            onClick = {
-                                loading = !loading
-                            }
-                        )
-
-                        TertiaryButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Tertiary",
-                            buttonSize = ButtonSize.LARGE,
-                            loading = loading,
-                            onClick = {
-                                error = "hehhehehe"
-                            }
-                        )
+                            .imePadding()
+                    ){
 
                     }
+
 
                 }
             }
