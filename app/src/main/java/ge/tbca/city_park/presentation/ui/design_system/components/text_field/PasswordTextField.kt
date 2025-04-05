@@ -42,15 +42,16 @@ fun PasswordTextField(
     keyboardType: KeyboardType = KeyboardType.Unspecified,
 ) {
 
-    val visualTransformation =
-        if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
-
+    val visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
     val endIcon = if (isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility
+
+    val colors = TextFieldDefaults.colors(errorTrailingIconColor = AppColors.onSurfaceVariant)
+
     OutlinedTextField(
         modifier = modifier,
         value = value,
         enabled = enabled,
-        colors = TextFieldDefaults.colors(errorTrailingIconColor = AppColors.onSurfaceVariant),
+        colors = colors,
         label = label?.let { { Text(text = it, style = TextStyles.bodySmall) } },
         textStyle = TextStyles.bodyLarge,
         onValueChange = { onTextChanged(it) },

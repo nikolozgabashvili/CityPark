@@ -36,11 +36,13 @@ fun TextInputField(
     imeAction: ImeAction = ImeAction.None,
     keyboardType: KeyboardType = KeyboardType.Unspecified
 ) {
+    val colors  =TextFieldDefaults.colors(errorTrailingIconColor = AppColors.onSurfaceVariant)
+
     OutlinedTextField(
         modifier = modifier,
         value = value,
         enabled = enabled,
-        colors = TextFieldDefaults.colors(errorTrailingIconColor = AppColors.onSurfaceVariant),
+        colors = colors,
         label = label?.let { { Text(text = it, style = TextStyles.bodySmall) } },
         textStyle = TextStyles.bodyLarge,
         onValueChange = { onTextChanged(it) },
