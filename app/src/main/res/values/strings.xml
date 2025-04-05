@@ -8,4 +8,9 @@
     <string name="forgot_password">პაროლის აღდგენა</string>
     <string name="login">ავტორიზაცია</string>
     <string name="dont_have_an_account">არ გაქვს ანგარიში? დარეგისტრირდი</string>
+    <string name="register">რეგისტრაცია</string>
+    <string name="email">ელ.ფოსტა</string>
+    <string name="repeat_password">გაიმეორე პაროლი</string>
+    <string name="create_an_account">ანგარიშის შექმნა</string>
+    <string name="password_criterias">პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან და უნდა აკმაყოფილებდეს ქვემოთ ჩამოთვლილ ყველა კომპონენტს:</string>
 </resources>

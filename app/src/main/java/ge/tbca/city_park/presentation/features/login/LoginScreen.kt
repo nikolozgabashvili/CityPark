@@ -3,8 +3,10 @@ package ge.tbca.city_park.presentation.features.login
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,15 +30,14 @@ import ge.tbca.city_park.presentation.ui.util.AppPreview
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
 @Composable
-fun LoginScreenRoot(
-    viewModel: LoginViewModel = hiltViewModel()
-) {
+fun LoginScreenRoot(viewModel: LoginViewModel = hiltViewModel()) {
+
     val scrollState = rememberScrollState()
 
     LoginScreen(
         state = viewModel.state,
+        scrollState = scrollState,
         onEvent = viewModel::onEvent,
-        scrollState = scrollState
     )
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
@@ -46,15 +47,15 @@ fun LoginScreenRoot(
 
 @Composable
 private fun LoginScreen(
-    onEvent: (LoginEvent) -> Unit,
     state: LoginState,
-    scrollState: ScrollState
+    scrollState: ScrollState,
+    onEvent: (LoginEvent) -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .padding(top = Dimen.size24, start = Dimen.appPadding, end = Dimen.appPadding)
-            .verticalScroll(scrollState)
             .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(Dimen.appPadding)
     ) {
         Text(
             text = stringResource(R.string.hello),
@@ -62,72 +63,72 @@ private fun LoginScreen(
             style = AppTypography.headlineLarge
         )
 
+        Spacer(modifier = Modifier.height(Dimen.size8))
+
         Text(
             text = stringResource(R.string.log_into_the_system),
             color = AppColors.primary,
-            style = AppTypography.bodyMedium,
-            modifier = Modifier.padding(top = Dimen.size8)
+            style = AppTypography.bodyMedium
         )
+
+        Spacer(modifier = Modifier.height(Dimen.size32))
 
         // google login button
         PrimaryButton(
+            modifier = Modifier.fillMaxWidth(),
             text = "",
-            onClick = { onEvent(LoginEvent.LoginButtonClicked) },
-            modifier = Modifier
-                .padding(top = Dimen.size32)
-                .fillMaxWidth()
+            onClick = { onEvent(LoginEvent.GoogleLoginButtonClicked) }
         )
 
-        Divider(
-            text = stringResource(R.string.or),
-            modifier = Modifier.padding(top = Dimen.size32)
-        )
+        Spacer(modifier = Modifier.height(Dimen.size32))
+
+        Divider(text = stringResource(R.string.or))
+
+        Spacer(modifier = Modifier.height(Dimen.size32))
 
         AuthTextField(
+            modifier = Modifier.fillMaxWidth(),
             text = state.email,
             hint = stringResource(R.string.email_or_phone_number),
-            onTextChanged = { onEvent(LoginEvent.EmailChanged(it)) },
-            modifier = Modifier
-                .padding(top = Dimen.size32)
-                .fillMaxWidth()
+            onTextChanged = { onEvent(LoginEvent.EmailChanged(it)) }
         )
 
+        Spacer(modifier = Modifier.height(Dimen.size16))
+
         AuthTextField(
+            modifier = Modifier.fillMaxWidth(),
             text = state.password,
             hint = stringResource(R.string.password),
             isTextVisible = state.isPasswordVisible,
             trailingIcon = if (state.isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
             onTextChanged = { onEvent(LoginEvent.PasswordChanged(it)) },
-            onToggleTextVisibility = { onEvent(LoginEvent.PasswordVisibilityChanged) },
-            modifier = Modifier
-                .padding(top = Dimen.size16)
-                .fillMaxWidth()
+            onToggleTextVisibility = { onEvent(LoginEvent.PasswordVisibilityChanged) }
         )
 
+        Spacer(modifier = Modifier.height(Dimen.size16))
+
         Text(
+            modifier = Modifier.clickable { onEvent(LoginEvent.ForgotPasswordClicked) },
             text = stringResource(R.string.forgot_password),
             style = AppTypography.bodyMedium,
-            color = AppColors.primary,
-            modifier = Modifier
-                .padding(top = Dimen.size16)
-                .clickable { onEvent(LoginEvent.ForgotPasswordClicked) }
+            color = AppColors.primary
         )
+
+        Spacer(modifier = Modifier.weight(1f))
 
         PrimaryButton(
+            modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.login),
-            onClick = { onEvent(LoginEvent.LoginButtonClicked) },
-            modifier = Modifier
-                .padding(top = Dimen.size230)
-                .fillMaxWidth()
+            onClick = { onEvent(LoginEvent.LoginButtonClicked) }
         )
 
+        Spacer(modifier = Modifier.height(Dimen.size16))
+
         Text(
+            modifier = Modifier.clickable { onEvent(LoginEvent.RegisterHereClicked) },
             text = stringResource(R.string.dont_have_an_account),
             style = AppTypography.bodyMedium,
-            color = AppColors.primary,
-            modifier = Modifier
-                .padding(top = Dimen.size16)
-                .clickable { onEvent(LoginEvent.RegisterHereClicked) }
+            color = AppColors.primary
         )
     }
 }
