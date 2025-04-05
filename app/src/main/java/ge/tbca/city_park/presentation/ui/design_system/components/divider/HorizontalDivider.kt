@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import ge.tbca.city_park.presentation.ui.theme.AppColors
+import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.Dimen
 import ge.tbca.city_park.presentation.ui.theme.PrimaryTextColor
 import ge.tbca.city_park.presentation.ui.theme.SecondaryIconColor
@@ -19,12 +21,11 @@ import ge.tbca.city_park.presentation.ui.util.AppPreview
 fun Divider(
     modifier: Modifier = Modifier,
     text: String? = null,
-    textColor: Color = White,
-    dividerColor: Color = SecondaryIconColor,
+    textColor: Color = AppColors.primary,
+    dividerColor: Color = AppColors.secondary,
 ) {
     Row(
         modifier = modifier
-            .padding(start= Dimen.paddingStart, end = Dimen.paddingEnd)
             .fillMaxWidth()
     ) {
         HorizontalDivider(
@@ -36,7 +37,7 @@ fun Divider(
         text?.let {
             Text(
                 modifier = Modifier
-                    .padding(start = Dimen.paddingStart, end = Dimen.paddingEnd),
+                    .padding(horizontal = Dimen.size24),
                 text = it,
                 color = textColor
             )
@@ -53,10 +54,10 @@ fun Divider(
 
 @Composable
 @AppPreview
-fun DividerPreview() {
-    Divider(
-        text = "Or",
-        textColor = PrimaryTextColor,
-        dividerColor = SecondaryIconColor
-    )
+private fun DividerPreview() {
+    AppTheme {
+        Divider(
+            text = "Or"
+        )
+    }
 }
