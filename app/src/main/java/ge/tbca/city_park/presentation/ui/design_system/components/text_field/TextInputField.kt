@@ -14,6 +14,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -21,7 +22,7 @@ import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.Dimen
 import ge.tbca.city_park.presentation.ui.theme.TextStyles
-import ge.tbca.city_park.presentation.ui.util.AppPreview
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 
 @Composable
 fun TextInputField(
@@ -36,14 +37,26 @@ fun TextInputField(
     imeAction: ImeAction = ImeAction.None,
     keyboardType: KeyboardType = KeyboardType.Unspecified
 ) {
-    val colors  =TextFieldDefaults.colors(errorTrailingIconColor = AppColors.onSurfaceVariant)
+    val colors = TextFieldDefaults.colors(
+        unfocusedContainerColor = Color.Transparent,
+        errorContainerColor = Color.Transparent,
+        focusedContainerColor = Color.Transparent,
+        errorTrailingIconColor = AppColors.onSurfaceVariant
+    )
 
     OutlinedTextField(
         modifier = modifier,
         value = value,
         enabled = enabled,
         colors = colors,
-        label = label?.let { { Text(text = it, style = TextStyles.bodySmall) } },
+        label = label?.let {
+            {
+                Text(
+                    text = it,
+                    style = TextStyles.bodySmall
+                )
+            }
+        },
         textStyle = TextStyles.bodyLarge,
         onValueChange = { onTextChanged(it) },
         supportingText = errorText?.let {
@@ -57,7 +70,7 @@ fun TextInputField(
         },
         singleLine = true,
         isError = errorText != null,
-        shape = RoundedCornerShape(Dimen.sizeSmall),
+        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         leadingIcon = startIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
         trailingIcon = endIcon?.let { { Icon(imageVector = it, contentDescription = null) } },
