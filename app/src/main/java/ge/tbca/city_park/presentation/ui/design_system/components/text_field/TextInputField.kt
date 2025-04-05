@@ -87,7 +87,7 @@ private fun TextInputFieldPreview() {
             )
 
             TextInputField(
-                value = "valdhashdkajshdkjashdkhdjhaskue",
+                value = "Test",
                 label = "Label",
                 errorText = "error",
                 endIcon = Icons.Default.Lock,
