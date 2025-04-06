@@ -28,7 +28,7 @@ import ge.tbca.city_park.R
 import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
-import ge.tbca.city_park.presentation.ui.design_system.components.password_requirement.PasswordRequirementItem
+import ge.tbca.city_park.presentation.ui.design_system.components.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
 import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
@@ -126,8 +126,8 @@ private fun RegisterScreen(
             onToggleTextVisibility = { onEvent(RegisterEvent.PasswordVisibilityChanged) }
         )
 
-        PasswordRequirementItem(
-            isVisible = state.password.isNotEmpty() && !state.passwordValidationState.isValid,
+        PasswordRequirement(
+            isVisible = state.showPasswordRequirements,
             state = state.passwordValidationState
         )
 
