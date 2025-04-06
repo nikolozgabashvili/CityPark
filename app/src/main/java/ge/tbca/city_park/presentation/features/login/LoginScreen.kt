@@ -28,12 +28,12 @@ import ge.tbca.city_park.presentation.ui.design_system.components.button.Tertiar
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.AppTypography
 import ge.tbca.city_park.presentation.ui.theme.Dimen
 import ge.tbca.city_park.presentation.ui.theme.TextStyles
-import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
 @Composable
@@ -41,15 +41,15 @@ fun LoginScreenRoot(viewModel: LoginViewModel = hiltViewModel()) {
 
     val scrollState = rememberScrollState()
 
+    CollectSideEffect(flow = viewModel.effect) { effect ->
+
+    }
+
     LoginScreen(
         state = viewModel.state,
         scrollState = scrollState,
         onEvent = viewModel::onEvent,
     )
-
-    CollectSideEffect(flow = viewModel.effect) { effect ->
-
-    }
 }
 
 @Composable
@@ -58,6 +58,11 @@ private fun LoginScreen(
     scrollState: ScrollState,
     onEvent: (LoginEvent) -> Unit,
 ) {
+
+    val emailError = if (state.showEmailError) stringResource(R.string.enter_valid_email) else null
+    val passwordError = if (state.showPasswordError) stringResource(R.string.empty_field_error) else null
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,6 +101,7 @@ private fun LoginScreen(
         TextInputField(
             modifier = Modifier.fillMaxWidth(),
             value = state.email,
+            errorText = emailError,
             label = stringResource(R.string.email),
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Email,
@@ -108,6 +114,7 @@ private fun LoginScreen(
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
             value = state.password,
+            errorText = passwordError,
             startIcon = Icons.Rounded.Lock,
             label = stringResource(R.string.password),
             isPasswordVisible = state.isPasswordVisible,
