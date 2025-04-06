@@ -11,6 +11,6 @@ data class RegisterState(
     val isLoading: Boolean = false,
     val passwordValidationState: PasswordValidationState = PasswordValidationState()
 ) {
-    val showPasswordValidations: Boolean
+    val showPasswordRequirements: Boolean
         get() = password.isNotEmpty() && !passwordValidationState.isValid
 }

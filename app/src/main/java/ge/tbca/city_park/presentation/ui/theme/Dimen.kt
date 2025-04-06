@@ -21,6 +21,7 @@ data class AppDimens(
     val sizeExtraSmall: Dp = 2.dp,
     val sizeSmall: Dp = 4.dp,
 
+    val size6: Dp = 6.dp,
     val size8: Dp = 8.dp,
     val size12: Dp = 12.dp,
     val size16: Dp = 16.dp,
