@@ -17,14 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.ui.design_system.components.button.ButtonSize
-import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
-import ge.tbca.city_park.presentation.ui.design_system.components.button.TertiaryButton
+import ge.tbca.city_park.presentation.ui.design_system.components.button.base.ButtonSize
+import ge.tbca.city_park.presentation.ui.design_system.components.button.icon_button.TertiaryIconButton
+import ge.tbca.city_park.presentation.ui.design_system.components.button.text_button.PrimaryButton
+import ge.tbca.city_park.presentation.ui.design_system.components.button.text_button.TertiaryButton
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
@@ -33,6 +33,7 @@ import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.AppTypography
 import ge.tbca.city_park.presentation.ui.theme.Dimen
+import ge.tbca.city_park.presentation.ui.theme.GoogleIcon
 import ge.tbca.city_park.presentation.ui.theme.TextStyles
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
@@ -60,7 +61,8 @@ private fun LoginScreen(
 ) {
 
     val emailError = if (state.showEmailError) stringResource(R.string.enter_valid_email) else null
-    val passwordError = if (state.showPasswordError) stringResource(R.string.empty_field_error) else null
+    val passwordError =
+        if (state.showPasswordError) stringResource(R.string.empty_field_error) else null
 
 
     Column(
@@ -72,7 +74,7 @@ private fun LoginScreen(
         Text(
             text = stringResource(R.string.hello),
             color = AppColors.primary,
-            style = TextStyles.headlineLarge.copy(fontWeight = FontWeight(700))//todo have separate file for font weight
+            style = TextStyles.headlineLarge
         )
 
         Spacer(modifier = Modifier.height(Dimen.size8))
@@ -86,9 +88,9 @@ private fun LoginScreen(
         Spacer(modifier = Modifier.height(Dimen.size32))
 
         // todo google login button
-        PrimaryButton(
+        TertiaryIconButton(
             modifier = Modifier.fillMaxWidth(),
-            text = "",
+            icon = GoogleIcon,
             onClick = { onEvent(LoginEvent.GoogleLoginButtonClicked) }
         )
 
@@ -142,7 +144,8 @@ private fun LoginScreen(
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
-            buttonSize = ButtonSize.MEDIUM,
+            buttonSize = ButtonSize.LARGE,
+            loading = state.isLoading,
             text = stringResource(R.string.login),
             onClick = { onEvent(LoginEvent.LoginButtonClicked) }
         )
@@ -152,6 +155,7 @@ private fun LoginScreen(
         TertiaryButton(
             modifier = Modifier.fillMaxWidth(),
             buttonSize = ButtonSize.MEDIUM,
+            loading = state.isLoading,
             text = stringResource(R.string.dont_have_an_account),
             onClick = {
                 onEvent(LoginEvent.RegisterHereClicked)

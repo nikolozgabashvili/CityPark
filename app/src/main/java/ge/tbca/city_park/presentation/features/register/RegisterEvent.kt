@@ -2,7 +2,7 @@ package ge.tbca.city_park.presentation.features.register
 
 sealed interface RegisterEvent {
     data object RegisterButtonClicked : RegisterEvent
-    data object GoogleLoginButtonClicked : RegisterEvent
+    data object GoogleButtonClicked : RegisterEvent
     data object BackButtonClicked : RegisterEvent
     data class EmailChanged(val email: String) : RegisterEvent
     data class PasswordChanged(val password: String) : RegisterEvent

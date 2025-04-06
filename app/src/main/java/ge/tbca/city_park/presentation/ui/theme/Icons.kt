@@ -10,3 +10,6 @@ val CheckMarkIcon: ImageVector
 
 val ErrorIcon: ImageVector
     @Composable get() = ImageVector.vectorResource(R.drawable.ic_error)
+
+val GoogleIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_google)

@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import ge.tbca.city_park.presentation.features.register.RegisterScreenRoot
+import ge.tbca.city_park.presentation.features.login.LoginScreenRoot
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 
 @AndroidEntryPoint
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                             .imePadding()
                     ) {
 
-                        RegisterScreenRoot()
+                        LoginScreenRoot()
                     }
 
                 }

@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.ui.design_system.components.button
+package ge.tbca.city_park.presentation.ui.design_system.components.button.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle

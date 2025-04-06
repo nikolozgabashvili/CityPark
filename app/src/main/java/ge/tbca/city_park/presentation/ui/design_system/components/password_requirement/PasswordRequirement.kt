@@ -24,10 +24,12 @@ fun PasswordRequirement(
     isVisible: Boolean = true,
     state: PasswordValidationState
 ) {
-    AnimatedVisibility(visible = isVisible) {
-        Column(modifier = modifier.fillMaxWidth()) {
+    AnimatedVisibility(
+        modifier = modifier.fillMaxWidth(),
+        visible = isVisible
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.height(Dimen.size8))
-
             Text(
                 style = AppTypography.labelSmall,
                 color = AppColors.secondary,
@@ -49,7 +51,7 @@ fun PasswordRequirement(
                     text = stringResource(R.string.uppercase_latin_letters),
                     isValid = state.hasUpperCase
                 )
-                
+
                 PasswordRequirementItem(
                     text = stringResource(R.string.lowercase_latin_letters),
                     isValid = state.hasLowerCase

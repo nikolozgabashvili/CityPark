@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.ui.design_system.components.button
+package ge.tbca.city_park.presentation.ui.design_system.components.button.extension
 
 import androidx.compose.material3.ButtonColors
 import ge.tbca.city_park.R
@@ -7,11 +7,11 @@ import ge.tbca.city_park.R
  * Returns the appropriate loader resource ID based on the button's enabled state and colors.
  *
  * @param enabled Boolean indicating if the button is enabled.
- * @param colors ButtonColors object containing the button's color information.
+ *  [ButtonColors] object containing the button's color information.
  * @return Resource ID of the loader to be used.
  */
-fun loaderResourceId(enabled: Boolean, colors: ButtonColors): Int {
-    val containerColor = if (enabled) colors.containerColor else colors.disabledContainerColor
+fun ButtonColors.loaderResourceId(enabled: Boolean): Int {
+    val containerColor = if (enabled) this.containerColor else this.disabledContainerColor
 
     /** Calculate the perceived brightness of the container color using the luminance formula
      * @see <a href="https://en.wikipedia.org/wiki/Relative_luminance">luminance formula</a>

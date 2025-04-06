@@ -26,7 +26,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
 import ge.tbca.city_park.presentation.core.model.PasswordValidationState
-import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
+import ge.tbca.city_park.presentation.ui.design_system.components.button.base.ButtonSize
+import ge.tbca.city_park.presentation.ui.design_system.components.button.icon_button.TertiaryIconButton
+import ge.tbca.city_park.presentation.ui.design_system.components.button.text_button.PrimaryButton
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.ui.design_system.components.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
@@ -36,6 +38,7 @@ import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.AppTypography
 import ge.tbca.city_park.presentation.ui.theme.Dimen
+import ge.tbca.city_park.presentation.ui.theme.GoogleIcon
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
 @Composable
@@ -60,6 +63,12 @@ private fun RegisterScreen(
     scrollState: ScrollState,
     onEvent: (RegisterEvent) -> Unit,
 ) {
+
+    val emailError = if (state.showEmailError) stringResource(R.string.enter_valid_email) else null
+    val passwordError =
+        if (state.showPasswordError) stringResource(R.string.enter_valid_password) else null
+    val repeatPasswordError =
+        if (state.showRepeatPasswordError) stringResource(R.string.repeat_password_error) else null
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -86,12 +95,10 @@ private fun RegisterScreen(
         }
 
         // google login button
-        PrimaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Dimen.size32),
-            text = "",
-            onClick = { onEvent(RegisterEvent.GoogleLoginButtonClicked) }
+        TertiaryIconButton(
+            modifier = Modifier.fillMaxWidth(),
+            icon = GoogleIcon,
+            onClick = { onEvent(RegisterEvent.GoogleButtonClicked) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
@@ -106,6 +113,7 @@ private fun RegisterScreen(
         TextInputField(
             modifier = Modifier.fillMaxWidth(),
             value = state.email,
+            errorText = emailError,
             keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next,
             startIcon = Icons.Rounded.Email,
@@ -118,6 +126,7 @@ private fun RegisterScreen(
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
             value = state.password,
+            errorText = passwordError,
             label = stringResource(R.string.password),
             startIcon = Icons.Rounded.Lock,
             imeAction = ImeAction.Next,
@@ -137,6 +146,7 @@ private fun RegisterScreen(
             modifier = Modifier.fillMaxWidth(),
             value = state.repeatPassword,
             imeAction = ImeAction.Done,
+            errorText = repeatPasswordError,
             startIcon = Icons.Rounded.Lock,
             label = stringResource(R.string.repeat_password),
             isPasswordVisible = state.isRepeatPasswordVisible,
@@ -144,14 +154,17 @@ private fun RegisterScreen(
             onToggleTextVisibility = { onEvent(RegisterEvent.RepeatPasswordVisibilityChanged) }
         )
 
-        Spacer(modifier=Modifier.height(Dimen.size16))
+        Spacer(modifier = Modifier.height(Dimen.size16))
 
         Spacer(modifier = Modifier.weight(1f))
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
+            buttonSize = ButtonSize.LARGE,
             text = stringResource(R.string.create_an_account),
-            onClick = { onEvent(RegisterEvent.RegisterButtonClicked) }
+            onClick = {
+                onEvent(RegisterEvent.RegisterButtonClicked)
+            }
         )
     }
 }

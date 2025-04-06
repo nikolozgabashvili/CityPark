@@ -3,6 +3,7 @@ package ge.tbca.city_park.presentation.ui.design_system.components.password_requ
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +21,9 @@ fun PasswordRequirementItem(
     text: String,
     isValid: Boolean
 ) {
-    Row {
+    Row(modifier = modifier.fillMaxWidth()) {
         Image(
-            modifier = modifier.align(Alignment.CenterVertically),
+            modifier = Modifier.align(Alignment.CenterVertically),
             painter = painterResource(if (isValid) R.drawable.ic_check else R.drawable.ic_error),
             contentDescription = null
         )
