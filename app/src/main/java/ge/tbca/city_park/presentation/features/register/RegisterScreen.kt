@@ -1,6 +1,5 @@
 package ge.tbca.city_park.presentation.features.register
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,15 +25,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
+import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
 import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
+import ge.tbca.city_park.presentation.ui.design_system.components.password_requirement.PasswordRequirementItem
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.ui.theme.AppColors
 import ge.tbca.city_park.presentation.ui.theme.AppTheme
 import ge.tbca.city_park.presentation.ui.theme.AppTypography
 import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.util.CollectSideEffect
 
 @Composable
@@ -125,21 +126,10 @@ private fun RegisterScreen(
             onToggleTextVisibility = { onEvent(RegisterEvent.PasswordVisibilityChanged) }
         )
 
-        // TODO - export to components
-        AnimatedVisibility(visible = state.showPasswordValidations) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.height(Dimen.size8))
-
-                Text(
-                    style = AppTypography.labelSmall,
-                    color = AppColors.secondary,
-                    text = stringResource(R.string.password_criterias)
-                )
-
-                Spacer(modifier = Modifier.height(Dimen.size8))
-
-            }
-        }
+        PasswordRequirementItem(
+            isVisible = state.password.isNotEmpty() && !state.passwordValidationState.isValid,
+            state = state.passwordValidationState
+        )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
@@ -175,7 +165,38 @@ private fun RegisterScreenPreview() {
                 email = "",
                 password = "password",
                 isPasswordVisible = false,
-                isLoading = false
+                isLoading = false,
+                passwordValidationState = PasswordValidationState(
+                    hasMinLength = true,
+                    hasUpperCase = true,
+                    hasLowerCase = false,
+                    hasDigit = false,
+                    hasSpecialChar = false
+                )
+            ),
+            onEvent = {},
+            scrollState = rememberScrollState()
+        )
+    }
+}
+
+@Composable
+@AppPreview
+private fun RegisterScreenPreviewWithValidInputs() {
+    AppTheme {
+        RegisterScreen(
+            state = RegisterState(
+                email = "",
+                password = "password",
+                isPasswordVisible = false,
+                isLoading = false,
+                passwordValidationState = PasswordValidationState(
+                    hasMinLength = true,
+                    hasUpperCase = true,
+                    hasLowerCase = true,
+                    hasDigit = true,
+                    hasSpecialChar = true
+                )
             ),
             onEvent = {},
             scrollState = rememberScrollState()
