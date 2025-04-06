@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">cityPark</string>
+    <string name="app_name">City Park</string>
     <string name="hello">გამარჯობა</string>
     <string name="log_into_the_system">შედი სისტემაში</string>
     <string name="or">ან</string>
@@ -12,4 +12,13 @@
     <string name="repeat_password">გაიმეორე პაროლი</string>
     <string name="create_an_account">ანგარიშის შექმნა</string>
     <string name="password_criterias">პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან და უნდა აკმაყოფილებდეს ქვემოთ ჩამოთვლილ ყველა კომპონენტს:</string>
+    <string name="enter_valid_email">გთხოვთ შეიყვანეთ ვალიდური მეილი</string>
+    <string name="enter_valid_password">გთხოვთ შეიყვანეთ ვალიდური პაროლი</string>
+    <string name="empty_field_error">ველი არ უნდა იყოს ცარიელი</string>
+    <string name="min_8_symbols">მინიმუმ 8 სიმბოლო</string>
+    <string name="uppercase_latin_letters">დიდი ლათინური ასოები (A-დან Z-მდე)</string>
+    <string name="lowercase_latin_letters">პატარა ლათინური ასოები (a-დან z-მდე)</string>
+    <string name="numbers_0_to_9">ციფრები (0-დან 9-მდე)</string>
+    <string name="special_symbols">სიმბოლოები (მაგ: !,@,#)</string>
+    <string name="repeat_password_error">პაროლები არ ემთხვევა</string>
 </resources>
