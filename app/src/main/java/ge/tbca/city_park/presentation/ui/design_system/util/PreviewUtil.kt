@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.util
+package ge.tbca.city_park.presentation.ui.design_system.util
 
 import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview

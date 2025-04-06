@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.theme
+package ge.tbca.city_park.presentation.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector

@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.theme
+package ge.tbca.city_park.presentation.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

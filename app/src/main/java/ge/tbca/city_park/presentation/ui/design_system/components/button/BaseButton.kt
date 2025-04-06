@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.components.button
+package ge.tbca.city_park.presentation.ui.design_system.components.button
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,9 +26,9 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
-import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.ui.theme.AppTheme
+import ge.tbca.city_park.presentation.ui.theme.Dimen
+import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
 
 @Composable
 fun BaseButton(

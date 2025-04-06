@@ -1,4 +1,4 @@
-package ge.tbca.city_park.domain.core.model
+package ge.tbca.city_park.presentation.core.model
 
 data class PasswordValidationState(
     val hasMinLength: Boolean = false,

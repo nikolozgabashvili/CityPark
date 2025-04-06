@@ -1,10 +1,10 @@
-package ge.tbca.city_park.presentation.core.design_system.components.button
+package ge.tbca.city_park.presentation.ui.design_system.components.button
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
-import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
-import ge.tbca.city_park.presentation.core.design_system.theme.TextStyles
+import ge.tbca.city_park.presentation.ui.theme.Dimen
+import ge.tbca.city_park.presentation.ui.theme.TextStyles
 
 enum class ButtonSize {
     LARGE,

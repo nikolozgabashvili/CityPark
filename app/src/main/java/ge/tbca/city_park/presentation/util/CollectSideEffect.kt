@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.util
+package ge.tbca.city_park.presentation.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

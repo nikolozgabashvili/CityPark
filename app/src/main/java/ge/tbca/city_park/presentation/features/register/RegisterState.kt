@@ -1,6 +1,6 @@
 package ge.tbca.city_park.presentation.features.register
 
-import ge.tbca.city_park.domain.core.model.PasswordValidationState
+import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 
 data class RegisterState(
     val email: String = "",
