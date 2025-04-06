@@ -12,4 +12,7 @@
     <string name="repeat_password">გაიმეორე პაროლი</string>
     <string name="create_an_account">ანგარიშის შექმნა</string>
     <string name="password_criterias">პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან და უნდა აკმაყოფილებდეს ქვემოთ ჩამოთვლილ ყველა კომპონენტს:</string>
+    <string name="enter_valid_email">გთხოვთ შეიყვანეთ ვალიდური მეილი</string>
+    <string name="enter_valid_password">გთხოვთ შეიყვანეთ ვალიდური მეილი</string>
+    <string name="empty_field_error">ველი არ უნდა იყოს ცარიელი</string>
 </resources>
