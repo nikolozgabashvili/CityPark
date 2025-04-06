@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.ui.design_system.components.text_field
+package ge.tbca.city_park.presentation.core.design_system.components.text_field
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,11 +22,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import ge.tbca.city_park.presentation.ui.theme.AppColors
-import ge.tbca.city_park.presentation.ui.theme.AppTheme
-import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.theme.TextStyles
-import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
+import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
+import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
+import ge.tbca.city_park.presentation.core.design_system.theme.TextStyles
+import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 
 @Composable
 fun PasswordTextField(

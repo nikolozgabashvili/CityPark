@@ -26,16 +26,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.ui.design_system.components.button.PrimaryButton
-import ge.tbca.city_park.presentation.ui.design_system.components.divider.Divider
-import ge.tbca.city_park.presentation.ui.design_system.components.text_field.PasswordTextField
-import ge.tbca.city_park.presentation.ui.design_system.components.text_field.TextInputField
-import ge.tbca.city_park.presentation.ui.theme.AppColors
-import ge.tbca.city_park.presentation.ui.theme.AppTheme
-import ge.tbca.city_park.presentation.ui.theme.AppTypography
-import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
-import ge.tbca.city_park.presentation.util.CollectSideEffect
+import ge.tbca.city_park.presentation.core.design_system.components.button.PrimaryButton
+import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
+import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
+import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
+import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
+import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
+import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
+import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
+import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
 fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {

@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.ui.theme
+package ge.tbca.city_park.presentation.core.design_system.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable

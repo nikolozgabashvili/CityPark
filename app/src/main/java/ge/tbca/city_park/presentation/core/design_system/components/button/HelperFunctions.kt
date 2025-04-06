@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.ui.design_system.components.button
+package ge.tbca.city_park.presentation.core.design_system.components.button
 
 import androidx.compose.material3.ButtonColors
 import ge.tbca.city_park.R

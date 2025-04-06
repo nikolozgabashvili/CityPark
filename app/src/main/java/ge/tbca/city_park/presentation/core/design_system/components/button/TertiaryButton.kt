@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.ui.design_system.components.button
+package ge.tbca.city_park.presentation.core.design_system.components.button
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import ge.tbca.city_park.presentation.ui.theme.AppColors
-import ge.tbca.city_park.presentation.ui.theme.AppTheme
-import ge.tbca.city_park.presentation.ui.theme.Dimen
-import ge.tbca.city_park.presentation.ui.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
+import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
+import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
+import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 
 @Composable
 fun TertiaryButton(
