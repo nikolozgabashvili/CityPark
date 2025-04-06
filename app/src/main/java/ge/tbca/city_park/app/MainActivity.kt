@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import ge.tbca.city_park.presentation.features.login.LoginScreenRoot
-import ge.tbca.city_park.presentation.ui.theme.AppTheme
+import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
+import ge.tbca.city_park.presentation.features.login.screen.LoginScreenRoot
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
