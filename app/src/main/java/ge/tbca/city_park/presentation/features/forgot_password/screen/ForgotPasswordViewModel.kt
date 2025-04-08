@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.forgot_password
+package ge.tbca.city_park.presentation.features.forgot_password.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

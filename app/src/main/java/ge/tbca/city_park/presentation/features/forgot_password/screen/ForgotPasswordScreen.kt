@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.forgot_password
+package ge.tbca.city_park.presentation.features.forgot_password.screen
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
