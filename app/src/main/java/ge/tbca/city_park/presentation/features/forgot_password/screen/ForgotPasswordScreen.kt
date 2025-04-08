@@ -59,7 +59,7 @@ private fun ForgotPasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+            .verticalScroll(state = scrollState, enabled = !state.isLoading)
             .padding(Dimen.appPadding)
     ) {
         TopNavigationBar(
@@ -80,6 +80,7 @@ private fun ForgotPasswordScreen(
 
         TextInputField(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             value = state.email,
             errorText = emailError,
             keyboardType = KeyboardType.Email,
@@ -93,6 +94,7 @@ private fun ForgotPasswordScreen(
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             buttonSize = ButtonSize.LARGE,
             text = stringResource(R.string.submit),
             onClick = {

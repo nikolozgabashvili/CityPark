@@ -58,7 +58,7 @@ private fun ChangePasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+            .verticalScroll(state = scrollState, enabled = !state.isLoading)
             .padding(Dimen.appPadding)
     ) {
         TopNavigationBar(
@@ -71,6 +71,7 @@ private fun ChangePasswordScreen(
 
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             value = state.oldPassword,
             errorText = oldPasswordError,
             label = stringResource(R.string.old_password),
@@ -85,6 +86,7 @@ private fun ChangePasswordScreen(
 
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             value = state.newPassword,
             errorText = oldPasswordError,
             label = stringResource(R.string.new_password),
@@ -104,6 +106,7 @@ private fun ChangePasswordScreen(
 
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             value = state.repeatNewPassword,
             imeAction = ImeAction.Done,
             errorText = repeatPasswordError,
@@ -120,6 +123,7 @@ private fun ChangePasswordScreen(
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             buttonSize = ButtonSize.LARGE,
             text = stringResource(R.string.change_password),
             onClick = {
