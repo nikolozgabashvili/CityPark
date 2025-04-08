@@ -1,7 +1,6 @@
 package ge.tbca.city_park.presentation.features.register.screen
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,18 +13,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
 import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
@@ -33,12 +27,12 @@ import ge.tbca.city_park.presentation.core.design_system.components.divider.Divi
 import ge.tbca.city_park.presentation.core.design_system.components.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
-import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
-import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
+import ge.tbca.city_park.presentation.core.design_system.components.top_navigation_bar.TopNavigationBar
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.theme.GoogleIcon
+import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
@@ -46,15 +40,15 @@ fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {
 
     val scrollState = rememberScrollState()
 
+    CollectSideEffect(flow = viewModel.effect) { effect ->
+
+    }
+
     RegisterScreen(
         state = viewModel.state,
         scrollState = scrollState,
         onEvent = viewModel::onEvent
     )
-
-    CollectSideEffect(flow = viewModel.effect) { effect ->
-
-    }
 }
 
 @Composable
@@ -75,24 +69,13 @@ private fun RegisterScreen(
             .verticalScroll(scrollState)
             .padding(Dimen.appPadding)
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            IconButton(
-                onClick = { onEvent(RegisterEvent.BackButtonClicked) }
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                    contentDescription = null,
-                    tint = AppColors.primary
-                )
-            }
+        TopNavigationBar(
+            title = stringResource(R.string.register),
+            startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
+            onStartIconClick = { onEvent(RegisterEvent.BackButtonClicked) },
+        )
 
-            Text(
-                modifier = Modifier.align(alignment = Alignment.Center),
-                text = stringResource(R.string.register),
-                color = AppColors.primary,
-                style = AppTypography.bodyMedium
-            )
-        }
+        Spacer(modifier = Modifier.height(Dimen.size16))
 
         // google login button
         TertiaryIconButton(
