@@ -53,6 +53,8 @@ private fun ChangePasswordScreen(
 ) {
     val oldPasswordError =
         if (state.showOldPasswordError) stringResource(R.string.old_password_is_incorrect) else null
+    val newPasswordError =
+        if (state.showNewPasswordError) stringResource(R.string.enter_valid_password) else null
     val repeatPasswordError =
         if (state.showRepeatPasswordError) stringResource(R.string.repeat_password_error) else null
     Column(
@@ -88,7 +90,7 @@ private fun ChangePasswordScreen(
             modifier = Modifier.fillMaxWidth(),
             enabled = !state.isLoading,
             value = state.newPassword,
-            errorText = oldPasswordError,
+            errorText = newPasswordError,
             label = stringResource(R.string.new_password),
             startIcon = Icons.Rounded.Lock,
             imeAction = ImeAction.Next,
