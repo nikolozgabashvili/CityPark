@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">City Park</string>
-    <string name="hello">გამარჯობა</string>
     <string name="log_into_the_system">შედი სისტემაში</string>
     <string name="or">ან</string>
     <string name="password">პაროლი</string>
@@ -21,4 +20,12 @@
     <string name="numbers_0_to_9">ციფრები (0-დან 9-მდე)</string>
     <string name="special_symbols">სიმბოლოები (მაგ: !,@,#)</string>
     <string name="repeat_password_error">პაროლები არ ემთხვევა</string>
+    <string name="password_recovery">პაროლის აღდგენა</string>
+    <string name="enter_password_recovery_email">შეიყვანეთ ელ.ფოსტა, სადაც გამოგეგზავნებათ პაროლის აღდგენის ლინკი</string>
+    <string name="submit">გაგზავნა</string>
+    <string name="old_password_is_incorrect">ძველი პაროლი არასწორია</string>
+    <string name="change_password">პაროლის შეცვლა</string>
+    <string name="old_password">ძველი პაროლი</string>
+    <string name="new_password">ახალი პაროლი</string>
+    <string name="repeat_new_password">გაიმეორე ახალი პაროლი</string>
 </resources>

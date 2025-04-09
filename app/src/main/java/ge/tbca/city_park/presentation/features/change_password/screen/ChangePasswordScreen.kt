@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.register.screen
+package ge.tbca.city_park.presentation.features.change_password.screen
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -11,32 +11,26 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
-import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
-import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.core.design_system.components.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
-import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
 import ge.tbca.city_park.presentation.core.design_system.components.top_navigation_bar.TopNavigationBar
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
-import ge.tbca.city_park.presentation.core.design_system.theme.GoogleIcon
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
-fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {
+fun ChangePasswordScreenRoot(viewModel: ChangePasswordViewModel = hiltViewModel()) {
 
     val scrollState = rememberScrollState()
 
@@ -44,7 +38,7 @@ fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {
 
     }
 
-    RegisterScreen(
+    ChangePasswordScreen(
         state = viewModel.state,
         scrollState = scrollState,
         onEvent = viewModel::onEvent
@@ -52,70 +46,57 @@ fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun RegisterScreen(
-    state: RegisterState,
+private fun ChangePasswordScreen(
+    state: ChangePasswordState,
     scrollState: ScrollState,
-    onEvent: (RegisterEvent) -> Unit,
+    onEvent: (ChangePasswordEvent) -> Unit,
 ) {
-
-    val emailError = if (state.showEmailError) stringResource(R.string.enter_valid_email) else null
-    val passwordError =
-        if (state.showPasswordError) stringResource(R.string.enter_valid_password) else null
+    val oldPasswordError =
+        if (state.showOldPasswordError) stringResource(R.string.old_password_is_incorrect) else null
+    val newPasswordError =
+        if (state.showNewPasswordError) stringResource(R.string.enter_valid_password) else null
     val repeatPasswordError =
         if (state.showRepeatPasswordError) stringResource(R.string.repeat_password_error) else null
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+            .verticalScroll(state = scrollState, enabled = !state.isLoading)
             .padding(Dimen.appPadding)
     ) {
         TopNavigationBar(
-            title = stringResource(R.string.register),
+            title = stringResource(R.string.change_password),
             startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
-            onStartIconClick = { onEvent(RegisterEvent.BackButtonClicked) },
-        )
-
-        Spacer(modifier = Modifier.height(Dimen.size16))
-
-        // google login button
-        TertiaryIconButton(
-            modifier = Modifier.fillMaxWidth(),
-            icon = GoogleIcon,
-            onClick = { onEvent(RegisterEvent.GoogleButtonClicked) }
+            onStartIconClick = { onEvent(ChangePasswordEvent.BackButtonClicked) },
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        Divider(
+        PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.or)
-        )
-
-        Spacer(modifier = Modifier.height(Dimen.size32))
-
-        TextInputField(
-            modifier = Modifier.fillMaxWidth(),
-            value = state.email,
-            errorText = emailError,
-            keyboardType = KeyboardType.Email,
+            enabled = !state.isLoading,
+            value = state.oldPassword,
+            errorText = oldPasswordError,
+            label = stringResource(R.string.old_password),
+            startIcon = Icons.Rounded.Lock,
             imeAction = ImeAction.Next,
-            startIcon = Icons.Rounded.Email,
-            label = stringResource(R.string.email),
-            onTextChanged = { onEvent(RegisterEvent.EmailChanged(it)) },
+            isPasswordVisible = state.isOldPasswordVisible,
+            onTextChanged = { onEvent(ChangePasswordEvent.OldPasswordChanged(it)) },
+            onToggleTextVisibility = { onEvent(ChangePasswordEvent.OldPasswordVisibilityChanged) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = state.password,
-            errorText = passwordError,
-            label = stringResource(R.string.password),
+            enabled = !state.isLoading,
+            value = state.newPassword,
+            errorText = newPasswordError,
+            label = stringResource(R.string.new_password),
             startIcon = Icons.Rounded.Lock,
             imeAction = ImeAction.Next,
-            isPasswordVisible = state.isPasswordVisible,
-            onTextChanged = { onEvent(RegisterEvent.PasswordChanged(it)) },
-            onToggleTextVisibility = { onEvent(RegisterEvent.PasswordVisibilityChanged) }
+            isPasswordVisible = state.isNewPasswordVisible,
+            onTextChanged = { onEvent(ChangePasswordEvent.NewPasswordChanged(it)) },
+            onToggleTextVisibility = { onEvent(ChangePasswordEvent.NewPasswordVisibilityChanged) }
         )
 
         PasswordRequirement(
@@ -127,14 +108,15 @@ private fun RegisterScreen(
 
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = state.repeatPassword,
+            enabled = !state.isLoading,
+            value = state.repeatNewPassword,
             imeAction = ImeAction.Done,
             errorText = repeatPasswordError,
             startIcon = Icons.Rounded.Lock,
-            label = stringResource(R.string.repeat_password),
-            isPasswordVisible = state.isRepeatPasswordVisible,
-            onTextChanged = { onEvent(RegisterEvent.RepeatPasswordChanged(it)) },
-            onToggleTextVisibility = { onEvent(RegisterEvent.RepeatPasswordVisibilityChanged) }
+            label = stringResource(R.string.repeat_new_password),
+            isPasswordVisible = state.isRepeatNewPasswordVisible,
+            onTextChanged = { onEvent(ChangePasswordEvent.RepeatNewPasswordChanged(it)) },
+            onToggleTextVisibility = { onEvent(ChangePasswordEvent.RepeatNewPasswordVisibilityChanged) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
@@ -143,10 +125,11 @@ private fun RegisterScreen(
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading,
             buttonSize = ButtonSize.LARGE,
-            text = stringResource(R.string.create_an_account),
+            text = stringResource(R.string.change_password),
             onClick = {
-                onEvent(RegisterEvent.RegisterButtonClicked)
+                onEvent(ChangePasswordEvent.ChangePasswordButtonClicked)
             }
         )
     }
@@ -154,14 +137,13 @@ private fun RegisterScreen(
 
 @Composable
 @AppPreview
-private fun RegisterScreenPreview() {
+private fun ChangePasswordScreenPreview() {
     AppTheme {
-        RegisterScreen(
-            state = RegisterState(
-                email = "",
-                password = "password",
-                isPasswordVisible = false,
-                isLoading = false,
+        ChangePasswordScreen(
+            state = ChangePasswordState(
+                oldPassword = "",
+                newPassword = "password",
+                repeatNewPassword = "password",
                 passwordValidationState = PasswordValidationState(
                     hasMinLength = true,
                     hasUpperCase = true,
@@ -170,32 +152,8 @@ private fun RegisterScreenPreview() {
                     hasSpecialChar = false
                 )
             ),
-            onEvent = {},
-            scrollState = rememberScrollState()
-        )
-    }
-}
-
-@Composable
-@AppPreview
-private fun RegisterScreenPreviewWithValidInputs() {
-    AppTheme {
-        RegisterScreen(
-            state = RegisterState(
-                email = "",
-                password = "password",
-                isPasswordVisible = false,
-                isLoading = false,
-                passwordValidationState = PasswordValidationState(
-                    hasMinLength = true,
-                    hasUpperCase = true,
-                    hasLowerCase = true,
-                    hasDigit = true,
-                    hasSpecialChar = true
-                )
-            ),
-            onEvent = {},
-            scrollState = rememberScrollState()
+            scrollState = rememberScrollState(),
+            onEvent = {}
         )
     }
 }
