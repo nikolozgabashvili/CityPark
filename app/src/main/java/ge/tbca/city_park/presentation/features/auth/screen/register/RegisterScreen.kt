@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
+import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
 import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
@@ -53,12 +54,6 @@ fun RegisterScreenRoot(
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
-    RegisterScreen(
-        state = viewModel.state,
-        scrollState = scrollState,
-        onEvent = viewModel::onEvent
-    )
-
     CollectSideEffect(flow = viewModel.effect) { effect ->
 
         when (effect) {
@@ -68,6 +63,13 @@ fun RegisterScreenRoot(
         }
 
     }
+    RegisterScreen(
+        state = viewModel.state,
+        scrollState = scrollState,
+        onEvent = viewModel::onEvent
+    )
+
+
 }
 
 @Composable
@@ -88,25 +90,13 @@ private fun RegisterScreen(
             .verticalScroll(scrollState, enabled = !state.isLoading)
             .padding(Dimen.appPadding)
     ) {
-        //todo swithch with top navigation bar
-        Box(modifier = Modifier.fillMaxWidth()) {
-            IconButton(
-                onClick = { onEvent(RegisterEvent.BackButtonClicked) }
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                    contentDescription = null,
-                    tint = AppColors.primary
-                )
-            }
+        TopNavigationBar(
+            title = stringResource(R.string.register),
+            startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
+            onStartIconClick = { onEvent(RegisterEvent.BackButtonClicked) },
+        )
 
-            Text(
-                modifier = Modifier.align(alignment = Alignment.Center),
-                text = stringResource(R.string.register),
-                color = AppColors.primary,
-                style = AppTypography.bodyMedium
-            )
-        }
+        Spacer(modifier = Modifier.height(Dimen.size16))
 
         TertiaryIconButton(
             enabled = !state.isLoading,

@@ -15,6 +15,7 @@ import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -90,17 +91,10 @@ private fun LoginScreen(
             .padding(Dimen.appPadding)
     ) {
         Text(
-            text = stringResource(R.string.hello),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            text = stringResource(R.string.log_into_the_system),
             color = AppColors.primary,
             style = TextStyles.headlineLarge
-        )
-
-        Spacer(modifier = Modifier.height(Dimen.size8))
-
-        Text(
-            text = stringResource(R.string.log_into_the_system),
-            color = AppColors.secondary,
-            style = TextStyles.bodyMedium
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
