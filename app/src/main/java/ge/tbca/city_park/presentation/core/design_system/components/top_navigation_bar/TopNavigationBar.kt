@@ -35,8 +35,9 @@ fun TopNavigationBar(
         }
 
         startIcon?.let { startIcon ->
+            // TODO replace with custom component
             IconButton(
-                onClick = { onStartIconClick.invoke() }
+                onClick = onStartIconClick
             ) {
                 Icon(
                     imageVector = startIcon,
@@ -47,9 +48,10 @@ fun TopNavigationBar(
         }
 
         endIcon?.let { endIcon ->
+            // TODO replace with custom component
             IconButton(
                 modifier = Modifier.align(alignment = Alignment.CenterEnd),
-                onClick = { onEndIconClick.invoke() }
+                onClick = onEndIconClick
             ) {
                 Icon(
                     imageVector = endIcon,
@@ -63,7 +65,7 @@ fun TopNavigationBar(
 
 @Composable
 @AppPreview
-fun ScreenHeaderPreview() {
+private fun ScreenHeaderPreview() {
     AppTheme {
         TopNavigationBar(
             title = "Screen Title Test",
