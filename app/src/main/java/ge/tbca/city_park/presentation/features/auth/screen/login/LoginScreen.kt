@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.login.screen
+package ge.tbca.city_park.presentation.features.auth.screen.login
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
@@ -16,6 +16,7 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,21 +29,38 @@ import ge.tbca.city_park.presentation.core.design_system.components.button.text_
 import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
-import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.theme.GoogleIcon
 import ge.tbca.city_park.presentation.core.design_system.theme.TextStyles
+import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
-fun LoginScreenRoot(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreenRoot(
+    viewModel: LoginViewModel = hiltViewModel(),
+    onShowSnackBar: suspend (String) -> Unit,
+    navigateToHome: () -> Unit,
+    navigateToRegister: () -> Unit,
+    navigateToForgotPassword: () -> Unit
+) {
 
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
+
+        when (effect) {
+            LoginEffect.NavigateToForgotPassword -> navigateToForgotPassword()
+            LoginEffect.NavigateToRegister -> navigateToRegister()
+            LoginEffect.Success -> navigateToHome()
+            is LoginEffect.Error -> {
+                val error = effect.error.getString(context)
+                onShowSnackBar(error)
+            }
+        }
 
     }
 
@@ -68,7 +86,7 @@ private fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+            .verticalScroll(scrollState, enabled = !state.isLoading)
             .padding(Dimen.appPadding)
     ) {
         Text(
@@ -87,8 +105,9 @@ private fun LoginScreen(
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        // todo google login button
+
         TertiaryIconButton(
+            enabled = !state.isLoading,
             modifier = Modifier.fillMaxWidth(),
             icon = GoogleIcon,
             onClick = { onEvent(LoginEvent.GoogleLoginButtonClicked) }
@@ -103,6 +122,7 @@ private fun LoginScreen(
         TextInputField(
             modifier = Modifier.fillMaxWidth(),
             value = state.email,
+            enabled = !state.isLoading,
             errorText = emailError,
             label = stringResource(R.string.email),
             imeAction = ImeAction.Next,
@@ -116,6 +136,7 @@ private fun LoginScreen(
         PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
             value = state.password,
+            enabled = !state.isLoading,
             errorText = passwordError,
             startIcon = Icons.Rounded.Lock,
             label = stringResource(R.string.password),
@@ -126,7 +147,6 @@ private fun LoginScreen(
         )
 
         Spacer(modifier = Modifier.height(Dimen.size16))
-
         Text(
             modifier = Modifier.clickable(
                 onClick = { onEvent(LoginEvent.ForgotPasswordClicked) },

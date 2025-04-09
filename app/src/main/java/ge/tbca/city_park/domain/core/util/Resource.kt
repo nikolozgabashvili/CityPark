@@ -21,3 +21,5 @@ fun <D, E : ResourceError, R> Resource<D, E>.map(transform: (D) -> R): Resource<
 fun <D, E : ResourceError, R> Flow<Resource<D, E>>.mapResource(transform: (D) -> R): Flow<Resource<R, E>> {
     return this.map { it.map(transform) }
 }
+
+fun Resource<*, *>.isLoading() = this is Resource.Loading

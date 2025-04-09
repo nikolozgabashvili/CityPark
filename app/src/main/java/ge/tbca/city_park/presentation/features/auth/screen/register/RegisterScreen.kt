@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.register.screen
+package ge.tbca.city_park.presentation.features.auth.screen.register
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
@@ -20,12 +20,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
 import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
@@ -33,18 +33,25 @@ import ge.tbca.city_park.presentation.core.design_system.components.divider.Divi
 import ge.tbca.city_park.presentation.core.design_system.components.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
-import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.theme.GoogleIcon
+import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
-fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {
+fun RegisterScreenRoot(
+    viewModel: RegisterViewModel = hiltViewModel(),
+    onShowSnackBar: suspend (String) -> Unit,
+    navigateBack: () -> Unit,
+    navigateToHome: () -> Unit
+) {
 
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     RegisterScreen(
         state = viewModel.state,
@@ -53,6 +60,12 @@ fun RegisterScreenRoot(viewModel: RegisterViewModel = hiltViewModel()) {
     )
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
+
+        when (effect) {
+            RegisterEffect.NavigateBack -> navigateBack()
+            RegisterEffect.NavigateToHome -> navigateToHome()
+            is RegisterEffect.Error -> onShowSnackBar(effect.error.getString(context))
+        }
 
     }
 }
@@ -72,9 +85,10 @@ private fun RegisterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+            .verticalScroll(scrollState, enabled = !state.isLoading)
             .padding(Dimen.appPadding)
     ) {
+        //todo swithch with top navigation bar
         Box(modifier = Modifier.fillMaxWidth()) {
             IconButton(
                 onClick = { onEvent(RegisterEvent.BackButtonClicked) }
@@ -94,8 +108,8 @@ private fun RegisterScreen(
             )
         }
 
-        // google login button
         TertiaryIconButton(
+            enabled = !state.isLoading,
             modifier = Modifier.fillMaxWidth(),
             icon = GoogleIcon,
             onClick = { onEvent(RegisterEvent.GoogleButtonClicked) }
@@ -114,6 +128,7 @@ private fun RegisterScreen(
             modifier = Modifier.fillMaxWidth(),
             value = state.email,
             errorText = emailError,
+            enabled = !state.isLoading,
             keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next,
             startIcon = Icons.Rounded.Email,
@@ -127,6 +142,7 @@ private fun RegisterScreen(
             modifier = Modifier.fillMaxWidth(),
             value = state.password,
             errorText = passwordError,
+            enabled = !state.isLoading,
             label = stringResource(R.string.password),
             startIcon = Icons.Rounded.Lock,
             imeAction = ImeAction.Next,
@@ -147,6 +163,7 @@ private fun RegisterScreen(
             value = state.repeatPassword,
             imeAction = ImeAction.Done,
             errorText = repeatPasswordError,
+            enabled = !state.isLoading,
             startIcon = Icons.Rounded.Lock,
             label = stringResource(R.string.repeat_password),
             isPasswordVisible = state.isRepeatPasswordVisible,
@@ -161,6 +178,7 @@ private fun RegisterScreen(
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             buttonSize = ButtonSize.LARGE,
+            loading = state.isLoading,
             text = stringResource(R.string.create_an_account),
             onClick = {
                 onEvent(RegisterEvent.RegisterButtonClicked)

@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.login.screen
+package ge.tbca.city_park.presentation.features.auth.screen.login
 
 sealed interface LoginEvent {
     data object LoginButtonClicked : LoginEvent

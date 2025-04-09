@@ -1,17 +1,22 @@
-package ge.tbca.city_park.presentation.features.register.screen
+package ge.tbca.city_park.presentation.features.auth.screen.register
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.city_park.domain.core.usecase.ValidateEmailUseCase
 import ge.tbca.city_park.domain.core.usecase.ValidatePasswordUseCase
+import ge.tbca.city_park.domain.core.util.Resource
+import ge.tbca.city_park.domain.core.util.isLoading
+import ge.tbca.city_park.domain.features.auth.usecase.SignUpUseCase
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
+import ge.tbca.city_park.presentation.core.extension.toGenericString
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
-    private val validatePasswordUseCase: ValidatePasswordUseCase
+    private val validatePasswordUseCase: ValidatePasswordUseCase,
+    private val signUpUseCase: SignUpUseCase
 ) :
     BaseViewModel<RegisterState, RegisterEffect, RegisterEvent>(RegisterState()) {
 
@@ -27,7 +32,6 @@ class RegisterViewModel @Inject constructor(
             is RegisterEvent.RepeatPasswordVisibilityChanged -> updateRepeatPasswordVisibility()
         }
     }
-
 
 
     private fun updatePassword(password: String) {
@@ -62,7 +66,25 @@ class RegisterViewModel @Inject constructor(
         val passwordsMatch = state.password == state.repeatPassword
 
         if (isPasswordValid && isEmailValid && passwordsMatch) {
-            //todo register
+
+            viewModelScope.launch {
+                signUpUseCase(
+                    email = state.email,
+                    password = state.password
+                ).collect { resource ->
+                    updateState { copy(isLoading = resource.isLoading()) }
+                    when (resource) {
+                        is Resource.Success -> sendSideEffect(RegisterEffect.NavigateToHome)
+                        is Resource.Error -> {
+                            val error = resource.error.toGenericString()
+                            sendSideEffect(RegisterEffect.Error(error))
+                        }
+
+                        Resource.Loading -> Unit
+                    }
+                }
+            }
+
         } else {
             updateState {
                 copy(
@@ -98,9 +120,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun signUpWithGoogle() {
-        viewModelScope.launch {
-            sendSideEffect(RegisterEffect.SignUpWithGoogle)
-        }
+        //todo
 
     }
 

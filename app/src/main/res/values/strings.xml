@@ -21,4 +21,9 @@
     <string name="numbers_0_to_9">ციფრები (0-დან 9-მდე)</string>
     <string name="special_symbols">სიმბოლოები (მაგ: !,@,#)</string>
     <string name="repeat_password_error">პაროლები არ ემთხვევა</string>
+    <string name="unknown_error">დაფიქსირდა შეცდომა</string>
+    <string name="invalid_credentials">მომხმარებელი არ მოიძებნა</string>
+    <string name="invalid_email">მეილის ფორმატი არ არის ვალიდური</string>
+    <string name="network_error">ინტერნეტის კავშირის პრობლემა</string>
+    <string name="user_already_exists">მომხმარებელი უკვე არსებობს</string>
 </resources>

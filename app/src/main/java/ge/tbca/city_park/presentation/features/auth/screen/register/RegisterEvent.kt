@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.register.screen
+package ge.tbca.city_park.presentation.features.auth.screen.register
 
 sealed interface RegisterEvent {
     data object RegisterButtonClicked : RegisterEvent
