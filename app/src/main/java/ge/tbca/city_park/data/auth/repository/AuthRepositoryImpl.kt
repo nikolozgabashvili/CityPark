@@ -1,11 +1,10 @@
 package ge.tbca.city_park.data.auth.repository
 
 import com.google.firebase.auth.FirebaseAuth
+import ge.tbca.city_park.data.auth.helper.AuthHelper
 import ge.tbca.city_park.domain.core.util.NetworkError
 import ge.tbca.city_park.domain.core.util.Resource
-import ge.tbca.city_park.domain.core.util.mapResource
 import ge.tbca.city_park.domain.features.auth.repository.AuthRepository
-import ge.tbca.city_park.data.auth.helper.AuthHelper
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -22,8 +21,6 @@ class AuthRepositoryImpl @Inject constructor(
     ): Flow<Resource<Unit, NetworkError>> {
         return authHelper.safeCall {
             firebaseAuth.signInWithEmailAndPassword(email, password).await()
-        }.mapResource {
-
         }
     }
 
