@@ -14,7 +14,6 @@ import kotlin.coroutines.cancellation.CancellationException
 
 class AuthHelper {
     fun <T> safeCall(
-        isRegistering: Boolean = false,
         call: suspend () -> T
     ): Flow<Resource<T, NetworkError>> {
         return flow {
@@ -23,15 +22,14 @@ class AuthHelper {
                 val result = call()
                 emit(Resource.Success(result))
             } catch (e: Exception) {
-
+                e.printStackTrace()
                 val error = when (e) {
                     is CancellationException -> {
                         throw e
                     }
 
                     is FirebaseAuthInvalidCredentialsException -> {
-                        if (isRegistering) NetworkError.INVALID_EMAIL_FORMAT
-                        else NetworkError.INVALID_CREDENTIALS
+                        NetworkError.INVALID_CREDENTIALS
                     }
 
                     is FirebaseNetworkException -> {

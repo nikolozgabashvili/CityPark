@@ -1,6 +1,6 @@
 package ge.tbca.city_park.domain.core.usecase
 
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
+import ge.tbca.city_park.domain.core.model.PasswordValidationState
 import javax.inject.Inject
 
 class ValidatePasswordUseCase @Inject constructor(

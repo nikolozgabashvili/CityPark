@@ -15,7 +15,7 @@ import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 
 @Composable
-fun PrimaryButton(
+fun SecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     text: String,
@@ -25,7 +25,7 @@ fun PrimaryButton(
     loading: Boolean = false,
     enabled: Boolean = true
 ) {
-    val colors = ButtonDefaults.primaryColors
+    val colors = ButtonDefaults.secondaryColors
 
     BaseTextButton(
         modifier = modifier,
@@ -41,29 +41,28 @@ fun PrimaryButton(
 }
 
 
-
 @AppPreview
 @Composable
-private fun PreviewPrimaryButton() {
+private fun PreviewSecondaryButton() {
 
     AppTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(Dimen.sizeSmall),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PrimaryButton(
+            SecondaryButton(
                 onClick = {},
                 enabled = false,
                 text = "Hello Button"
             )
 
-            PrimaryButton(
+            SecondaryButton(
                 onClick = {},
                 buttonSize = ButtonSize.LARGE,
                 text = "Hello Button"
             )
 
-            PrimaryButton(
+            SecondaryButton(
                 onClick = {},
                 startIcon = Icons.Rounded.SmartButton,
                 buttonSize = ButtonSize.SMALL,

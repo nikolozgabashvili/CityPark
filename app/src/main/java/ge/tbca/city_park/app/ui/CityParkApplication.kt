@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import ge.tbca.city_park.app.navigation.AppNavHost
+import kotlinx.coroutines.launch
 
 @Composable
 fun CityParkApplication(
@@ -33,6 +34,8 @@ fun CityParkApplication(
     appState: AppState,
     snackbarHostState: SnackbarHostState
 ) {
+    val coroutineScope = appState.coroutineScope
+
     Scaffold(
         snackbarHost = {
             SnackbarHost(
@@ -48,7 +51,9 @@ fun CityParkApplication(
                 .imePadding()
         ) {
             AppNavHost(appState, onShowSnackBar = { message ->
-                snackbarHostState.showSnackbar(message)
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(message)
+                }
             })
         }
 

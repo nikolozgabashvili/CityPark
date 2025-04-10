@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.change_password.screen
+package ge.tbca.city_park.presentation.features.auth.screen.change_password
 
 sealed interface ChangePasswordEvent {
     data object BackButtonClicked : ChangePasswordEvent

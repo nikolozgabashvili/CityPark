@@ -15,7 +15,7 @@ class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val authHelper: AuthHelper
 ) : AuthRepository {
-    override suspend fun logIn(
+    override fun logIn(
         email: String,
         password: String
     ): Flow<Resource<Unit, NetworkError>> {
@@ -24,7 +24,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signOut(): Flow<Resource<Unit, NetworkError>> {
+    override fun signOut(): Flow<Resource<Unit, NetworkError>> {
         return authHelper.safeCall {
             firebaseAuth.signOut()
         }

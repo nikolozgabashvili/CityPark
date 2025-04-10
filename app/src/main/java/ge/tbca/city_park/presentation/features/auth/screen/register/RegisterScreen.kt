@@ -1,7 +1,6 @@
 package ge.tbca.city_park.presentation.features.auth.screen.register
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -26,27 +21,25 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
+import ge.tbca.city_park.domain.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
-import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
+import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.SecondaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
 import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.core.design_system.components.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
-import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
+import ge.tbca.city_park.presentation.core.design_system.components.top_navigation_bar.TopNavigationBar
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.theme.GoogleIcon
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
 fun RegisterScreenRoot(
     viewModel: RegisterViewModel = hiltViewModel(),
-    onShowSnackBar: suspend (String) -> Unit,
+    onShowSnackBar:  (String) -> Unit,
     navigateBack: () -> Unit,
     navigateToHome: () -> Unit
 ) {
@@ -63,6 +56,7 @@ fun RegisterScreenRoot(
         }
 
     }
+
     RegisterScreen(
         state = viewModel.state,
         scrollState = scrollState,
@@ -98,7 +92,7 @@ private fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
-        TertiaryIconButton(
+        SecondaryIconButton(
             enabled = !state.isLoading,
             modifier = Modifier.fillMaxWidth(),
             icon = GoogleIcon,

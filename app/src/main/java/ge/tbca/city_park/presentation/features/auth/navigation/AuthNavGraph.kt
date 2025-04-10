@@ -3,15 +3,16 @@ package ge.tbca.city_park.presentation.features.auth.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import ge.tbca.city_park.presentation.features.auth.screen.login.LoginScreenRoot
+import ge.tbca.city_park.presentation.features.auth.screen.recover_password.RecoverPasswordScreenRoot
 import ge.tbca.city_park.presentation.features.auth.screen.register.RegisterScreenRoot
 import kotlinx.serialization.Serializable
 
 
 fun NavGraphBuilder.authNavGraph(
-    onShowSnackBar: suspend (String) -> Unit,
+    onShowSnackBar:  (String) -> Unit,
     navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
-    navigateToForgotPassword: () -> Unit,
+    navigateToRecovery: () -> Unit,
     navigateBack: () -> Unit
 ) {
     composable<LoginScreenRoute> {
@@ -19,7 +20,7 @@ fun NavGraphBuilder.authNavGraph(
             onShowSnackBar = onShowSnackBar,
             navigateToHome = navigateToHome,
             navigateToRegister = navigateToRegister,
-            navigateToForgotPassword = navigateToForgotPassword,
+            navigateToRecovery = navigateToRecovery
         )
 
     }
@@ -28,7 +29,25 @@ fun NavGraphBuilder.authNavGraph(
         RegisterScreenRoot(
             onShowSnackBar = onShowSnackBar,
             navigateToHome = navigateToHome,
+            navigateBack = navigateBack
+        )
+
+    }
+
+    composable<RecoverPasswordScreenRoute> {
+        RecoverPasswordScreenRoot(
             navigateBack = navigateBack,
+            onShowSnackBar = onShowSnackBar
+        )
+
+    }
+
+
+    composable<ChangePasswordScreenRoute> {
+        RegisterScreenRoot(
+            onShowSnackBar = onShowSnackBar,
+            navigateToHome = navigateToHome,
+            navigateBack = navigateBack
         )
 
     }
@@ -41,3 +60,9 @@ data object LoginScreenRoute
 
 @Serializable
 data object RegisterScreenRoute
+
+@Serializable
+data object RecoverPasswordScreenRoute
+
+@Serializable
+data object ChangePasswordScreenRoute

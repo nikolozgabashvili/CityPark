@@ -9,7 +9,7 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(email: String, password: String): Flow<Resource<Unit, NetworkError>> {
+    operator fun invoke(email: String, password: String): Flow<Resource<Unit, NetworkError>> {
         return authRepository.logIn(
             email = email,
             password = password

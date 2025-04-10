@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.change_password.screen
+package ge.tbca.city_park.presentation.features.auth.screen.change_password
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,7 @@ import ge.tbca.city_park.presentation.core.design_system.components.top_navigati
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
+import ge.tbca.city_park.domain.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable

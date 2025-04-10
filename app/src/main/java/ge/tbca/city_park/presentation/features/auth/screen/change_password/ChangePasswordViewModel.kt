@@ -1,15 +1,17 @@
-package ge.tbca.city_park.presentation.features.change_password.screen
+package ge.tbca.city_park.presentation.features.auth.screen.change_password
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.city_park.domain.core.usecase.ValidatePasswordUseCase
+import ge.tbca.city_park.domain.features.auth.usecase.ChangePasswordUseCase
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(
-    private val validatePasswordUseCase: ValidatePasswordUseCase
+    private val validatePasswordUseCase: ValidatePasswordUseCase,
+    private val changePasswordUseCase: ChangePasswordUseCase
 ) : BaseViewModel<ChangePasswordState, ChangePasswordEffect, ChangePasswordEvent>(
     ChangePasswordState()
 ) {
@@ -34,16 +36,20 @@ class ChangePasswordViewModel @Inject constructor(
     }
 
     private fun changePassword() {
-        val isOldPasswordValid: Boolean = true // TODO check old password
         val isNewPasswordValid = state.passwordValidationState.isValid
         val passwordsMatch = state.newPassword == state.repeatNewPassword
 
-        if (isOldPasswordValid && isNewPasswordValid && passwordsMatch) {
-            // TODO change password
+        if (isNewPasswordValid && passwordsMatch) {
+
+            viewModelScope.launch {
+                changePasswordUseCase(state.oldPassword,state.newPassword).collect{
+                    println(it)
+                }
+            }
+
         } else {
             updateState {
                 copy(
-                    showOldPasswordError = !isOldPasswordValid,
                     showNewPasswordError = !isNewPasswordValid,
                     showRepeatPasswordError = !passwordsMatch
                 )

@@ -1,6 +1,6 @@
-package ge.tbca.city_park.presentation.features.change_password.screen
+package ge.tbca.city_park.presentation.features.auth.screen.change_password
 
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
+import ge.tbca.city_park.domain.core.model.PasswordValidationState
 
 data class ChangePasswordState(
     val oldPassword: String = "",

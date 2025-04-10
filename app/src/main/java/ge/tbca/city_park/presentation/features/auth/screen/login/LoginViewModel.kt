@@ -22,7 +22,7 @@ class LoginViewModel @Inject constructor(
     override fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.EmailChanged -> updateEmail(event.email)
-            is LoginEvent.ForgotPasswordClicked -> navigateToForgotScreen()
+            is LoginEvent.PasswordRecoveryClicked -> navigateToRecoveryScreen()
             is LoginEvent.LoginButtonClicked -> login()
             is LoginEvent.GoogleLoginButtonClicked -> loginWithGoogle()
             is LoginEvent.PasswordChanged -> updatePassword(event.password)
@@ -41,9 +41,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToForgotScreen() {
+    private fun navigateToRecoveryScreen() {
         viewModelScope.launch {
-            sendSideEffect(LoginEffect.NavigateToForgotPassword)
+            sendSideEffect(LoginEffect.NavigateToPasswordRecovery)
         }
     }
 

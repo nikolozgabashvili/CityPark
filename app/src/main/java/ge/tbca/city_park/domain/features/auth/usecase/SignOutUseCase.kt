@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SignOutUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(): Flow<Resource<Unit, NetworkError>> {
+    operator fun invoke(): Flow<Resource<Unit, NetworkError>> {
         return authRepository.signOut()
     }
 }

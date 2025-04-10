@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.features.forgot_password.screen
+package ge.tbca.city_park.presentation.features.auth.screen.recover_password
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,7 @@ import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,15 +33,33 @@ import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
-fun ForgotPasswordScreenRoot(viewModel: ForgotPasswordViewModel = hiltViewModel()) {
+fun RecoverPasswordScreenRoot(
+    navigateBack: () -> Unit,
+    onShowSnackBar: (String) -> Unit,
+    viewModel: RecoveryPasswordViewModel = hiltViewModel(),
+) {
 
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
+        when (effect) {
+            RecoverPasswordEffect.NavigateBack -> navigateBack()
+            RecoverPasswordEffect.Success -> {
+                onShowSnackBar(context.getString(R.string.password_recovery_email_sent))
+                navigateBack()
+
+            }
+
+            is RecoverPasswordEffect.Error -> {
+                val error = effect.error.getString(context)
+                onShowSnackBar(error)
+            }
+        }
 
     }
 
-    ForgotPasswordScreen(
+    RecoverPasswordScreen(
         state = viewModel.state,
         scrollState = scrollState,
         onEvent = viewModel::onEvent
@@ -48,10 +67,10 @@ fun ForgotPasswordScreenRoot(viewModel: ForgotPasswordViewModel = hiltViewModel(
 }
 
 @Composable
-private fun ForgotPasswordScreen(
-    state: ForgotPasswordState,
+private fun RecoverPasswordScreen(
+    state: RecoveryPasswordState,
     scrollState: ScrollState,
-    onEvent: (ForgotPasswordEvent) -> Unit,
+    onEvent: (RecoveryPasswordEvent) -> Unit,
 ) {
 
     val emailError = if (state.showEmailError) stringResource(R.string.enter_valid_email) else null
@@ -65,14 +84,14 @@ private fun ForgotPasswordScreen(
         TopNavigationBar(
             title = stringResource(R.string.password_recovery),
             startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
-            onStartIconClick = { onEvent(ForgotPasswordEvent.BackButtonClicked) },
+            onStartIconClick = { onEvent(RecoveryPasswordEvent.BackButtonClicked) },
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
         Text(
             text = stringResource(R.string.enter_password_recovery_email),
-            color = AppColors.primary,
+            color = AppColors.secondary,
             style = AppTypography.bodyMedium
         )
 
@@ -87,7 +106,7 @@ private fun ForgotPasswordScreen(
             imeAction = ImeAction.Next,
             startIcon = Icons.Rounded.Email,
             label = stringResource(R.string.email),
-            onTextChanged = { onEvent(ForgotPasswordEvent.EmailChanged(it)) },
+            onTextChanged = { onEvent(RecoveryPasswordEvent.EmailChanged(it)) },
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -98,7 +117,7 @@ private fun ForgotPasswordScreen(
             buttonSize = ButtonSize.LARGE,
             text = stringResource(R.string.submit),
             onClick = {
-                onEvent(ForgotPasswordEvent.SubmitButtonClicked)
+                onEvent(RecoveryPasswordEvent.SubmitButtonClicked)
             }
         )
     }
@@ -106,10 +125,10 @@ private fun ForgotPasswordScreen(
 
 @Composable
 @AppPreview
-private fun ForgotPasswordScreenPreview() {
+private fun RecoverPasswordScreenPreview() {
     AppTheme {
-        ForgotPasswordScreen(
-            state = ForgotPasswordState(
+        RecoverPasswordScreen(
+            state = RecoveryPasswordState(
                 email = "",
                 isLoading = false
             ),

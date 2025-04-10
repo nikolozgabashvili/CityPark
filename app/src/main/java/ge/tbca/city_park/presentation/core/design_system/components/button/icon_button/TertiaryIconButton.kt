@@ -3,13 +3,12 @@ package ge.tbca.city_park.presentation.core.design_system.components.button.icon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonDefaults
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
-import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.CheckMarkIcon
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
@@ -25,12 +24,7 @@ fun TertiaryIconButton(
     loading: Boolean = false,
     enabled: Boolean = true,
 ) {
-    val colors = buttonColors(
-        containerColor = AppColors.surface,
-        contentColor = AppColors.onSurface,
-        disabledContainerColor = AppColors.secondaryContainer,
-        disabledContentColor = AppColors.onSecondaryContainer
-    )
+    val colors = ButtonDefaults.tertiaryColors
 
     BaseIconButton(
         modifier = modifier,

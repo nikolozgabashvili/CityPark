@@ -1,4 +1,5 @@
 package ge.tbca.city_park.presentation.core.design_system.theme
+
 import androidx.compose.ui.graphics.Color
 
 
@@ -20,7 +21,7 @@ val errorContainerLight = Color(0xFFEB0000)
 val onErrorContainerLight = Color(0xFFFFFBFF)
 val backgroundLight = Color(0xFFF9F9F9)
 val onBackgroundLight = Color(0xFF1B1B1B)
-val surfaceLight = Color(0xFFF9F9F9)
+val surfaceLight = Color(0xFFCCCCCC)
 val onSurfaceLight = Color(0xFF1B1B1B)
 val surfaceVariantLight = Color(0xFFEBE0E1)
 val onSurfaceVariantLight = Color(0xFF4C4546)
@@ -56,7 +57,7 @@ val errorContainerDark = Color(0xFFFF5540)
 val onErrorContainerDark = Color(0xFF360000)
 val backgroundDark = Color(0xFF131313)
 val onBackgroundDark = Color(0xFFE2E2E2)
-val surfaceDark = Color(0xFF131313)
+val surfaceDark = Color(0xFF4D4D4D)
 val onSurfaceDark = Color(0xFFE2E2E2)
 val surfaceVariantDark = Color(0xFF4C4546)
 val onSurfaceVariantDark = Color(0xFFCFC4C5)
@@ -73,4 +74,6 @@ val surfaceContainerLowDark = Color(0xFF1B1B1B)
 val surfaceContainerDark = Color(0xFF1F1F1F)
 val surfaceContainerHighDark = Color(0xFF2A2A2A)
 val surfaceContainerHighestDark = Color(0xFF353535)
+
+val colorTransparent = Color(0x00000000)
 

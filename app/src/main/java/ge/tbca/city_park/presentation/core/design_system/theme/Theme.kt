@@ -94,6 +94,9 @@ val AppColors: ColorScheme
     @ReadOnlyComposable
     get() = MaterialTheme.colorScheme
 
+val ColorScheme.transparent
+    get() = colorTransparent
+
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

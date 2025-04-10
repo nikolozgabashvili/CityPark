@@ -1,9 +1,8 @@
-package ge.tbca.city_park.presentation.core.design_system.components.button.text_button
+package ge.tbca.city_park.presentation.core.design_system.components.button.icon_button
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.SmartButton
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,63 +10,55 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonDefaults
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
+import ge.tbca.city_park.presentation.core.design_system.theme.CheckMarkIcon
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
+import ge.tbca.city_park.presentation.core.design_system.theme.ErrorIcon
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 
 @Composable
-fun PrimaryButton(
+fun SecondaryIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    text: String,
+    icon: ImageVector,
     buttonSize: ButtonSize = ButtonSize.MEDIUM,
-    startIcon: ImageVector? = null,
-    endIcon: ImageVector? = null,
     loading: Boolean = false,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
-    val colors = ButtonDefaults.primaryColors
+    val colors = ButtonDefaults.secondaryColors
 
-    BaseTextButton(
+    BaseIconButton(
         modifier = modifier,
-        onClick = onClick,
-        text = text,
+        icon = icon,
         buttonSize = buttonSize,
-        startIcon = startIcon,
-        endIcon = endIcon,
         loading = loading,
         colors = colors,
-        enabled = enabled
+        enabled = enabled,
+        onClick = onClick
     )
+
 }
-
-
 
 @AppPreview
 @Composable
-private fun PreviewPrimaryButton() {
+private fun PreviewSecondaryIconButton() {
 
     AppTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(Dimen.sizeSmall),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PrimaryButton(
+            SecondaryIconButton(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = {},
                 enabled = false,
-                text = "Hello Button"
+                icon = CheckMarkIcon
             )
 
-            PrimaryButton(
+            SecondaryIconButton(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = {},
-                buttonSize = ButtonSize.LARGE,
-                text = "Hello Button"
-            )
-
-            PrimaryButton(
-                onClick = {},
-                startIcon = Icons.Rounded.SmartButton,
-                buttonSize = ButtonSize.SMALL,
-                text = "Hello Button"
+                enabled = false,
+                icon = ErrorIcon
             )
         }
     }

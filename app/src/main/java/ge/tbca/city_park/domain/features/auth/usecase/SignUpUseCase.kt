@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SignUpUseCase @Inject constructor(
     private val signUpRepository: SignUpRepository
 ) {
-    suspend operator fun invoke(
+    operator fun invoke(
         email: String,
         password: String
     ): Flow<Resource<Unit, NetworkError>> {

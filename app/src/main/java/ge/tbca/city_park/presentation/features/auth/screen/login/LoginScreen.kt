@@ -24,7 +24,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
-import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
+import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.SecondaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.TertiaryButton
 import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
@@ -42,10 +42,10 @@ import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 @Composable
 fun LoginScreenRoot(
     viewModel: LoginViewModel = hiltViewModel(),
-    onShowSnackBar: suspend (String) -> Unit,
+    onShowSnackBar: (String) -> Unit,
     navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
-    navigateToForgotPassword: () -> Unit
+    navigateToRecovery: () -> Unit
 ) {
 
     val scrollState = rememberScrollState()
@@ -54,7 +54,7 @@ fun LoginScreenRoot(
     CollectSideEffect(flow = viewModel.effect) { effect ->
 
         when (effect) {
-            LoginEffect.NavigateToForgotPassword -> navigateToForgotPassword()
+            LoginEffect.NavigateToPasswordRecovery -> navigateToRecovery()
             LoginEffect.NavigateToRegister -> navigateToRegister()
             LoginEffect.Success -> navigateToHome()
             is LoginEffect.Error -> {
@@ -100,7 +100,7 @@ private fun LoginScreen(
         Spacer(modifier = Modifier.height(Dimen.size32))
 
 
-        TertiaryIconButton(
+        SecondaryIconButton(
             enabled = !state.isLoading,
             modifier = Modifier.fillMaxWidth(),
             icon = GoogleIcon,
@@ -143,7 +143,7 @@ private fun LoginScreen(
         Spacer(modifier = Modifier.height(Dimen.size16))
         Text(
             modifier = Modifier.clickable(
-                onClick = { onEvent(LoginEvent.ForgotPasswordClicked) },
+                onClick = { onEvent(LoginEvent.PasswordRecoveryClicked) },
                 enabled = !state.isLoading,
                 interactionSource = null,
                 indication = null

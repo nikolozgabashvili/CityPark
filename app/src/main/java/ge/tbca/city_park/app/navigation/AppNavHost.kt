@@ -6,13 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import ge.tbca.city_park.app.ui.AppState
 import ge.tbca.city_park.presentation.features.auth.navigation.LoginScreenRoute
+import ge.tbca.city_park.presentation.features.auth.navigation.RecoverPasswordScreenRoute
 import ge.tbca.city_park.presentation.features.auth.navigation.RegisterScreenRoute
 import ge.tbca.city_park.presentation.features.auth.navigation.authNavGraph
 
 @Composable
 fun AppNavHost(
     appState: AppState,
-    onShowSnackBar: suspend (String) -> Unit
+    onShowSnackBar: (String) -> Unit
 ) {
     val navController = appState.navHostController
 
@@ -47,7 +48,9 @@ fun AppNavHost(
             navigateToRegister = {
                 navController.navigate(RegisterScreenRoute)
             },
-            navigateToForgotPassword = {},
+            navigateToRecovery = {
+                navController.navigate(RecoverPasswordScreenRoute)
+            },
             navigateBack = {
                 navController.navigateUp()
             }

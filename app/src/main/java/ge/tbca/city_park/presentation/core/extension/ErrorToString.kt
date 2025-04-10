@@ -8,7 +8,6 @@ fun NetworkError.toGenericString(): GenericString {
     val stringRes = when (this) {
         NetworkError.UNKNOWN -> R.string.unknown_error
         NetworkError.INVALID_CREDENTIALS -> R.string.invalid_credentials
-        NetworkError.INVALID_EMAIL_FORMAT -> R.string.invalid_email
         NetworkError.NETWORK_ERROR -> R.string.network_error
         NetworkError.USER_COLLISION -> R.string.user_already_exists
     }
