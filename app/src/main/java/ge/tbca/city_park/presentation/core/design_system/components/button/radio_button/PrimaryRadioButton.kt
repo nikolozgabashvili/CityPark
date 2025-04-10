@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.components.radio_button
+package ge.tbca.city_park.presentation.core.design_system.components.button.radio_button
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.RadioButton

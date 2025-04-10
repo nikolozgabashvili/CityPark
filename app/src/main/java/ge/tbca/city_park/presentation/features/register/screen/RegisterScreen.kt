@@ -24,7 +24,7 @@ import ge.tbca.city_park.presentation.core.design_system.components.button.base.
 import ge.tbca.city_park.presentation.core.design_system.components.button.icon_button.TertiaryIconButton
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
 import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
-import ge.tbca.city_park.presentation.core.design_system.components.password_requirement.PasswordRequirement
+import ge.tbca.city_park.presentation.core.design_system.components.list.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.TextInputField
 import ge.tbca.city_park.presentation.core.design_system.components.top_navigation_bar.TopNavigationBar

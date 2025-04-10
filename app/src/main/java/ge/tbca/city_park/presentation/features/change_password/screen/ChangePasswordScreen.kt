@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
-import ge.tbca.city_park.presentation.core.design_system.components.password_requirement.PasswordRequirement
+import ge.tbca.city_park.presentation.core.design_system.components.list.password_requirement.PasswordRequirement
 import ge.tbca.city_park.presentation.core.design_system.components.text_field.PasswordTextField
 import ge.tbca.city_park.presentation.core.design_system.components.top_navigation_bar.TopNavigationBar
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
