@@ -17,7 +17,9 @@ import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
+import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.components.button.base.ButtonSize
 import ge.tbca.city_park.presentation.core.design_system.components.button.text_button.PrimaryButton
 import ge.tbca.city_park.presentation.core.design_system.components.list.theme_list.ThemeList
@@ -25,6 +27,23 @@ import ge.tbca.city_park.presentation.core.design_system.components.top_navigati
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.util.CollectSideEffect
+
+@Composable
+fun ThemeSettingsRoot(viewModel: ThemeSettingsViewModel = hiltViewModel()) {
+
+    val scrollState = rememberScrollState()
+
+    CollectSideEffect(flow = viewModel.effect) { effect ->
+
+    }
+
+    ThemeSettingsScreen(
+        state = viewModel.state,
+        scrollState = scrollState,
+        onEvent = viewModel::onEvent
+    )
+}
 
 @Composable
 private fun ThemeSettingsScreen(
@@ -59,6 +78,7 @@ private fun ThemeSettingsScreen(
             modifier = Modifier.fillMaxWidth(),
             buttonSize = ButtonSize.LARGE,
             loading = state.isLoading,
+            enabled = !state.isLoading,
             text = stringResource(R.string.save),
             onClick = { onEvent(ThemeSettingsEvent.SaveThemeClicked) }
         )
@@ -71,13 +91,13 @@ private fun ThemeSettingsScreenPreview() {
     AppTheme {
         ThemeSettingsScreen(
             state = ThemeSettingsState(
-                themes = listOf("თეთრი", "მუქი", "სისტემური"),
+                themes = listOf(AppThemeOption.LIGHT, AppThemeOption.DARK, AppThemeOption.SYSTEM),
                 endIcons = listOf(
                     Icons.Default.WbSunny,
                     Icons.Default.ModeNight,
                     Icons.Default.Brightness6
                 ),
-                selectedTheme = "თეთრი"
+                selectedTheme = AppThemeOption.SYSTEM
             ),
             onEvent = {},
             scrollState = rememberScrollState()

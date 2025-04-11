@@ -32,4 +32,7 @@
     <string name="change_language">ენის შეცვლა</string>
     <string name="save">შენახვა</string>
     <string name="change_theme">თემის შეცვლა</string>
+    <string name="light">თეთრი</string>
+    <string name="dark">მუქი</string>
+    <string name="system">სისტემური</string>
 </resources>
