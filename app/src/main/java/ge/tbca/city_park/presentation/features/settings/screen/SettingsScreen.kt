@@ -5,17 +5,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.FlashlightOn
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.core.design_system.components.list.settings_list.SettingsDetail
-import ge.tbca.city_park.presentation.core.design_system.components.list.settings_list.SettingsList
+import ge.tbca.city_park.domain.model.Settings
+import ge.tbca.city_park.presentation.core.design_system.components.items.settings_item.SettingsDetail
+import ge.tbca.city_park.presentation.core.design_system.components.items.settings_item.SettingsItem
 import ge.tbca.city_park.presentation.core.design_system.components.top_navigation_bar.TopNavigationBar
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
@@ -53,10 +53,20 @@ private fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        SettingsList(
-            onClick = { onEvent(SettingsEvent.SettingClicked(it)) },
-            settingsDetails = state.settingsList
-        )
+        LazyColumn {
+            items(
+                state.settingsList.count(),
+                key = { index -> state.settingsList[index].id }) { index ->
+                SettingsItem(
+                    onClick = { onEvent(SettingsEvent.SettingClicked(state.settingsList[index].id)) },
+                    settingsDetail = SettingsDetail(
+                        state.settingsList[index].id,
+                        state.settingsList[index].name,
+                        state.settingsList[index].endText
+                    )
+                )
+            }
+        }
     }
 }
 
@@ -68,15 +78,13 @@ private fun SettingsScreenPreview() {
             state = SettingsState(
                 settingsList = listOf(
                     SettingsDetail(
-                        id = "language",
+                        id = Settings.LANGUAGE,
                         name = "ენა",
-                        startIcon = Icons.Default.Language,
                         endText = "ქართული"
                     ),
                     SettingsDetail(
-                        id = "theme",
+                        id = Settings.THEME,
                         name = "განათების რეჟიმი",
-                        startIcon = Icons.Default.FlashlightOn,
                         endText = "თეთრი"
                     )
                 )

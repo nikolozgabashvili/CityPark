@@ -4,5 +4,5 @@ import ge.tbca.city_park.domain.model.AppThemeOption
 
 sealed interface ThemeSettingsEvent {
     data class ThemeSelected(val selectedTheme: AppThemeOption) : ThemeSettingsEvent
-    data object SaveThemeClicked: ThemeSettingsEvent
+    data object BackButtonClicked : ThemeSettingsEvent
 }

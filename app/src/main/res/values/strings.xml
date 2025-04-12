@@ -35,4 +35,6 @@
     <string name="light">თეთრი</string>
     <string name="dark">მუქი</string>
     <string name="system">სისტემური</string>
+    <string name="georgian">ქართული</string>
+    <string name="english">English</string>
 </resources>

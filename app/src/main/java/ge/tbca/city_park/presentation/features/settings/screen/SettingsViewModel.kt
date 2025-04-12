@@ -2,6 +2,7 @@ package ge.tbca.city_park.presentation.features.settings.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ge.tbca.city_park.domain.model.Settings
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,12 +13,12 @@ class SettingsViewModel @Inject constructor() :
 
     override fun onEvent(event: SettingsEvent) {
         when (event) {
-            is SettingsEvent.SettingClicked -> navigateToSetting(event.settingId)
+            is SettingsEvent.SettingClicked -> navigateToSetting(event.setting)
             is SettingsEvent.BackButtonClicked -> navigateBack()
         }
     }
 
-    private fun navigateToSetting(settingId: String) {
+    private fun navigateToSetting(settingId: Settings) {
         viewModelScope.launch {
             sendSideEffect(SettingsEffect.NavigateToSetting(settingId))
         }

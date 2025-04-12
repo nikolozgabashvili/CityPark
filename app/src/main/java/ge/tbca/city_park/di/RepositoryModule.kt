@@ -4,9 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ge.tbca.city_park.data.repository.DataStoreRepositoryImpl
+import ge.tbca.city_park.data.repository.DataStoreManagerImpl
 import ge.tbca.city_park.data.repository.ThemePreferenceRepositoryImpl
-import ge.tbca.city_park.domain.repository.DataStoreRepository
+import ge.tbca.city_park.domain.repository.DataStoreManager
 import ge.tbca.city_park.domain.repository.ThemePreferenceRepository
 import javax.inject.Singleton
 
@@ -16,9 +16,9 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindDatastoreRepository(
-        datastoreRepositoryImpl: DataStoreRepositoryImpl
-    ): DataStoreRepository
+    abstract fun bindDatastoreManager(
+        dataStoreManagerImpl: DataStoreManagerImpl
+    ): DataStoreManager
 
     @Binds
     @Singleton

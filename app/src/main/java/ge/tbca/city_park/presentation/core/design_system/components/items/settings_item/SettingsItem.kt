@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.components.list.settings_list
+package ge.tbca.city_park.presentation.core.design_system.components.items.settings_item
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,32 +11,33 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import ge.tbca.city_park.domain.model.Settings
 import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.extensions.displayIcon
 
 @Composable
 fun SettingsItem(
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit,
+    onClick: () -> Unit,
     settingsDetail: SettingsDetail
 ) {
     Box(
-        modifier = modifier.clickable(onClick = { onClick(settingsDetail.id) }),
+        modifier = modifier.clickable(onClick = onClick),
         contentAlignment = Alignment.CenterStart
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Icon(
-                imageVector = settingsDetail.startIcon,
+                imageVector = settingsDetail.id.displayIcon(),
                 contentDescription = null,
                 tint = AppColors.primary
             )
@@ -90,9 +91,8 @@ private fun SettingsItemPreview() {
         SettingsItem(
             onClick = {},
             settingsDetail = SettingsDetail(
-                id = "language",
+                id = Settings.LANGUAGE,
                 name = "ენა",
-                startIcon = Icons.Default.Language,
                 endText = "ქართული"
             )
         )

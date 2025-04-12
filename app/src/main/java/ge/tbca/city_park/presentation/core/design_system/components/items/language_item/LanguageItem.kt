@@ -1,57 +1,51 @@
-package ge.tbca.city_park.presentation.core.design_system.components.list.theme_list
+package ge.tbca.city_park.presentation.core.design_system.components.items.language_item
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.WbSunny
-import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import ge.tbca.city_park.domain.model.Language
 import ge.tbca.city_park.presentation.core.design_system.components.divider.Divider
 import ge.tbca.city_park.presentation.core.design_system.components.button.radio_button.PrimaryRadioButton
-import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
+import ge.tbca.city_park.presentation.core.extensions.displayName
 
 @Composable
-fun ThemeItem(
+fun LanguageItem(
     modifier: Modifier = Modifier,
-    onThemeSelected: (String) -> Unit,
-    themeName: String,
-    endIcon: ImageVector,
-    selectedTheme: String,
-    showUnderline: Boolean
+    onLanguageSelected: (Language) -> Unit,
+    languageDetails: LanguageDetails
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onThemeSelected(themeName) }
-    ) {
+            .clickable(onClick = { onLanguageSelected(languageDetails.language) })
+    )
+    {
         Row {
             PrimaryRadioButton(
-                text = themeName,
-                isSelected = themeName == selectedTheme,
-                onClick = { onThemeSelected(themeName) }
+                text = languageDetails.language.displayName(),
+                isSelected = languageDetails.language == languageDetails.selectedLanguage,
+                onClick = { onLanguageSelected(languageDetails.language) }
             )
         }
 
-        Icon(
+        Text(
             modifier = Modifier.align(Alignment.CenterEnd),
-            imageVector = endIcon,
-            contentDescription = null,
-            tint = AppColors.primary
+            text = languageDetails.language.flagEmoji
         )
 
-        if (showUnderline) {
+        if (languageDetails.showUnderline) {
             Divider(
                 modifier = Modifier
-                    .padding(start = Dimen.size50)
+                    .padding(start = Dimen.size32)
                     .align(Alignment.BottomCenter)
             )
         }
@@ -60,14 +54,15 @@ fun ThemeItem(
 
 @Composable
 @AppPreview
-private fun ThemeItemPreview() {
+private fun LanguageItemPreview() {
     AppTheme {
-        ThemeItem(
-            onThemeSelected = {},
-            themeName = "თეთრი",
-            endIcon = Icons.Default.WbSunny,
-            selectedTheme = "თეთრი",
-            showUnderline = true
+        LanguageItem(
+            onLanguageSelected = {},
+            languageDetails = LanguageDetails(
+                language = Language.GEORGIAN,
+                selectedLanguage = Language.GEORGIAN,
+                showUnderline = true
+            ),
         )
     }
 }

@@ -1,4 +1,4 @@
-package ge.tbca.city_park.presentation.core.design_system.components.list.password_requirement
+package ge.tbca.city_park.presentation.core.design_system.components.password_requirement
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement

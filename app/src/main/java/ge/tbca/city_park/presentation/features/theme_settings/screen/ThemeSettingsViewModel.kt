@@ -1,59 +1,46 @@
 package ge.tbca.city_park.presentation.features.theme_settings.screen
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Brightness6
-import androidx.compose.material.icons.filled.ModeNight
-import androidx.compose.material.icons.filled.WbSunny
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ge.tbca.city_park.domain.core.usecase.GetSavedThemeUseCase
+import ge.tbca.city_park.domain.core.usecase.SaveThemeUseCase
 import ge.tbca.city_park.domain.model.AppThemeOption
-import ge.tbca.city_park.domain.repository.ThemePreferenceRepository
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ThemeSettingsViewModel @Inject constructor(
-    private val themePreferenceRepository: ThemePreferenceRepository
-) : BaseViewModel<ThemeSettingsState, ThemeSettingsEffect, ThemeSettingsEvent>(
-    ThemeSettingsState(
-        themes = listOf(AppThemeOption.LIGHT, AppThemeOption.DARK, AppThemeOption.SYSTEM),
-        endIcons = listOf(
-            Icons.Default.WbSunny,
-            Icons.Default.ModeNight,
-            Icons.Default.Brightness6
-        )
-    )
-) {
+    private val getSavedThemeUseCase: GetSavedThemeUseCase,
+    private val saveThemeUseCase: SaveThemeUseCase
+) : BaseViewModel<ThemeSettingsState, ThemeSettingsEffect, ThemeSettingsEvent>(ThemeSettingsState()) {
 
     init {
         viewModelScope.launch {
-            updateState { copy(isLoading = true) }
-            val savedTheme = themePreferenceRepository.selectedTheme.first()
-            updateState { copy(selectedTheme = savedTheme, isLoading = false) }
+            getSavedThemeUseCase().collect {
+                updateState {
+                    copy(selectedTheme = it)
+                }
+            }
         }
     }
 
     override fun onEvent(event: ThemeSettingsEvent) {
         when (event) {
-            is ThemeSettingsEvent.SaveThemeClicked -> saveTheme()
             is ThemeSettingsEvent.ThemeSelected -> updateSelectedTheme(event.selectedTheme)
+            is ThemeSettingsEvent.BackButtonClicked -> navigateBack()
         }
     }
 
     private fun updateSelectedTheme(theme: AppThemeOption) {
-        updateState {
-            copy(selectedTheme = theme)
+        viewModelScope.launch {
+            saveThemeUseCase(theme)
         }
     }
 
-    private fun saveTheme() {
+    private fun navigateBack() {
         viewModelScope.launch {
-            updateState { copy(isLoading = true) }
-            themePreferenceRepository.saveTheme(state.selectedTheme)
-            sendSideEffect(ThemeSettingsEffect.ShowSnackbar("Saved")) // TODO from string resources
-            updateState { copy(isLoading = false) }
+            sendSideEffect(ThemeSettingsEffect.NavigateBack)
         }
     }
 }

@@ -1,5 +1,6 @@
 package ge.tbca.city_park.presentation.core.design_system.components.button.radio_button
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -18,11 +19,13 @@ fun PrimaryRadioButton(
     isSelected: Boolean,
     onClick: () -> Unit,
 ) {
-    Row {
+    Row(
+        modifier = modifier.clickable(onClick = onClick, enabled = !isSelected)
+    ) {
         RadioButton(
-            modifier = modifier,
+            modifier = Modifier.align(Alignment.CenterVertically),
             selected = isSelected,
-            onClick = onClick,
+            onClick = { if (!isSelected) onClick() }
         )
 
         text?.let {
