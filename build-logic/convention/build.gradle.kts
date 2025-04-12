@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "ge.tbca.buildlogic"
+group = "ge.tbca.city_park.buildlogic"
 
 dependencies {
     compileOnly(libs.android.tools.common)

@@ -9,7 +9,7 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
         target.run {
 
             pluginManager.run {
-                apply("com.android.library")
+                apply("ge.tbca.android.library")
                 apply("org.jetbrains.kotlin.plugin.compose")
             }
 

@@ -1,7 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import ge.tbca.convention.AndroidProject
 import ge.tbca.convention.AndroidProject.TARGET_SDK
-import ge.tbca.convention.configureBuildTypes
 import ge.tbca.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -26,7 +25,15 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
                 configureKotlinAndroid(this)
 
-                configureBuildTypes(this)
+                buildTypes {
+                    release {
+                        isMinifyEnabled = true
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules.pro"
+                        )
+                    }
+                }
             }
 
         }

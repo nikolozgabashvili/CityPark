@@ -87,8 +87,8 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrai
 #project defined plugins
 cityPark-application = { id = "ge.tbca.android.application", version = "unspecified" }
 cityPark-application-compose = { id = "ge.tbca.android.compose.application", version = "unspecified" }
-cityPark-library = { id = "ge.tbca.android.library", version = "unspecified" }
-cityPark-library-compose = { id = "ge.tbca.android.library.compose", version = "unspecified" }
+cityPark-android-library = { id = "ge.tbca.android.library", version = "unspecified" }
+cityPark-android-library-compose = { id = "ge.tbca.android.library.compose", version = "unspecified" }
 cityPark-dagger-hilt = { id = "ge.tbca.dagger.hilt", version = "unspecified" }
 cityPark-android-feature = { id = "ge.tbca.android.feature", version = "unspecified" }
 cityPark-jvm-library = { id = "ge.tbca.jvm.library", version = "unspecified" }
