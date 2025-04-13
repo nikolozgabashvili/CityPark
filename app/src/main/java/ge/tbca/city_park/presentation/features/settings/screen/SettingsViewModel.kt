@@ -2,7 +2,6 @@ package ge.tbca.city_park.presentation.features.settings.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.city_park.domain.model.Settings
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,14 +12,21 @@ class SettingsViewModel @Inject constructor() :
 
     override fun onEvent(event: SettingsEvent) {
         when (event) {
-            is SettingsEvent.SettingClicked -> navigateToSetting(event.setting)
             is SettingsEvent.BackButtonClicked -> navigateBack()
+            SettingsEvent.NavigateToLanguageSettings -> navigateToLanguageSettings()
+            SettingsEvent.NavigateToThemeSettings -> navigateToThemeSettings()
         }
     }
 
-    private fun navigateToSetting(settingId: Settings) {
+    private fun navigateToLanguageSettings() {
         viewModelScope.launch {
-            sendSideEffect(SettingsEffect.NavigateToSetting(settingId))
+            sendSideEffect(SettingsEffect.NavigateToLanguageSettings)
+        }
+    }
+
+    private fun navigateToThemeSettings() {
+        viewModelScope.launch {
+            sendSideEffect(SettingsEffect.NavigateToThemeSettings)
         }
     }
 

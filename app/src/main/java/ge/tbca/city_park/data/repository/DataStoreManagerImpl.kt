@@ -4,16 +4,20 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import ge.tbca.city_park.domain.repository.DataStoreManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DataStoreManagerImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) : DataStoreManager {
     override suspend fun <T> saveValue(key: Preferences.Key<T>, value: T) {
-        dataStore.edit { preference ->
-            preference[key] = value
+        withContext(Dispatchers.IO) {
+            dataStore.edit { preference ->
+                preference[key] = value
+            }
         }
     }
 
@@ -24,8 +28,10 @@ class DataStoreManagerImpl @Inject constructor(
     }
 
     override suspend fun <T> removeByKey(key: Preferences.Key<T>) {
-        dataStore.edit {
-            it.remove(key)
+        withContext(Dispatchers.IO) {
+            dataStore.edit {
+                it.remove(key)
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 package ge.tbca.city_park.presentation.features.language_settings.screen
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.city_park.domain.model.Language
+import ge.tbca.city_park.domain.model.AppLanguage
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
 import javax.inject.Inject
 
@@ -13,18 +13,18 @@ class LanguageSettingsViewModel @Inject constructor() :
 
     override fun onEvent(event: LanguageSettingsEvent) {
         when (event) {
-            is LanguageSettingsEvent.LanguageSelected -> updateSelectedLanguage(event.language)
+            is LanguageSettingsEvent.LanguageSelected -> updateSelectedLanguage(event.appLanguage)
         }
     }
 
-    private fun updateSelectedLanguage(language: Language) {
+    private fun updateSelectedLanguage(appLanguage: AppLanguage) {
         updateState {
-            copy(selectedLanguage = language)
+            copy(selectedAppLanguage = appLanguage)
         }
         saveLanguage()
     }
 
     private fun saveLanguage() {
-        // TODO save language
+
     }
 }

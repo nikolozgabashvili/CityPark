@@ -1,9 +1,9 @@
 package ge.tbca.city_park.presentation.core.extensions
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Brightness6
-import androidx.compose.material.icons.filled.ModeNight
-import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material.icons.rounded.BrightnessMedium
+import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.WbSunny
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -18,7 +18,7 @@ fun AppThemeOption.displayName(): String = when (this) {
 }
 
 fun AppThemeOption.displayIcon(): ImageVector = when (this) {
-    AppThemeOption.LIGHT -> Icons.Default.WbSunny
-    AppThemeOption.DARK -> Icons.Default.ModeNight
-    AppThemeOption.SYSTEM -> Icons.Default.Brightness6
+    AppThemeOption.LIGHT -> Icons.Rounded.WbSunny
+    AppThemeOption.DARK -> Icons.Rounded.DarkMode
+    AppThemeOption.SYSTEM -> Icons.Rounded.BrightnessMedium
 }

@@ -37,4 +37,6 @@
     <string name="system">სისტემური</string>
     <string name="georgian">ქართული</string>
     <string name="english">English</string>
+    <string name="appLanguage">ენა</string>
+    <string name="lightning_mode">განათების რეჟიმი</string>
 </resources>

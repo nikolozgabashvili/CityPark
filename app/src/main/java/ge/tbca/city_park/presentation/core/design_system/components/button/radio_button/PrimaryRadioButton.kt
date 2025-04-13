@@ -2,6 +2,8 @@ package ge.tbca.city_park.presentation.core.design_system.components.button.radi
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,27 +12,32 @@ import androidx.compose.ui.Modifier
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
+import ge.tbca.city_park.presentation.core.design_system.theme.Dimen
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 
 @Composable
 fun PrimaryRadioButton(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     text: String? = null,
     isSelected: Boolean,
-    onClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier.clickable(onClick = onClick, enabled = !isSelected)
+        modifier = modifier.clickable(
+            onClick = onClick,
+            indication = null,
+            interactionSource = null
+        ),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(
-            modifier = Modifier.align(Alignment.CenterVertically),
             selected = isSelected,
-            onClick = { if (!isSelected) onClick() }
+            onClick = onClick
         )
 
         text?.let {
+            Spacer(modifier = Modifier.width(Dimen.size6))
             Text(
-                modifier = Modifier.align(Alignment.CenterVertically),
                 style = AppTypography.bodyMedium,
                 color = AppColors.primary,
                 text = it
@@ -45,7 +52,7 @@ private fun PrimaryRadioButtonPreview() {
     AppTheme {
         PrimaryRadioButton(
             isSelected = true,
-            text = "ქართული",
+            text = "text",
             onClick = {}
         )
     }
@@ -57,7 +64,7 @@ private fun PrimaryRadioButtonPreviewUnselected() {
     AppTheme {
         PrimaryRadioButton(
             isSelected = false,
-            text = "English",
+            text = "text",
             onClick = {}
         )
     }
