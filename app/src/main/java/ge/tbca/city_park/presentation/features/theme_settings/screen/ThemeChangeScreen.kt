@@ -91,7 +91,7 @@ private fun ThemeSettingsScreen(
                             icon = theme.displayIcon()
                         )
                     },
-                    hasUnderLine = !isLast
+                    hasUnderline = !isLast
                 )
                 if (!isLast) Spacer(modifier = Modifier.height(Dimen.size8))
 

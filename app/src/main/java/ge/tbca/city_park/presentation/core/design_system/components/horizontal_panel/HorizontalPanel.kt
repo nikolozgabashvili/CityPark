@@ -34,7 +34,7 @@ fun HorizontalPanel(
     description: String? = null,
     startIcon: @Composable () -> Unit,
     endIcon: @Composable (() -> Unit)? = null,
-    hasUnderLine: Boolean = false,
+    hasUnderline: Boolean = false,
 ) {
     CompositionLocalProvider(LocalContentColor provides AppColors.primary) {
         Column {
@@ -70,7 +70,7 @@ fun HorizontalPanel(
                 endIcon?.invoke()
             }
 
-            if (hasUnderLine) {
+            if (hasUnderline) {
                 Spacer(modifier = Modifier.height(Dimen.size6))
                 Divider(modifier = Modifier.padding(start = Dimen.size48))
             }
@@ -100,7 +100,7 @@ private fun SettingsItemPreview() {
                     contentDescription = null,
                 )
             },
-            hasUnderLine = true,
+            hasUnderline = true,
             title = "title",
             description = "adhakjshdgja",
             onClick = {}

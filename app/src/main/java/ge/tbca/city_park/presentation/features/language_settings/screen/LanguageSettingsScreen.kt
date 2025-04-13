@@ -100,7 +100,7 @@ private fun LanguageSettingsScreen(
                             Text(text = language.flagEmoji)
                         }
                     },
-                    hasUnderLine = !isLast,
+                    hasUnderline = !isLast,
                     onClick = {
                         if (!isSelected) onEvent(
                             LanguageSettingsEvent.LanguageSelected(

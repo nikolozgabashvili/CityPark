@@ -68,7 +68,7 @@ private fun SettingsScreen(
             SettingItem(
                 title = stringResource(R.string.appLanguage),
                 description = state.currentAppLanguage.displayName(),
-                hasUnderLine = true,
+                hasUnderline = true,
                 icon = Icons.Rounded.Language,
                 onClick = {
                     onEvent(SettingsEvent.BackButtonClicked)
@@ -79,7 +79,7 @@ private fun SettingsScreen(
             SettingItem(
                 title = stringResource(R.string.lightning_mode),
                 description = state.currentThemeMode.displayName(),
-                hasUnderLine = false,
+                hasUnderline = false,
                 icon = Icons.Rounded.Highlight,
                 onClick = {}
             )

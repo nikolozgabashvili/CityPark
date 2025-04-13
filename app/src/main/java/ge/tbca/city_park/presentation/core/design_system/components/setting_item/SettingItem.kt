@@ -20,14 +20,14 @@ fun SettingItem(
     modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
-    hasUnderLine: Boolean = false,
+    hasUnderline: Boolean = false,
     icon: ImageVector
 ) {
     HorizontalPanel(
         modifier = modifier,
         title = title,
         description = description,
-        hasUnderLine = hasUnderLine,
+        hasUnderline = hasUnderline,
         startIcon = {
             IconWithBackground(
                 modifier = Modifier.size(Dimen.size40),
