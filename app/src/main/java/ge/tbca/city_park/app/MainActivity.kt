@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 combine(isSystemInDarkTheme(), viewModel.savedTheme) { systemDark, selectedTheme ->
-                    systemDark && selectedTheme == AppThemeOption.SYSTEM || selectedTheme == AppThemeOption.DARK
+                    (systemDark && selectedTheme == AppThemeOption.SYSTEM) || selectedTheme == AppThemeOption.DARK
                 }.onEach {
                     showDarkTheme = it
                 }.collect { isDark ->
