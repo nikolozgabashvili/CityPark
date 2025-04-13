@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -65,21 +66,20 @@ private fun ThemeChangeScreen(
         Spacer(modifier = Modifier.height(Dimen.size16))
 
         LazyColumn(contentPadding = PaddingValues(horizontal = Dimen.appPadding)) {
-            items(state.themes.size) { index ->
-                val currentTheme = state.themes[index]
-                val isLast = currentTheme == state.themes.last()
-                val isSelected = currentTheme == state.selectedTheme
+            items(state.themes) {theme->
+                val isLast = theme == state.themes.last()
+                val isSelected = theme == state.selectedTheme
                 HorizontalPanel(
                     onClick = {
-                        if (!isSelected) onEvent(ThemeSettingsEvent.ThemeSelected(currentTheme))
+                        if (!isSelected) onEvent(ThemeSettingsEvent.ThemeSelected(theme))
                     },
-                    title = currentTheme.displayName(),
+                    title = theme.displayName(),
                     startIcon = {
                         PrimaryRadioButton(
                             onClick = {
                                 if (!isSelected) onEvent(
                                     ThemeSettingsEvent.ThemeSelected(
-                                        currentTheme
+                                        theme
                                     )
                                 )
                             },
@@ -88,7 +88,7 @@ private fun ThemeChangeScreen(
                     },
                     endIcon = {
                         IconWithBackground(
-                            icon = currentTheme.displayIcon()
+                            icon = theme.displayIcon()
                         )
                     },
                     hasUnderLine = !isLast

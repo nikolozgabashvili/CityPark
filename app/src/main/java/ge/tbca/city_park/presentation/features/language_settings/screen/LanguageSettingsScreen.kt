@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -69,19 +70,18 @@ private fun LanguageSettingsScreen(
         Spacer(modifier = Modifier.height(Dimen.size32))
 
         LazyColumn {
-            items(state.appLanguages.size) { index ->
-                val currentLanguage = state.appLanguages[index]
-                val isSelected = currentLanguage == state.selectedAppLanguage
-                val isLast = currentLanguage == state.appLanguages.last()
+            items(state.appLanguages) { language ->
+                val isSelected = language == state.selectedAppLanguage
+                val isLast = language == state.appLanguages.last()
                 HorizontalPanel(
-                    title = currentLanguage.displayName(),
+                    title = language.displayName(),
                     description = null,
                     startIcon = {
                         PrimaryRadioButton(
                             onClick = {
                                 if (!isSelected) onEvent(
                                     LanguageSettingsEvent.LanguageSelected(
-                                        currentLanguage
+                                        language
                                     )
                                 )
                             },
@@ -95,14 +95,14 @@ private fun LanguageSettingsScreen(
                                 .background(AppColors.secondaryContainer, CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(text = currentLanguage.flagEmoji)
+                            Text(text = language.flagEmoji)
                         }
                     },
                     hasUnderLine = !isLast,
                     onClick = {
                         if (!isSelected) onEvent(
                             LanguageSettingsEvent.LanguageSelected(
-                                currentLanguage
+                                language
                             )
                         )
                     }
