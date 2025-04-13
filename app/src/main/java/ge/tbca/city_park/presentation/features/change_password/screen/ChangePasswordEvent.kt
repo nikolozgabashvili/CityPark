@@ -1,7 +1,7 @@
 package ge.tbca.city_park.presentation.features.change_password.screen
 
 sealed interface ChangePasswordEvent {
-    data object BackButtonClicked : ChangePasswordEvent
+    data object NavigateBack : ChangePasswordEvent
     data object ChangePasswordButtonClicked : ChangePasswordEvent
     data class OldPasswordChanged(val oldPassword: String) : ChangePasswordEvent
     data class NewPasswordChanged(val newPassword: String) : ChangePasswordEvent

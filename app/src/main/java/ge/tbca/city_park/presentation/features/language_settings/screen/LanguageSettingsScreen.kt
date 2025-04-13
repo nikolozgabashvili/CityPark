@@ -64,7 +64,9 @@ private fun LanguageSettingsScreen(
         TopNavigationBar(
             title = stringResource(R.string.change_language),
             startIcon = Icons.AutoMirrored.Default.ArrowBack,
-            onStartIconClick = { }
+            onStartIconClick = {
+                onEvent(LanguageSettingsEvent.NavigateBack)
+            }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))

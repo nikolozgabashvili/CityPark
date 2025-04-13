@@ -28,7 +28,7 @@ import ge.tbca.city_park.presentation.core.extensions.displayName
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
-fun ThemeChangeScreenRoot(
+fun ThemeSettingsScreenRoot(
     navigateBack: () -> Unit,
     viewModel: ThemeSettingsViewModel = hiltViewModel()
 ) {
@@ -40,14 +40,14 @@ fun ThemeChangeScreenRoot(
         }
     }
 
-    ThemeChangeScreen(
+    ThemeSettingsScreen(
         state = viewModel.state,
         onEvent = viewModel::onEvent
     )
 }
 
 @Composable
-private fun ThemeChangeScreen(
+private fun ThemeSettingsScreen(
     state: ThemeSettingsState,
     onEvent: (ThemeSettingsEvent) -> Unit
 ) {
@@ -104,7 +104,7 @@ private fun ThemeChangeScreen(
 @AppPreview
 private fun ThemeSettingsScreenPreview() {
     AppTheme {
-        ThemeChangeScreen(
+        ThemeSettingsScreen(
             state = ThemeSettingsState(
                 themes = AppThemeOption.entries,
                 selectedTheme = AppThemeOption.SYSTEM

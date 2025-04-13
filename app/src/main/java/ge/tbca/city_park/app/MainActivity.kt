@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.extension.isSystemInDarkTheme
 import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.features.theme_settings.screen.ThemeChangeScreenRoot
+import ge.tbca.city_park.presentation.features.theme_settings.screen.ThemeSettingsScreenRoot
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
                             .consumeWindowInsets(innerPadding)
                             .imePadding()
                     ) {
-                        ThemeChangeScreenRoot(
+                        ThemeSettingsScreenRoot(
                             navigateBack = {}
                         )
                     }
