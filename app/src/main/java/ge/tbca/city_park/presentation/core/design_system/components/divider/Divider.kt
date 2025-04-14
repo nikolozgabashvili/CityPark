@@ -22,10 +22,7 @@ fun Divider(
     textColor: Color = AppColors.primary,
     dividerColor: Color = AppColors.onPrimaryContainer,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
+    Row(modifier = modifier.fillMaxWidth()) {
         HorizontalDivider(
             modifier = Modifier
                 .weight(1f)
@@ -34,8 +31,7 @@ fun Divider(
         )
         text?.let {
             Text(
-                modifier = Modifier
-                    .padding(horizontal = Dimen.size24),
+                modifier = Modifier.padding(horizontal = Dimen.size24),
                 text = it,
                 style = TextStyles.labelMedium,
                 color = textColor
@@ -55,8 +51,6 @@ fun Divider(
 @AppPreview
 private fun DividerPreview() {
     AppTheme {
-        Divider(
-            text = "Or",
-        )
+        Divider(text = "Or")
     }
 }

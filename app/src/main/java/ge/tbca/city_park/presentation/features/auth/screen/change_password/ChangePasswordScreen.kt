@@ -66,7 +66,7 @@ private fun ChangePasswordScreen(
         TopNavigationBar(
             title = stringResource(R.string.change_password),
             startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
-            onStartIconClick = { onEvent(ChangePasswordEvent.BackButtonClicked) },
+            onStartIconClick = { onEvent(ChangePasswordEvent.NavigateBack) },
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))

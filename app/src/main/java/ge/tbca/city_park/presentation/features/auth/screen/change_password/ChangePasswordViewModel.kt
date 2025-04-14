@@ -18,7 +18,7 @@ class ChangePasswordViewModel @Inject constructor(
 
     override fun onEvent(event: ChangePasswordEvent) {
         when (event) {
-            is ChangePasswordEvent.BackButtonClicked -> navigateBack()
+            is ChangePasswordEvent.NavigateBack -> navigateBack()
             is ChangePasswordEvent.ChangePasswordButtonClicked -> changePassword()
             is ChangePasswordEvent.NewPasswordChanged -> updateNewPassword(event.newPassword)
             is ChangePasswordEvent.NewPasswordVisibilityChanged -> updateNewPasswordVisibility()
@@ -36,6 +36,7 @@ class ChangePasswordViewModel @Inject constructor(
     }
 
     private fun changePassword() {
+        val isOldPasswordValid = true // TODO check old password
         val isNewPasswordValid = state.passwordValidationState.isValid
         val passwordsMatch = state.newPassword == state.repeatNewPassword
 
