@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTypography
@@ -18,19 +19,21 @@ import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 
 @Composable
 fun TopNavigationBar(
+    modifier: Modifier = Modifier,
     title: String? = null,
     startIcon: ImageVector? = null,
     onStartIconClick: () -> Unit = {},
     endIcon: ImageVector? = null,
     onEndIconClick: () -> Unit = {},
 ) {
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(modifier = modifier.fillMaxWidth()) {
         title?.let { title ->
             Text(
                 modifier = Modifier.align(alignment = Alignment.Center),
                 text = title,
                 color = AppColors.primary,
-                style = AppTypography.titleMedium
+                style = AppTypography.titleMedium,
+                fontWeight = FontWeight.Bold
             )
         }
 

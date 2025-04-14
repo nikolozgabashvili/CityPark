@@ -28,4 +28,15 @@
     <string name="old_password">ძველი პაროლი</string>
     <string name="new_password">ახალი პაროლი</string>
     <string name="repeat_new_password">გაიმეორე ახალი პაროლი</string>
+    <string name="settings">პარამეტრები</string>
+    <string name="change_language">ენის შეცვლა</string>
+    <string name="save">შენახვა</string>
+    <string name="change_theme">თემის შეცვლა</string>
+    <string name="light">თეთრი</string>
+    <string name="dark">მუქი</string>
+    <string name="system">სისტემური</string>
+    <string name="georgian">ქართული</string>
+    <string name="english">English</string>
+    <string name="appLanguage">ენა</string>
+    <string name="lightning_mode">განათების რეჟიმი</string>
 </resources>
