@@ -5,8 +5,10 @@ coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxCoroutinesTest = "1.10.2"
 lottie = "6.6.0"
 coil = "2.7.0"
+mockk = "1.14.0"
 okhttp = "4.12.0"
 ksp = "2.1.20-1.0.31"
 lifecycleRuntimeKtx = "2.8.7"
@@ -42,6 +44,8 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended-android", version.ref = "materialIconsExtendedAndroid" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 preferences-datastore = {group = "androidx.datastore",name ="datastore-preferences",version.ref = "datastore"}
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 compose-lottie = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
