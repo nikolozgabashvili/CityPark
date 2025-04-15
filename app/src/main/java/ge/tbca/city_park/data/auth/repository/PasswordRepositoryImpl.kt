@@ -25,7 +25,7 @@ class PasswordRepositoryImpl @Inject constructor(
         newPassword: String
     ): Flow<Resource<Unit, NetworkError>> {
         return authHelper.safeCall {
-            firebaseAuth.currentUser?.updatePassword(newPassword)
+            firebaseAuth.currentUser?.updatePassword(newPassword)?.await()
         }
     }
 
