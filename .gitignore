@@ -54,7 +54,7 @@ _sandbox
 # Android Studio captures folder
 captures/
 
-google-services.json
+app/google-services.json
 
 # Kotlin
 .kotlin
