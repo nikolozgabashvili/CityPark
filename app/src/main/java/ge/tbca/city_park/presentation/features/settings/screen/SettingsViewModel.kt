@@ -25,8 +25,8 @@ class SettingsViewModel @Inject constructor(
     override fun onEvent(event: SettingsEvent) {
         when (event) {
             is SettingsEvent.BackButtonClicked -> navigateBack()
-            SettingsEvent.NavigateToLanguageSettings -> navigateToLanguageSettings()
-            SettingsEvent.NavigateToThemeSettings -> navigateToThemeSettings()
+            is SettingsEvent.NavigateToLanguageSettings -> navigateToLanguageSettings()
+            is SettingsEvent.NavigateToThemeSettings -> navigateToThemeSettings()
         }
     }
 
