@@ -1,6 +1,6 @@
 package ge.tbca.city_park.domain.core.usecase
 
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
+import ge.tbca.city_park.domain.core.model.PasswordValidationState
 import javax.inject.Inject
 
 class ValidatePasswordUseCase @Inject constructor(
@@ -8,7 +8,7 @@ class ValidatePasswordUseCase @Inject constructor(
 ) {
 
     operator fun invoke(password: String): PasswordValidationState {
-        val hasMinLength = password.length >= 8
+        val hasMinLength = password.length >= PASSWORD_MIN_LENGTH
         val hasUpperCase = password.any { it.isUpperCase() }
         val hasLowerCase = password.any { it.isLowerCase() }
         val hasDigit = password.any { it.isDigit() }

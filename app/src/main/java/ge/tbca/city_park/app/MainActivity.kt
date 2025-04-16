@@ -7,24 +7,18 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.extension.isSystemInDarkTheme
+import ge.tbca.city_park.app.ui.CityParkApplication
+import ge.tbca.city_park.app.ui.rememberAppState
 import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.features.theme_settings.screen.ThemeSettingsScreenRoot
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -64,23 +58,9 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-
-            AppTheme(darkTheme = showDarkTheme) {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                ) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .consumeWindowInsets(innerPadding)
-                            .imePadding()
-                    ) {
-                        ThemeSettingsScreenRoot(
-                            navigateBack = {}
-                        )
-                    }
-
-                }
+            val appState = rememberAppState()
+            AppTheme {
+                CityParkApplication(appState)
             }
         }
     }
