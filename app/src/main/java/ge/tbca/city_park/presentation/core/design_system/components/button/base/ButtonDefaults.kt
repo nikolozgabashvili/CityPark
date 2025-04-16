@@ -4,7 +4,6 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
-import ge.tbca.city_park.presentation.core.design_system.theme.transparent
 
 object ButtonDefaults {
 
@@ -20,9 +19,9 @@ object ButtonDefaults {
     val tertiaryColors:ButtonColors
         @Composable
         get() = ButtonDefaults.buttonColors(
-            containerColor = AppColors.transparent,
+            containerColor = AppColors.background,
             contentColor = AppColors.onSurface,
-            disabledContainerColor = AppColors.transparent,
+            disabledContainerColor = AppColors.background,
             disabledContentColor = AppColors.onSecondaryContainer
         )
 

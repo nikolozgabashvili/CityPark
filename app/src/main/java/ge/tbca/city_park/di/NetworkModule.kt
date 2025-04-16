@@ -1,7 +1,6 @@
 package ge.tbca.city_park.di
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,11 +22,5 @@ object NetworkModule {
     @Provides
     fun providesAuthHelper(): AuthHelper {
         return AuthHelper()
-    }
-
-    @Singleton
-    @Provides
-    fun providesFirebaseDatabase():FirebaseDatabase{
-        return FirebaseDatabase.getInstance()
     }
 }

@@ -41,11 +41,11 @@ import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
 fun LoginScreenRoot(
-    viewModel: LoginViewModel = hiltViewModel(),
     onShowSnackBar: (String) -> Unit,
     navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
-    navigateToRecovery: () -> Unit
+    navigateToRecovery: () -> Unit,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
 
     val scrollState = rememberScrollState()

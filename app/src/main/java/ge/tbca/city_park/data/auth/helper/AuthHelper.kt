@@ -12,8 +12,22 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlin.coroutines.cancellation.CancellationException
 
+/**
+ * A helper class for handling safe API calls with proper error handling.
+ */
 class AuthHelper {
+    /**
+     * Executes a suspendable function safely and emits its result as a Flow.
+     *
+     * @param T The type of the result returned by the suspendable function.
+     * @param call A suspendable function to be executed.
+     * @return A Flow emitting the result of the function call wrapped in a Resource object.
+     * Emits [Resource.Loading] while the operation is in progress.
+     * Emits [Resource.Success] with the result if the operation succeeds.
+     * Emits [Resource.Error] with a [NetworkError] if an exception occurs.
+     */
     fun <T> safeCall(
+        actionType: AuthActionType = AuthActionType.OTHER,
         call: suspend () -> T
     ): Flow<Resource<T, NetworkError>> {
         return flow {
@@ -29,7 +43,11 @@ class AuthHelper {
                     }
 
                     is FirebaseAuthInvalidCredentialsException -> {
-                        NetworkError.INVALID_CREDENTIALS
+                        when (actionType) {
+                            AuthActionType.REGISTER -> NetworkError.INVALID_EMAIL_FORMAT
+                            AuthActionType.CHANGE_PASSWORD -> NetworkError.WRONG_OLD_PASSWORD
+                            else -> NetworkError.INVALID_CREDENTIALS
+                        }
                     }
 
                     is FirebaseNetworkException -> {
@@ -42,7 +60,7 @@ class AuthHelper {
 
 
                     else -> {
-                        NetworkError.USER_COLLISION
+                        NetworkError.UNKNOWN
                     }
                 }
 

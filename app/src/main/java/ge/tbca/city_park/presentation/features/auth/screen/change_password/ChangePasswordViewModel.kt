@@ -3,8 +3,11 @@ package ge.tbca.city_park.presentation.features.auth.screen.change_password
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.city_park.domain.core.usecase.ValidatePasswordUseCase
+import ge.tbca.city_park.domain.core.util.Resource
+import ge.tbca.city_park.domain.core.util.isLoading
 import ge.tbca.city_park.domain.features.auth.usecase.ChangePasswordUseCase
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
+import ge.tbca.city_park.presentation.core.extension.toGenericString
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +21,7 @@ class ChangePasswordViewModel @Inject constructor(
 
     override fun onEvent(event: ChangePasswordEvent) {
         when (event) {
-            is ChangePasswordEvent.BackButtonClicked -> navigateBack()
+            is ChangePasswordEvent.NavigateBack -> navigateBack()
             is ChangePasswordEvent.ChangePasswordButtonClicked -> changePassword()
             is ChangePasswordEvent.NewPasswordChanged -> updateNewPassword(event.newPassword)
             is ChangePasswordEvent.NewPasswordVisibilityChanged -> updateNewPasswordVisibility()
@@ -42,8 +45,18 @@ class ChangePasswordViewModel @Inject constructor(
         if (isNewPasswordValid && passwordsMatch) {
 
             viewModelScope.launch {
-                changePasswordUseCase(state.oldPassword,state.newPassword).collect{
-                    println(it)
+                changePasswordUseCase(state.oldPassword,state.newPassword).collect{resource ->
+                    updateState { copy(isLoading = resource.isLoading() ) }
+                    when(resource){
+                        is Resource.Error -> {
+                            val error = resource.error.toGenericString()
+                            sendSideEffect(ChangePasswordEffect.Error(error))
+                        }
+                        is Resource.Success -> {
+                            sendSideEffect(ChangePasswordEffect.Success)
+                        }
+                        Resource.Loading -> Unit
+                    }
                 }
             }
 
@@ -76,8 +89,7 @@ class ChangePasswordViewModel @Inject constructor(
     private fun updateOldPassword(oldPassword: String) {
         updateState {
             copy(
-                oldPassword = oldPassword,
-                showOldPasswordError = false
+                oldPassword = oldPassword
             )
         }
     }

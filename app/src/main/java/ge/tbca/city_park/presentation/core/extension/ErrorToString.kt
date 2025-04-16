@@ -10,6 +10,8 @@ fun NetworkError.toGenericString(): GenericString {
         NetworkError.INVALID_CREDENTIALS -> R.string.invalid_credentials
         NetworkError.NETWORK_ERROR -> R.string.network_error
         NetworkError.USER_COLLISION -> R.string.user_already_exists
+        NetworkError.INVALID_EMAIL_FORMAT -> R.string.invalid_email_format
+        NetworkError.WRONG_OLD_PASSWORD -> R.string.old_password_is_incorrect
     }
     return GenericString.StringResource(stringRes)
 }
