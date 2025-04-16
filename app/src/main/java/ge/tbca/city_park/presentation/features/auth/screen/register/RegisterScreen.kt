@@ -38,10 +38,10 @@ import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
 fun RegisterScreenRoot(
-    viewModel: RegisterViewModel = hiltViewModel(),
     onShowSnackBar:  (String) -> Unit,
     navigateBack: () -> Unit,
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
 
     val scrollState = rememberScrollState()

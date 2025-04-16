@@ -14,6 +14,7 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,11 +31,32 @@ import ge.tbca.city_park.domain.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.util.CollectSideEffect
 
 @Composable
-fun ChangePasswordScreenRoot(viewModel: ChangePasswordViewModel = hiltViewModel()) {
+fun ChangePasswordScreenRoot(
+    onShowSnackBar: (String) -> Unit,
+    navigateBack: () -> Unit,
+    viewModel: ChangePasswordViewModel = hiltViewModel()
+) {
 
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
+
+        when (effect) {
+            ChangePasswordEffect.NavigateBack -> navigateBack()
+
+            is ChangePasswordEffect.Error -> {
+                val error = effect.error.getString(context)
+                onShowSnackBar(error)
+
+            }
+
+            ChangePasswordEffect.Success -> {
+                val successText =  context.getString(R.string.password_updated_successfully)
+                onShowSnackBar(successText)
+                navigateBack()
+            }
+        }
 
     }
 
@@ -51,8 +73,7 @@ private fun ChangePasswordScreen(
     scrollState: ScrollState,
     onEvent: (ChangePasswordEvent) -> Unit,
 ) {
-    val oldPasswordError =
-        if (state.showOldPasswordError) stringResource(R.string.old_password_is_incorrect) else null
+
     val newPasswordError =
         if (state.showNewPasswordError) stringResource(R.string.enter_valid_password) else null
     val repeatPasswordError =
@@ -75,7 +96,6 @@ private fun ChangePasswordScreen(
             modifier = Modifier.fillMaxWidth(),
             enabled = !state.isLoading,
             value = state.oldPassword,
-            errorText = oldPasswordError,
             label = stringResource(R.string.old_password),
             startIcon = Icons.Rounded.Lock,
             imeAction = ImeAction.Next,

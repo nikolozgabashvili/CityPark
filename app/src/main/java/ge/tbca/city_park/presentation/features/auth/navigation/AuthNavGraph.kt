@@ -2,6 +2,7 @@ package ge.tbca.city_park.presentation.features.auth.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import ge.tbca.city_park.presentation.features.auth.screen.change_password.ChangePasswordScreenRoot
 import ge.tbca.city_park.presentation.features.auth.screen.login.LoginScreenRoot
 import ge.tbca.city_park.presentation.features.auth.screen.recover_password.RecoverPasswordScreenRoot
 import ge.tbca.city_park.presentation.features.auth.screen.register.RegisterScreenRoot
@@ -44,9 +45,8 @@ fun NavGraphBuilder.authNavGraph(
 
 
     composable<ChangePasswordScreenRoute> {
-        RegisterScreenRoot(
+        ChangePasswordScreenRoot(
             onShowSnackBar = onShowSnackBar,
-            navigateToHome = navigateToHome,
             navigateBack = navigateBack
         )
 

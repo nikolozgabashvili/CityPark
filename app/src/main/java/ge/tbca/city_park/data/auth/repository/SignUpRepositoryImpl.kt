@@ -1,6 +1,7 @@
 package ge.tbca.city_park.data.auth.repository
 
 import com.google.firebase.auth.FirebaseAuth
+import ge.tbca.city_park.data.auth.helper.AuthActionType
 import ge.tbca.city_park.data.auth.helper.AuthHelper
 import ge.tbca.city_park.domain.core.util.NetworkError
 import ge.tbca.city_park.domain.core.util.Resource
@@ -18,7 +19,7 @@ class SignUpRepositoryImpl @Inject constructor(
         email: String,
         password: String
     ): Flow<Resource<Unit, NetworkError>> {
-        return authHelper.safeCall {
+        return authHelper.safeCall(AuthActionType.REGISTER) {
             firebaseAuth.createUserWithEmailAndPassword(email, password).await()
         }
     }

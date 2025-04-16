@@ -6,7 +6,6 @@ data class ChangePasswordState(
     val oldPassword: String = "",
     val newPassword: String = "",
     val repeatNewPassword: String = "",
-    val showOldPasswordError: Boolean = false,
     val showNewPasswordError: Boolean = false,
     val showRepeatPasswordError: Boolean = false,
     val isOldPasswordVisible: Boolean = false,
