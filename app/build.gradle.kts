@@ -62,6 +62,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.material.icons.extended)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // mockk
+    testImplementation(libs.mockk)
 
     // navigation
     implementation(libs.androidx.navigation.compose)
