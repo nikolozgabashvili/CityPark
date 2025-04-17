@@ -1,5 +1,6 @@
 package ge.tbca.city_park.app
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,7 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.extension.isSystemInDarkTheme
 import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.features.theme_settings.screen.ThemeSettingsScreenRoot
+import ge.tbca.city_park.presentation.core.util.LocaleHelper
+import ge.tbca.city_park.presentation.features.language_settings.screen.LanguageSettingsScreenRoot
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -34,15 +36,35 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    override fun attachBaseContext(newBase: Context) {
+        val language = CityParkApp.getLanguage(newBase)
+        super.attachBaseContext(LocaleHelper.updateResources(newBase, language))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         var showDarkTheme by mutableStateOf(false)
+        var currentLanguage = CityParkApp.getLanguage(this)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                combine(isSystemInDarkTheme(), viewModel.savedTheme) { systemDark, selectedTheme ->
+                viewModel.observeLanguage().collect { language ->
+                    if (language != currentLanguage) {
+                        currentLanguage = language
+                        recreate()
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                combine(
+                    isSystemInDarkTheme(),
+                    viewModel.savedTheme
+                ) { systemDark, selectedTheme ->
                     (systemDark && selectedTheme == AppThemeOption.SYSTEM) || selectedTheme == AppThemeOption.DARK
                 }.onEach {
                     showDarkTheme = it
@@ -75,9 +97,7 @@ class MainActivity : ComponentActivity() {
                             .consumeWindowInsets(innerPadding)
                             .imePadding()
                     ) {
-                        ThemeSettingsScreenRoot(
-                            navigateBack = {}
-                        )
+                        LanguageSettingsScreenRoot(navigateBack = {})
                     }
 
                 }

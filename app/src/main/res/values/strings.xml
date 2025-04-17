@@ -10,7 +10,7 @@
     <string name="email">ელ.ფოსტა</string>
     <string name="repeat_password">გაიმეორე პაროლი</string>
     <string name="create_an_account">ანგარიშის შექმნა</string>
-    <string name="password_criterias">პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან და უნდა აკმაყოფილებდეს ქვემოთ ჩამოთვლილ ყველა კომპონენტს:</string>
+    <string name="password_criteria">პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან და უნდა აკმაყოფილებდეს ქვემოთ ჩამოთვლილ ყველა კომპონენტს:</string>
     <string name="enter_valid_email">გთხოვთ შეიყვანეთ ვალიდური მეილი</string>
     <string name="enter_valid_password">გთხოვთ შეიყვანეთ ვალიდური პაროლი</string>
     <string name="empty_field_error">ველი არ უნდა იყოს ცარიელი</string>
@@ -38,5 +38,5 @@
     <string name="georgian">ქართული</string>
     <string name="english">English</string>
     <string name="appLanguage">ენა</string>
-    <string name="lightning_mode">განათების რეჟიმი</string>
+    <string name="display_mode">განათების რეჟიმი</string>
 </resources>
