@@ -33,7 +33,7 @@ fun PasswordRequirement(
             Text(
                 style = AppTypography.labelSmall,
                 color = AppColors.secondary,
-                text = stringResource(R.string.password_criterias)
+                text = stringResource(R.string.password_criteria)
             )
 
             Spacer(modifier = Modifier.height(Dimen.size8))

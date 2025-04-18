@@ -2,21 +2,33 @@ package ge.tbca.city_park.presentation.features.language_settings.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ge.tbca.city_park.domain.core.usecase.GetCurrentLanguageUseCase
+import ge.tbca.city_park.domain.core.usecase.SaveLanguageUseCase
 import ge.tbca.city_park.domain.model.AppLanguage
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LanguageSettingsViewModel @Inject constructor() :
-    BaseViewModel<LanguageSettingsState, LanguageSettingsEffect, LanguageSettingsEvent>(
-        LanguageSettingsState()
-    ) {
+class LanguageSettingsViewModel @Inject constructor(
+    private val getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
+    private val saveLanguageUseCase: SaveLanguageUseCase
+) : BaseViewModel<LanguageSettingsState, LanguageSettingsEffect, LanguageSettingsEvent>(
+    LanguageSettingsState()
+) {
+
+    init {
+        viewModelScope.launch {
+            getCurrentLanguageUseCase().collect { language ->
+                updateState { copy(selectedAppLanguage = language) }
+            }
+        }
+    }
 
     override fun onEvent(event: LanguageSettingsEvent) {
         when (event) {
             is LanguageSettingsEvent.LanguageSelected -> updateSelectedLanguage(event.appLanguage)
-            LanguageSettingsEvent.NavigateBack -> navigateBack()
+            is LanguageSettingsEvent.NavigateBack -> navigateBack()
         }
     }
 
@@ -27,13 +39,8 @@ class LanguageSettingsViewModel @Inject constructor() :
     }
 
     private fun updateSelectedLanguage(appLanguage: AppLanguage) {
-        updateState {
-            copy(selectedAppLanguage = appLanguage)
+        viewModelScope.launch {
+            saveLanguageUseCase(appLanguage)
         }
-        saveLanguage()
-    }
-
-    private fun saveLanguage() {
-
     }
 }
