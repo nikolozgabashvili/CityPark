@@ -1,15 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":core:designsystem")
 
 
-include(":core:domain")
 
 
-include(":core:data")
-
-
-include(":core:ui")
 
 
 pluginManagement {
@@ -36,3 +30,11 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "cityPark"
 include(":app")
+include(":feature:auth:domain")
+include(":feature:auth:data")
+include(":feature")
+include(":core:designsystem")
+include(":core:domain")
+include(":core:data")
+include(":core:ui")
+include(":feature:auth:presentation")
