@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.extension.isSystemInDarkTheme
 import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.core.util.LocaleHelper
+import ge.tbca.city_park.presentation.core.util.languageManager
 import ge.tbca.city_park.presentation.features.language_settings.screen.LanguageSettingsScreenRoot
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
@@ -35,30 +35,47 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
-
-    override fun attachBaseContext(newBase: Context) {
-        val language = CityParkApp.getLanguage(newBase)
-        super.attachBaseContext(LocaleHelper.updateResources(newBase, language))
-    }
+    private var showDarkTheme by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        observeTheme()
+        observeLanguage()
 
-        var showDarkTheme by mutableStateOf(false)
-        var currentLanguage = CityParkApp.getLanguage(this)
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.observeLanguage().collect { language ->
-                    if (language != currentLanguage) {
-                        currentLanguage = language
-                        recreate()
+        setContent {
+            AppTheme(darkTheme = showDarkTheme) {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                ) { innerPadding ->
+                    Column(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .consumeWindowInsets(innerPadding)
+                            .imePadding()
+                    ) {
+                        LanguageSettingsScreenRoot(navigateBack = {})
                     }
+
                 }
             }
         }
+    }
 
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(newBase.languageManager.updateResources(newBase))
+    }
+
+    private fun observeLanguage() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.languageFlow.collect { _ ->
+                    recreate()
+                }
+            }
+        }
+    }
+
+    private fun observeTheme() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 combine(
@@ -79,26 +96,6 @@ class MainActivity : ComponentActivity() {
                             darkScrim = darkScrim,
                         ) { isDark },
                     )
-
-                }
-            }
-        }
-
-
-        setContent {
-
-            AppTheme(darkTheme = showDarkTheme) {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                ) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .consumeWindowInsets(innerPadding)
-                            .imePadding()
-                    ) {
-                        LanguageSettingsScreenRoot(navigateBack = {})
-                    }
 
                 }
             }

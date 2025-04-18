@@ -6,7 +6,6 @@ import ge.tbca.city_park.domain.core.usecase.GetCurrentLanguageUseCase
 import ge.tbca.city_park.domain.core.usecase.SaveLanguageUseCase
 import ge.tbca.city_park.domain.model.AppLanguage
 import ge.tbca.city_park.presentation.core.base.BaseViewModel
-import ge.tbca.city_park.presentation.core.util.LocaleHelper
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,16 +19,8 @@ class LanguageSettingsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getCurrentLanguageUseCase().collect { languageCode ->
-                when (languageCode) {
-                    LocaleHelper.LANGUAGE_GEORGIAN -> {
-                        updateState { copy(selectedAppLanguage = AppLanguage.GEORGIAN) }
-                    }
-
-                    LocaleHelper.LANGUAGE_ENGLISH -> {
-                        updateState { copy(selectedAppLanguage = AppLanguage.ENGLISH) }
-                    }
-                }
+            getCurrentLanguageUseCase().collect { language ->
+                updateState { copy(selectedAppLanguage = language) }
             }
         }
     }
@@ -48,17 +39,8 @@ class LanguageSettingsViewModel @Inject constructor(
     }
 
     private fun updateSelectedLanguage(appLanguage: AppLanguage) {
-        when (appLanguage) {
-            AppLanguage.GEORGIAN -> {
-                viewModelScope.launch {
-                    saveLanguageUseCase(LocaleHelper.LANGUAGE_GEORGIAN)
-                }
-            }
-            AppLanguage.ENGLISH -> {
-                viewModelScope.launch {
-                    saveLanguageUseCase(LocaleHelper.LANGUAGE_ENGLISH)
-                }
-            }
+        viewModelScope.launch {
+            saveLanguageUseCase(appLanguage)
         }
     }
 }
