@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">City Park</string>
+    <string name="log_into_the_system">Log into the system</string>
+    <string name="or">or</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="login">Login</string>
+    <string name="dont_have_an_account">Don’t have an account? Register</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="password_criteria">Password must be at least 8 characters long and meet all the following criteria:</string>
+    <string name="enter_valid_email">Please enter a valid email</string>
+    <string name="enter_valid_password">Please enter a valid password</string>
+    <string name="empty_field_error">Field must not be empty</string>
+    <string name="min_8_symbols">At least 8 characters</string>
+    <string name="uppercase_latin_letters">Uppercase letters (A to Z)</string>
+    <string name="lowercase_latin_letters">Lowercase letters (a to z)</string>
+    <string name="numbers_0_to_9">Numbers (0 to 9)</string>
+    <string name="special_symbols">Symbols (e.g. !,@,#)</string>
+    <string name="repeat_password_error">Passwords do not match</string>
+    <string name="password_recovery">Password recovery</string>
+    <string name="enter_password_recovery_email">Enter the email address where the password recovery link will be sent</string>
+    <string name="submit">Submit</string>
+    <string name="old_password_is_incorrect">Old password is incorrect</string>
+    <string name="change_password">Change password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="repeat_new_password">Repeat new password</string>
+    <string name="settings">Settings</string>
+    <string name="change_language">Change language</string>
+    <string name="save">Save</string>
+    <string name="change_theme">Change theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="system">System</string>
+    <string name="georgian">ქართული</string>
+    <string name="english">English</string>
+    <string name="appLanguage">Language</string>
+    <string name="display_mode">Display mode</string>
+</resources>

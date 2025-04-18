@@ -8,12 +8,10 @@ import ge.tbca.city_park.data.auth.repository.AuthRepositoryImpl
 import ge.tbca.city_park.data.auth.repository.PasswordRepositoryImpl
 import ge.tbca.city_park.data.auth.repository.SignUpRepositoryImpl
 import ge.tbca.city_park.data.repository.DataStoreManagerImpl
-import ge.tbca.city_park.data.repository.ThemePreferenceRepositoryImpl
 import ge.tbca.city_park.domain.features.auth.repository.AuthRepository
 import ge.tbca.city_park.domain.features.auth.repository.PasswordRepository
 import ge.tbca.city_park.domain.features.auth.repository.SignUpRepository
 import ge.tbca.city_park.domain.repository.DataStoreManager
-import ge.tbca.city_park.domain.repository.ThemePreferenceRepository
 import javax.inject.Singleton
 
 @Module
@@ -35,8 +33,4 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindsPasswordRepository(impl: PasswordRepositoryImpl): PasswordRepository
-
-    @Singleton
-    @Binds
-    abstract fun bindThemePreferenceRepository(imp: ThemePreferenceRepositoryImpl): ThemePreferenceRepository
 }

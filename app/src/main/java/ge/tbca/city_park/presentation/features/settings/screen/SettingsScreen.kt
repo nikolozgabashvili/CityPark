@@ -77,7 +77,7 @@ private fun SettingsScreen(
             Spacer(modifier = Modifier.height(Dimen.size8))
 
             SettingItem(
-                title = stringResource(R.string.lightning_mode),
+                title = stringResource(R.string.display_mode),
                 description = state.currentThemeMode.displayName(),
                 hasUnderline = false,
                 icon = Icons.Rounded.Highlight,

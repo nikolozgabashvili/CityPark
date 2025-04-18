@@ -1,5 +1,6 @@
 package ge.tbca.city_park.app
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,6 +20,7 @@ import ge.tbca.city_park.app.ui.CityParkApplication
 import ge.tbca.city_park.app.ui.rememberAppState
 import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
+import ge.tbca.city_park.presentation.core.util.languageManager
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -27,16 +29,42 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private var showDarkTheme by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        observeTheme()
+        observeLanguage()
 
-        var showDarkTheme by mutableStateOf(false)
+        setContent {
+            val appState = rememberAppState()
+            AppTheme {
+                CityParkApplication(appState)
+            }
+        }
+    }
 
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(newBase.languageManager.updateResources(newBase))
+    }
+
+    private fun observeLanguage() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                combine(isSystemInDarkTheme(), viewModel.savedTheme) { systemDark, selectedTheme ->
+                viewModel.languageFlow.collect { _ ->
+                    recreate()
+                }
+            }
+        }
+    }
+
+    private fun observeTheme() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                combine(
+                    isSystemInDarkTheme(),
+                    viewModel.savedTheme
+                ) { systemDark, selectedTheme ->
                     (systemDark && selectedTheme == AppThemeOption.SYSTEM) || selectedTheme == AppThemeOption.DARK
                 }.onEach {
                     showDarkTheme = it
@@ -53,14 +81,6 @@ class MainActivity : ComponentActivity() {
                     )
 
                 }
-            }
-        }
-
-
-        setContent {
-            val appState = rememberAppState()
-            AppTheme {
-                CityParkApplication(appState)
             }
         }
     }
