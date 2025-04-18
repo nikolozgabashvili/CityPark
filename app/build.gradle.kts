@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.cityPark.application.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.cityPark.dagger.hilt)
     alias(libs.plugins.google.gms.google.services)
 }
 
@@ -56,8 +55,4 @@ dependencies {
 
     // retrofit serialization
     implementation(libs.retrofit.serialization)
-
-    // hilt
-    implementation(libs.dagger.hilt.android)
-    ksp(libs.dagger.hilt.compiler)
 }
