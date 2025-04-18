@@ -21,7 +21,6 @@ import ge.tbca.city_park.app.ui.rememberAppState
 import ge.tbca.city_park.domain.model.AppThemeOption
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
 import ge.tbca.city_park.presentation.core.util.languageManager
-import ge.tbca.city_park.presentation.features.language_settings.screen.LanguageSettingsScreenRoot
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -82,12 +81,8 @@ class MainActivity : ComponentActivity() {
                     )
 
                 }
-                }
             }
         }
-
-
-
     }
 }
 
