@@ -12,11 +12,9 @@ import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -46,12 +44,7 @@ fun PasswordTextField(
         if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
     val endIcon = if (isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility
 
-    val colors = TextFieldDefaults.colors(
-        unfocusedContainerColor = Color.Transparent,
-        errorContainerColor = Color.Transparent,
-        focusedContainerColor = Color.Transparent,
-        errorTrailingIconColor = AppColors.onSurfaceVariant
-    )
+    val colors = TextInputFieldDefaults.colors
 
     OutlinedTextField(
         modifier = modifier,

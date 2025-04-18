@@ -38,5 +38,13 @@
     <string name="georgian">ქართული</string>
     <string name="english">English</string>
     <string name="appLanguage">ენა</string>
+    <string name="lightning_mode">განათების რეჟიმი</string>
+    <string name="unknown_error">დაფიქსირდა შეცდომა</string>
+    <string name="invalid_credentials">მომხმარებელი არ მოიძებნა</string>
+    <string name="network_error">ინტერნეტის კავშირის პრობლემა</string>
+    <string name="user_already_exists">მომხმარებელი უკვე არსებობს</string>
+    <string name="password_recovery_email_sent">პაროლის აღდგენის ლინკი გამოიგზავნა მითითებულ ელ. ფოსტაზე</string>
+    <string name="invalid_email_format">ელ. ფოსტის ფორმატი არ არის ვალიდური</string>
+    <string name="password_updated_successfully">პაროლი წარმატებით განახლდა</string>
     <string name="display_mode">განათების რეჟიმი</string>
 </resources>

@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ge.tbca.city_park.R
-import ge.tbca.city_park.presentation.core.model.PasswordValidationState
+import ge.tbca.city_park.domain.core.model.PasswordValidationState
 import ge.tbca.city_park.presentation.core.design_system.util.AppPreview
 import ge.tbca.city_park.presentation.core.design_system.theme.AppColors
 import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
