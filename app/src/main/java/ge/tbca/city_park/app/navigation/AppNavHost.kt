@@ -5,10 +5,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import ge.tbca.city_park.app.ui.AppState
-import ge.tbca.city_park.presentation.features.auth.navigation.LoginScreenRoute
-import ge.tbca.city_park.presentation.features.auth.navigation.RecoverPasswordScreenRoute
-import ge.tbca.city_park.presentation.features.auth.navigation.RegisterScreenRoute
-import ge.tbca.city_park.presentation.features.auth.navigation.authNavGraph
+import ge.tbca.city_park.auth.presentation.navigation.LoginScreenRoute
+import ge.tbca.city_park.auth.presentation.navigation.RecoverPasswordScreenRoute
+import ge.tbca.city_park.auth.presentation.navigation.RegisterScreenRoute
+import ge.tbca.city_park.auth.presentation.navigation.authNavGraph
 
 @Composable
 fun AppNavHost(
@@ -55,8 +55,6 @@ fun AppNavHost(
                 navController.navigateUp()
             }
         )
-
-
     }
 
 }

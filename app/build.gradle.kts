@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.cityPark.application.compose)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.cityPark.dagger.hilt)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -17,8 +17,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.ui.text.google.fonts)
-    implementation(libs.firebase.auth)
+
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
@@ -55,4 +54,15 @@ dependencies {
 
     // retrofit serialization
     implementation(libs.retrofit.serialization)
+}
+
+dependencies {
+    implementation(projects.feature.settings.data)
+    implementation(projects.feature.settings.domain)
+    implementation(projects.feature.auth.data)
+    implementation(projects.feature.auth.domain)
+    implementation(projects.feature.auth.presentation)
+    implementation(projects.core.designsystem)
+    implementation(projects.datastore.data)
+
 }

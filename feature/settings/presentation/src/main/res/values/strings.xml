@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="change_language">ენის შეცვლა</string>
+    <string name="light">თეთრი</string>
+    <string name="dark">მუქი</string>
+    <string name="system">სისტემური</string>
+    <string name="georgian" translatable="false">ქართული</string>
+    <string name="english" translatable="false">English</string>
+    <string name="settings">პარამეტრები</string>
+    <string name="language">ენა</string>
+    <string name="display_mode">განათების რეჟიმი</string>
+    <string name="change_theme">თემის შეცვლა</string>
+</resources>

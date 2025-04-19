@@ -8,5 +8,6 @@ android {
 
 dependencies{
     implementation(libs.compose.lottie)
+    implementation(libs.androidx.ui.text.google.fonts)
 
 }

@@ -9,4 +9,5 @@ android{
 
 dependencies{
     implementation(libs.preferences.datastore)
+    implementation(projects.core.domain)
 }
