@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_correct_card_number">შეიყვანეთ სწორი ბარათის ნომერი</string>
+    <string name="enter_valid_expire_date">შეიყვანეთ სწორი ვადა</string>
+    <string name="enter_valid_cvv">შეიყვანეთ სწორი CVV</string>
+    <string name="enter_valid_name">შეიყვანეთ სწორი სახელი და გვარი</string>
+    <string name="add_card">ბარათის დამატება</string>
+    <string name="card_number">ბარათის ნომერი</string>
+    <string name="expire_date">ვადა (თთ/წწ)</string>
+    <string name="cvv">CVV</string>
+    <string name="cardholder_name">მფლობელის სახელი</string>
+    <string name="save_button">ბარათის შენახვა</string>
+</resources>

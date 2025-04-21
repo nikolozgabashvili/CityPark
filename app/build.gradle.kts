@@ -59,10 +59,15 @@ dependencies {
 dependencies {
     implementation(projects.feature.settings.data)
     implementation(projects.feature.settings.domain)
+
     implementation(projects.feature.auth.data)
     implementation(projects.feature.auth.domain)
     implementation(projects.feature.auth.presentation)
+
     implementation(projects.core.designsystem)
+
     implementation(projects.datastore.data)
 
+    implementation(projects.feature.payment.domain)
+    implementation(projects.feature.payment.presentation)
 }
