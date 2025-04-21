@@ -1,0 +1,15 @@
+package com.example.core.designsystem.theme
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
+import ge.tbca.city_park.core.designsystem.R
+
+val CheckMarkIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_check)
+
+val ErrorIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_error)
+
+val GoogleIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_google)

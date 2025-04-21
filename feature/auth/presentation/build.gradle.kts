@@ -13,3 +13,8 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
 }
+
+dependencies {
+    implementation(projects.feature.auth.domain)
+    implementation(projects.core.domain)
+}

@@ -14,13 +14,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.core.designsystem.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import ge.tbca.city_park.app.extension.isSystemInDarkTheme
 import ge.tbca.city_park.app.ui.CityParkApplication
+import ge.tbca.city_park.app.ui.isSystemInDarkTheme
 import ge.tbca.city_park.app.ui.rememberAppState
-import ge.tbca.city_park.domain.model.AppThemeOption
-import ge.tbca.city_park.presentation.core.design_system.theme.AppTheme
-import ge.tbca.city_park.presentation.core.util.languageManager
+import ge.tbca.city_park.app.util.languageManager
+import ge.tbca.city_park.settings.domain.model.AppThemeOption
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
