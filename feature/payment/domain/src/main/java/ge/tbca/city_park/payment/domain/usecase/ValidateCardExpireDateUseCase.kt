@@ -8,7 +8,7 @@ import javax.inject.Inject
 class ValidateCardExpireDateUseCase @Inject constructor() {
 
     operator fun invoke(expireDate: String): Boolean {
-        val regex = Regex("^(0[1-9]|1[0-2])/\\d{2}$")
+        val regex = Regex(VALIDATION_REGEX_EXPIRE_DATE)
         if (!regex.matches(expireDate)) return false
 
         val (mm, yy) = expireDate.split("/").map { it.toInt() }
@@ -22,5 +22,9 @@ class ValidateCardExpireDateUseCase @Inject constructor() {
             yy == currentYear && mm >= currentMonth -> true
             else -> false
         }
+    }
+
+    companion object {
+        private const val VALIDATION_REGEX_EXPIRE_DATE = "^(0[1-9]|1[0-2])/\\d{2}$"
     }
 }

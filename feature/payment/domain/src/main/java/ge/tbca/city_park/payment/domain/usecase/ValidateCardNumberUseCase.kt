@@ -4,7 +4,10 @@ import javax.inject.Inject
 
 class ValidateCardNumberUseCase @Inject constructor() {
 
-    operator fun invoke(cardNumber: String) : Boolean {
+    operator fun invoke(cardNumber: String): Boolean {
+        cardNumber.forEach {
+            if (!it.isDigit()) return false
+        }
         return cardNumber.length == 16
     }
 }
