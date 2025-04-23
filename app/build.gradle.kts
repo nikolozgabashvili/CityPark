@@ -70,4 +70,8 @@ dependencies {
 
     implementation(projects.feature.payment.domain)
     implementation(projects.feature.payment.presentation)
+
+    implementation(projects.feature.cars.presentation)
+    implementation(projects.feature.cars.domain)
+    implementation(projects.feature.cars.data)
 }

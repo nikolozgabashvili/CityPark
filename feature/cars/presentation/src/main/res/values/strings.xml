@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_car_name">შეიყვანეთ ავტომობილის სახელი</string>
+    <string name="add_car">ავტომობილის დამატება</string>
+    <string name="car_name">ავტომობილის სახელი</string>
+    <string name="enter_valid_plate_number">შეიყვანეთ სწორი სანომრე ნიშანი</string>
+    <string name="enter_valid_personal_number">შეიყვანეთ სწორი პირადი ნომერი</string>
+    <string name="car_plate_number">ავტომობილის სანომრე ნიშანი</string>
+    <string name="owner_personal_number">მფლობელის პირადი ნომერი</string>
+    <string name="save_car">ავტომობილის შენახვა</string>
+    <string name="empty" />
+</resources>

@@ -42,8 +42,8 @@ fun AddCardScreenRoot(
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
-            is AddCardEffect.Error -> {
-                val error = effect.error.getString(context)
+            is AddCardEffect.ShowSnackbar -> {
+                val error = effect.message.getString(context)
                 onShowSnackBar(error)
             }
 
@@ -156,6 +156,7 @@ private fun AddCardScreen(
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             enabled = !state.isLoading,
+            loading = state.isLoading,
             buttonSize = ButtonSize.LARGE,
             text = stringResource(R.string.save_button),
             onClick = { onEvent(AddCardEvent.SaveCardButtonClicked) }

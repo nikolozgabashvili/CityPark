@@ -5,6 +5,7 @@ import javax.inject.Inject
 class ValidateCardNumberUseCase @Inject constructor() {
 
     operator fun invoke(cardNumber: String): Boolean {
-        return cardNumber.length == 16 && cardNumber.all { it.isDigit() }
+        val trimmed = cardNumber.trim()
+        return trimmed.length == 16 && trimmed.all { it.isDigit() }
     }
 }

@@ -41,5 +41,9 @@ include(":feature:settings:presentation")
 include(":feature:settings:domain")
 include(":feature:settings:data")
 
-include(":feature:payment:domain")
 include(":feature:payment:presentation")
+include(":feature:payment:domain")
+
+include(":feature:cars:presentation")
+include(":feature:cars:domain")
+include(":feature:cars:data")
