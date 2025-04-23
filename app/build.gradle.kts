@@ -68,8 +68,9 @@ dependencies {
 
     implementation(projects.datastore.data)
 
-    implementation(projects.feature.payment.domain)
     implementation(projects.feature.payment.presentation)
+    implementation(projects.feature.payment.domain)
+    implementation(projects.feature.payment.data)
 
     implementation(projects.feature.cars.presentation)
     implementation(projects.feature.cars.domain)

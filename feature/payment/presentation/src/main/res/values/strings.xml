@@ -10,4 +10,5 @@
     <string name="cvv">CVV</string>
     <string name="cardholder_name">მფლობელის სახელი</string>
     <string name="save_button">ბარათის შენახვა</string>
+    <string name="empty" />
 </resources>

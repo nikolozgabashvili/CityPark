@@ -1,9 +1,7 @@
 package ge.tbca.city_park.payment.domain.model
 
-import java.util.UUID
-
 data class CreditCard(
-    val id: UUID,
+    val id: String,
     val cardNumber: String,
     val expireDate: String,
     val cvv: String,

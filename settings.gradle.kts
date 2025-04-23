@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":feature:payment:data")
+
+
 pluginManagement {
     includeBuild("build-logic")
     repositories {
