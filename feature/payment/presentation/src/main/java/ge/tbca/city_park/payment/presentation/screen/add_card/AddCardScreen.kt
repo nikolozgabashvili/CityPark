@@ -29,6 +29,7 @@ import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.citi_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.payment.presentation.R
+import ge.tbca.city_park.payment.presentation.transformation.ChunkedTextVisualTransformation
 
 @Composable
 fun AddCardScreenRoot(
@@ -92,6 +93,10 @@ private fun AddCardScreen(
             enabled = !state.isLoading,
             errorText = cardNumberError,
             label = stringResource(R.string.card_number),
+            visualTransformation = ChunkedTextVisualTransformation(
+                chunkSize = 4,
+                separator = " "
+            ),
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Number,
             onTextChanged = { onEvent(AddCardEvent.CardNumberChanged(it)) }
@@ -110,6 +115,10 @@ private fun AddCardScreen(
                 value = state.expireDate,
                 enabled = !state.isLoading,
                 errorText = expireDateError,
+                visualTransformation = ChunkedTextVisualTransformation(
+                    chunkSize = 2,
+                    separator = "/"
+                ),
                 label = stringResource(R.string.expire_date),
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Number,

@@ -5,9 +5,6 @@ import javax.inject.Inject
 class ValidateCardNumberUseCase @Inject constructor() {
 
     operator fun invoke(cardNumber: String): Boolean {
-        cardNumber.forEach {
-            if (!it.isDigit()) return false
-        }
-        return cardNumber.length == 16
+        return cardNumber.length == 16 && cardNumber.all { it.isDigit() }
     }
 }

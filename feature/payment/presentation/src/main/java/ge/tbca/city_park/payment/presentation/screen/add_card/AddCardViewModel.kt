@@ -71,8 +71,7 @@ class AddCardViewModel @Inject constructor(
     }
 
     private fun updateExpireDate(date: String) {
-        // TODO adding '/' between digits logic
-        val filtered = date.filter { it.isDigit() || it == '/' }.take(5)
-        updateState { copy(expireDate = filtered, showExpireDateError = false) }
+        val filteredDate = date.filter { it.isDigit() }.take(4)
+        updateState { copy(expireDate = filteredDate, showExpireDateError = false) }
     }
 }

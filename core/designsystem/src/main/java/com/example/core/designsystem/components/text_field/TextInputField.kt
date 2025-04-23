@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
@@ -32,6 +33,7 @@ fun TextInputField(
     endIcon: ImageVector? = null,
     errorText: String? = null,
     startIcon: ImageVector? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     imeAction: ImeAction = ImeAction.None,
     keyboardType: KeyboardType = KeyboardType.Unspecified
 ) {
@@ -61,6 +63,7 @@ fun TextInputField(
                 )
             }
         },
+        visualTransformation = visualTransformation,
         singleLine = true,
         isError = errorText != null,
         shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
