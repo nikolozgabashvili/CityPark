@@ -1,4 +1,6 @@
 import com.android.build.gradle.LibraryExtension
+import ge.tbca.convention.ExtensionType
+import ge.tbca.convention.configureBuildTypes
 import ge.tbca.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -15,16 +17,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                buildTypes {
-                    release {
-                        isMinifyEnabled = true
-                        proguardFiles(
-                            getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules.pro"
-                        )
-                    }
-                }
-
+                configureBuildTypes(this,ExtensionType.LIBRARY)
             }
 
         }

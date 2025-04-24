@@ -1,6 +1,7 @@
 plugins{
     alias(libs.plugins.cityPark.android.library)
     alias(libs.plugins.cityPark.dagger.hilt)
+    alias(libs.plugins.cityPark.retrofit)
 }
 
 android{
@@ -8,6 +9,5 @@ android{
 }
 
 dependencies{
-    implementation(libs.preferences.datastore)
     implementation(projects.core.domain)
 }

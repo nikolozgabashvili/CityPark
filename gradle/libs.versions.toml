@@ -106,3 +106,4 @@ cityPark-android-library-compose = { id = "ge.tbca.android.library.compose", ver
 cityPark-dagger-hilt = { id = "ge.tbca.dagger.hilt", version = "unspecified" }
 cityPark-android-feature = { id = "ge.tbca.android.feature", version = "unspecified" }
 cityPark-jvm-library = { id = "ge.tbca.jvm.library", version = "unspecified" }
+cityPark-retrofit = { id = "ge.tbca.retrofit", version = "unspecified" }

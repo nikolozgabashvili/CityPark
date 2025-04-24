@@ -36,24 +36,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    // coil
-    implementation(libs.coil.compose)
-
-    // preferences datastore
-    implementation(libs.preferences.datastore)
-
     // serialization
     implementation(libs.serialization.json)
-
-    // lottie
-    implementation(libs.compose.lottie)
-
-    // okhttp
-    implementation(libs.logging.interceptor)
-    implementation(libs.okhttp)
-
-    // retrofit serialization
-    implementation(libs.retrofit.serialization)
 }
 
 dependencies {

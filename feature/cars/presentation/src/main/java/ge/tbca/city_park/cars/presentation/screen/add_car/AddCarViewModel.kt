@@ -4,16 +4,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.city_park.cars.domain.model.CarDomain
 import ge.tbca.city_park.cars.domain.usecase.AddCarUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidateCarNameUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidatePersonalNumberUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidatePlateNumberUseCase
 import ge.tbca.city_park.cars.presentation.extension.toGenericString
-import ge.tbca.city_park.cars.presentation.mapper.toDomain
-import ge.tbca.city_park.cars.presentation.model.CarUi
 import ge.tbca.city_park.core.domain.util.Resource
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -67,12 +65,12 @@ class AddCarViewModel @Inject constructor(
         val isChecked = state.isChecked
 
         if (isOwnerPersonalNumberValid && isPlateNumberValid && (isChecked && isCarNameValid || !isChecked)) {
-            val car = CarUi(
-                id = UUID.randomUUID().toString(),
+            val car = CarDomain(
+                id = -1,
                 carName = if (isChecked) state.carName else null,
                 ownerPersonalNumber = state.ownerPersonalNumber,
                 plateNumber = state.plateNumber
-            ).toDomain()
+            )
 
             viewModelScope.launch {
                 addCarUseCase(car).collect { resource ->
