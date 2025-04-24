@@ -1,14 +1,14 @@
 package ge.tbca.city_park.auth.data.helper
 
-import ge.tbca.city_park.core.domain.util.Resource
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import ge.tbca.city_park.auth.domain.error.AuthError
+import ge.tbca.city_park.core.domain.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -29,10 +29,28 @@ class AuthHelper {
         actionType: AuthActionType = AuthActionType.OTHER, call: suspend () -> T
     ): Flow<Resource<T, AuthError>> {
         return flow {
+            emit(Resource.Loading)
+            safeCallNoLoading(actionType = actionType, call = call)
+
+        }
+    }
+
+    /**
+     * Executes a suspendable function safely and emits its result as a Flow.
+     *
+     * @param T The type of the result returned by the suspendable function.
+     * @param call A suspendable function to be executed.
+     * @return A Flow emitting the result of the function call wrapped in a Resource object.
+     * Emits [Resource.Success] with the result if the operation succeeds.
+     * Emits [Resource.Error] with a [AuthError] if an exception occurs.
+     */
+    suspend fun <T> safeCallNoLoading(
+        actionType: AuthActionType = AuthActionType.OTHER, call: suspend () -> T
+    ): Resource<T, AuthError> {
+        return withContext(Dispatchers.IO) {
             try {
-                emit(Resource.Loading)
                 val result = call()
-                emit(Resource.Success(result))
+                Resource.Success(result)
             } catch (e: Exception) {
                 e.printStackTrace()
                 val error = when (e) {
@@ -62,10 +80,9 @@ class AuthHelper {
                     }
                 }
 
-                emit(Resource.Error(error))
+                Resource.Error(error)
             }
 
-        }.flowOn(Dispatchers.IO)
-
+        }
     }
 }
