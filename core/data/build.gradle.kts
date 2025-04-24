@@ -9,5 +9,9 @@ android{
 }
 
 dependencies{
+    implementation(libs.firebase.auth)
+}
+
+dependencies{
     implementation(projects.core.domain)
 }

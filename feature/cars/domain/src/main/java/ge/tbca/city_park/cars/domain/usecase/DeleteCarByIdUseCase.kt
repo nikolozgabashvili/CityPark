@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class DeleteCarByIdUseCase @Inject constructor(private val carsRepository: CarsRepository) {
 
-    operator fun invoke(id: String): Flow<Resource<Unit, CarError>> {
+    operator fun invoke(id: Int): Flow<Resource<Boolean, CarError>> {
         return carsRepository.deleteCarById(id)
     }
 }

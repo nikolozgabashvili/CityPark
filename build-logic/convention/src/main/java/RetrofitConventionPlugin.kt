@@ -11,6 +11,7 @@ class RetrofitConventionPlugin : Plugin<Project> {
 
             dependencies {
                 add("implementation",libs.findLibrary("retrofit.serialization").get())
+                add("implementation",libs.findLibrary("serialization.json").get())
                 add("implementation",libs.findLibrary("okhttp").get())
                 add("implementation",libs.findLibrary("logging.interceptor").get())
             }

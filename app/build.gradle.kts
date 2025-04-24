@@ -38,6 +38,11 @@ dependencies {
 
     // serialization
     implementation(libs.serialization.json)
+
+    //worker
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.work.compiler)
 }
 
 dependencies {
@@ -49,6 +54,7 @@ dependencies {
     implementation(projects.feature.auth.presentation)
 
     implementation(projects.core.designsystem)
+    implementation(projects.core.data)
 
     implementation(projects.datastore.data)
 

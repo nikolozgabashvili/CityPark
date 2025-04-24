@@ -1,11 +1,12 @@
 package ge.tbca.city_park.auth.data.di
 
-import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ge.tbca.city_park.auth.data.helper.AuthHelper
+import ge.tbca.city_park.auth.data.service.UserService
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 
@@ -15,13 +16,15 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
+    fun providesAuthHelper(): AuthHelper {
+        return AuthHelper()
     }
 
     @Singleton
     @Provides
-    fun providesAuthHelper(): AuthHelper {
-        return AuthHelper()
+    fun providesUserService(
+        retrofit: Retrofit
+    ): UserService {
+        return retrofit.create(UserService::class.java)
     }
 }
