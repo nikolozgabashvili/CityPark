@@ -5,7 +5,7 @@ import androidx.navigation.compose.composable
 import ge.tbca.city_park.cars.presentation.screen.add_car.AddCarScreenRoot
 import kotlinx.serialization.Serializable
 
-fun NavGraphBuilder.addCarNavGraph(
+fun NavGraphBuilder.carNavGraph(
     navigateBack: () -> Unit,
     onShowSnackBar: (String) -> Unit,
 ) {

@@ -33,23 +33,9 @@ class SignUpUserWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
 
 
-    override suspend fun getForegroundInfo(): ForegroundInfo {
-        val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-            .setContentTitle(appContext.getString(R.string.sync_user_data))
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setOngoing(true)
-            .build()
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ForegroundInfo(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
-        } else {
-            ForegroundInfo(1, notification)
-        }
-    }
-
     override suspend fun doWork(): Result {
 
-        setForeground(getForegroundInfo())
+        setForeground(createNotification())
         val email = inputData.getString(EMAIL) ?: return Result.failure()
         val password = inputData.getString(PASSWORD) ?: return Result.failure()
         val response = authHelper.safeCallNoLoading(actionType = AuthActionType.REGISTER) {
@@ -73,6 +59,21 @@ class SignUpUserWorker @AssistedInject constructor(
         } else {
             if (response is Resource.Error) Result.failure(workDataOf(ERROR_MESSAGE to response.error.name))
             else Result.failure(workDataOf(ERROR_MESSAGE to AuthError.UNKNOWN))
+        }
+    }
+
+    private fun createNotification(): ForegroundInfo {
+
+        val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+            .setContentTitle(appContext.getString(R.string.sync_user_data))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setOngoing(true)
+            .build()
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+            ForegroundInfo(1, notification)
         }
     }
 

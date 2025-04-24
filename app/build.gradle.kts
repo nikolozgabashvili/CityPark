@@ -43,18 +43,24 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.work.compiler)
+    implementation(libs.splash.screen)
 }
 
 dependencies {
+
     implementation(projects.feature.settings.data)
     implementation(projects.feature.settings.domain)
+    implementation(projects.feature.settings.presentation)
+
 
     implementation(projects.feature.auth.data)
     implementation(projects.feature.auth.domain)
     implementation(projects.feature.auth.presentation)
 
     implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
     implementation(projects.core.data)
+    implementation(projects.core.domain)
 
     implementation(projects.datastore.data)
 
@@ -65,4 +71,6 @@ dependencies {
     implementation(projects.feature.cars.presentation)
     implementation(projects.feature.cars.domain)
     implementation(projects.feature.cars.data)
+
+    implementation(projects.feature.home.presentation)
 }

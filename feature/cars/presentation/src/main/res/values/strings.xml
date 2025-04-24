@@ -8,5 +8,6 @@
     <string name="car_plate_number">ავტომობილის სანომრე ნიშანი</string>
     <string name="owner_personal_number">მფლობელის პირადი ნომერი</string>
     <string name="save_car">ავტომობილის შენახვა</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
+    <string name="add_car_name">დაამატე ავტომობილის სახელი</string>
 </resources>

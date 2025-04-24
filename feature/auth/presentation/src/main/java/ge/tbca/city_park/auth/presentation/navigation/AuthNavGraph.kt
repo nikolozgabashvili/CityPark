@@ -11,7 +11,6 @@ import kotlinx.serialization.Serializable
 
 fun NavGraphBuilder.authNavGraph(
     onShowSnackBar:  (String) -> Unit,
-    navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
     navigateToRecovery: () -> Unit,
     navigateBack: () -> Unit
@@ -19,7 +18,6 @@ fun NavGraphBuilder.authNavGraph(
     composable<LoginScreenRoute> {
         LoginScreenRoot(
             onShowSnackBar = onShowSnackBar,
-            navigateToHome = navigateToHome,
             navigateToRegister = navigateToRegister,
             navigateToRecovery = navigateToRecovery
         )
@@ -29,7 +27,6 @@ fun NavGraphBuilder.authNavGraph(
     composable<RegisterScreenRoute> {
         RegisterScreenRoot(
             onShowSnackBar = onShowSnackBar,
-            navigateToHome = navigateToHome,
             navigateBack = navigateBack
         )
 

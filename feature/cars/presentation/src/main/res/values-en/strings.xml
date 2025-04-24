@@ -8,5 +8,5 @@
     <string name="car_plate_number">Car plate number</string>
     <string name="owner_personal_number">Owner\'s personal number</string>
     <string name="save_car">Save car</string>
-    <string name="empty" />
+    <string name="add_car_name">Add car name</string>
 </resources>

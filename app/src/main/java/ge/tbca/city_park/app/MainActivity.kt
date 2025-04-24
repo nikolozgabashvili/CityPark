@@ -8,39 +8,63 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.core.designsystem.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.ui.CityParkApplication
-import ge.tbca.city_park.app.ui.isSystemInDarkTheme
 import ge.tbca.city_park.app.ui.rememberAppState
 import ge.tbca.city_park.app.util.languageManager
+import ge.tbca.city_park.auth.presentation.navigation.LoginScreenRoute
+import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.settings.domain.model.AppThemeOption
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
-    private var showDarkTheme by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        observeTheme()
         observeLanguage()
 
+        splashScreen.setKeepOnScreenCondition { viewModel.state.isLoading }
+
         setContent {
-            val appState = rememberAppState()
-            AppTheme {
-                CityParkApplication(appState)
+
+            val themeMode = viewModel.state.themeOption
+
+            val showDarkTheme =
+                ((themeMode == AppThemeOption.SYSTEM) && isSystemInDarkTheme()) || (themeMode == AppThemeOption.DARK)
+
+            enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(
+                    lightScrim = Color.TRANSPARENT,
+                    darkScrim = Color.TRANSPARENT,
+                ) { showDarkTheme },
+                navigationBarStyle = SystemBarStyle.auto(
+                    lightScrim = lightScrim,
+                    darkScrim = darkScrim,
+                ) { showDarkTheme },
+            )
+
+
+            viewModel.state.isAuthorized?.let {isAuthorized->
+                val startDestination = if (isAuthorized) HomeScreenRoute::class else LoginScreenRoute::class
+                val appState = rememberAppState()
+                AppTheme(darkTheme = showDarkTheme) {
+                    CityParkApplication(
+                        appState = appState,
+                        startDestination = startDestination
+                    )
+                }
             }
+
         }
     }
 
@@ -51,34 +75,12 @@ class MainActivity : ComponentActivity() {
     private fun observeLanguage() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.languageFlow.collect { _ ->
-                    recreate()
-                }
-            }
-        }
-    }
-
-    private fun observeTheme() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                combine(
-                    isSystemInDarkTheme(),
-                    viewModel.savedTheme
-                ) { systemDark, selectedTheme ->
-                    (systemDark && selectedTheme == AppThemeOption.SYSTEM) || selectedTheme == AppThemeOption.DARK
-                }.onEach {
-                    showDarkTheme = it
-                }.collect { isDark ->
-                    enableEdgeToEdge(
-                        statusBarStyle = SystemBarStyle.auto(
-                            lightScrim = Color.TRANSPARENT,
-                            darkScrim = Color.TRANSPARENT,
-                        ) { isDark },
-                        navigationBarStyle = SystemBarStyle.auto(
-                            lightScrim = lightScrim,
-                            darkScrim = darkScrim,
-                        ) { isDark },
-                    )
+                viewModel.effect.collect { effect ->
+                    when (effect) {
+                        is MainActivityEffect.LanguageChanged -> {
+                            recreate()
+                        }
+                    }
 
                 }
             }

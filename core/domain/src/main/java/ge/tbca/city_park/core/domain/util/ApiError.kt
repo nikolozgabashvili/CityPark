@@ -20,6 +20,4 @@ enum class ApiError:ResourceError {
     CARD_EXPIRED,
     INSUFFICIENT_BALANCE
 
-    
-
 }

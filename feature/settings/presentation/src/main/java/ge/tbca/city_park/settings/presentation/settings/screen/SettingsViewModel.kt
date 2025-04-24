@@ -5,18 +5,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.city_park.settings.domain.usecase.GetSavedLanguageUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedThemeUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val getSavedThemeUseCase: GetSavedThemeUseCase,
-    private val getSavedLanguageUseCase: GetSavedLanguageUseCase
+    private val getSavedLanguageUseCase: GetSavedLanguageUseCase,
 ) : BaseViewModel<SettingsState, SettingsEffect, SettingsEvent>(SettingsState()) {
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             getSavedThemeUseCase().collect { theme ->
                 updateState { copy(currentThemeMode = theme) }
             }
@@ -31,7 +30,6 @@ class SettingsViewModel @Inject constructor(
 
     override fun onEvent(event: SettingsEvent) {
         when (event) {
-            is SettingsEvent.BackButtonClicked -> navigateBack()
             is SettingsEvent.NavigateToLanguageSettings -> navigateToLanguageSettings()
             is SettingsEvent.NavigateToThemeSettings -> navigateToThemeSettings()
         }
@@ -46,12 +44,6 @@ class SettingsViewModel @Inject constructor(
     private fun navigateToThemeSettings() {
         viewModelScope.launch {
             sendSideEffect(SettingsEffect.NavigateToThemeSettings)
-        }
-    }
-
-    private fun navigateBack() {
-        viewModelScope.launch {
-            sendSideEffect(SettingsEffect.NavigateBack)
         }
     }
 }

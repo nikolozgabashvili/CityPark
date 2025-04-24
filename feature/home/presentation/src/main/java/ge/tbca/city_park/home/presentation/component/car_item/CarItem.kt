@@ -29,7 +29,6 @@ fun CarItem(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(Dimen.size8)
             .clip(RoundedCornerShape(Dimen.roundedCornerMediumSize))
             .background(AppColors.surface)
             .clickable { onClick(car) }

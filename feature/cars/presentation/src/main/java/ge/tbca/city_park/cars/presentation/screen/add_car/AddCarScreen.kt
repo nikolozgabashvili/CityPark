@@ -110,7 +110,7 @@ private fun AddCarScreen(
 
         PrimaryCheckbox(
             modifier = Modifier.fillMaxWidth(),
-            text = "სახელის დამატება",
+            text = stringResource(R.string.add_car_name),
             isChecked = state.isChecked,
             isLoading = state.isLoading,
             onClick = { onEvent(AddCarEvent.CheckBoxChanged) }

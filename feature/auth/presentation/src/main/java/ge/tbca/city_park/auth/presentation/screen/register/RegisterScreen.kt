@@ -40,7 +40,6 @@ import ge.tbca.city_park.auth.presentation.R
 fun RegisterScreenRoot(
     onShowSnackBar:  (String) -> Unit,
     navigateBack: () -> Unit,
-    navigateToHome: () -> Unit,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
 
@@ -51,7 +50,6 @@ fun RegisterScreenRoot(
 
         when (effect) {
             is RegisterEffect.NavigateBack -> navigateBack()
-            is RegisterEffect.NavigateToHome -> navigateToHome()
             is RegisterEffect.Error -> onShowSnackBar(effect.error.getString(context))
         }
 

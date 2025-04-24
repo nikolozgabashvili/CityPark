@@ -30,7 +30,7 @@ class AuthHelper {
     ): Flow<Resource<T, AuthError>> {
         return flow {
             emit(Resource.Loading)
-            safeCallNoLoading(actionType = actionType, call = call)
+            emit(safeCallNoLoading(actionType = actionType, call = call))
 
         }
     }

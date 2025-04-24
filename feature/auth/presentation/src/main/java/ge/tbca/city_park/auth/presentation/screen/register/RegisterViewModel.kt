@@ -19,7 +19,7 @@ class RegisterViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase
 ) : BaseViewModel<RegisterState, RegisterEffect, RegisterEvent>(
     RegisterState()
-    ) {
+) {
 
     override fun onEvent(event: RegisterEvent) {
         when (event) {
@@ -75,7 +75,7 @@ class RegisterViewModel @Inject constructor(
                 ).collect { resource ->
                     updateState { copy(isLoading = resource.isLoading()) }
                     when (resource) {
-                        is Resource.Success -> sendSideEffect(RegisterEffect.NavigateToHome)
+                        is Resource.Success -> Unit
                         is Resource.Error -> {
                             val error = resource.error.toGenericString()
                             sendSideEffect(RegisterEffect.Error(error))

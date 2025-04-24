@@ -32,7 +32,7 @@ class LoginRepositoryImpl @Inject constructor(
 
     override fun getAuthState(): Flow<Boolean> = callbackFlow {
         val authStateListener = FirebaseAuth.AuthStateListener { auth ->
-            (auth.currentUser == null)
+            trySend(auth.currentUser != null)
         }
         firebaseAuth.addAuthStateListener(authStateListener)
         awaitClose {

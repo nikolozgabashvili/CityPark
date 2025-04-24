@@ -4,13 +4,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.citi_park.core.ui.util.GenericString
-import ge.tbca.city_park.cars.domain.model.CarDomain
+import ge.tbca.city_park.cars.domain.model.AddCarRequestDomain
 import ge.tbca.city_park.cars.domain.usecase.AddCarUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidateCarNameUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidatePersonalNumberUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidatePlateNumberUseCase
-import ge.tbca.city_park.cars.presentation.extension.toGenericString
 import ge.tbca.city_park.core.domain.util.Resource
+import ge.tbca.city_park.core.domain.util.isLoading
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -65,18 +65,17 @@ class AddCarViewModel @Inject constructor(
         val isChecked = state.isChecked
 
         if (isOwnerPersonalNumberValid && isPlateNumberValid && (isChecked && isCarNameValid || !isChecked)) {
-            val car = CarDomain(
-                id = -1,
-                carName = if (isChecked) state.carName else null,
-                ownerPersonalNumber = state.ownerPersonalNumber,
-                plateNumber = state.plateNumber
+            val car = AddCarRequestDomain(
+                name = state.carName,
+                carNumber =state.plateNumber,
+                ownerPersonalId = state.ownerPersonalNumber
             )
 
             viewModelScope.launch {
                 addCarUseCase(car).collect { resource ->
+                    updateState { copy(isLoading = resource.isLoading()) }
                     when (resource) {
                         is Resource.Success -> {
-                            updateState { copy(isLoading = false) }
                             sendSideEffect(
                                 AddCarEffect.ShowSnackbar(
                                     GenericString.DynamicString("Car added successfully")
@@ -86,11 +85,15 @@ class AddCarViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            updateState { copy(isLoading = false) }
-                            sendSideEffect(AddCarEffect.ShowSnackbar(resource.error.toGenericString()))
+
+                            sendSideEffect(
+                                AddCarEffect.ShowSnackbar(
+                                    GenericString.DynamicString("error")
+                                )
+                            )
                         }
 
-                        is Resource.Loading -> updateState { copy(isLoading = true) }
+                        is Resource.Loading -> Unit
                     }
                 }
             }

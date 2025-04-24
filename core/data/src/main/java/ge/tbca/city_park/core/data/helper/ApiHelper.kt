@@ -34,6 +34,7 @@ class ApiHelper {
                         response.body()?.errorCode?.let {
                             Resource.Error(ApiError.valueOf(it))
                         } ?: run {
+
                             Resource.Error(ApiError.UNKNOWN_ERROR)
                         }
 
@@ -44,6 +45,7 @@ class ApiHelper {
                 if (e is CancellationException) {
                     throw e
                 } else {
+                    e.printStackTrace()
                     Resource.Error(ApiError.UNKNOWN_ERROR)
                 }
 

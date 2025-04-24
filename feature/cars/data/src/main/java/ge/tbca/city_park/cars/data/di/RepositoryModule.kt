@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ge.tbca.city_park.cars.data.repository.FakeCarsRepositoryImpl
+import ge.tbca.city_park.cars.data.repository.CarsRepositoryImpl
 import ge.tbca.city_park.cars.domain.repository.CarsRepository
 import javax.inject.Singleton
 
@@ -15,6 +15,6 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindCarsRepository(
-        fakeCarsRepositoryImpl: FakeCarsRepositoryImpl
+        carsRepositoryImpl: CarsRepositoryImpl
     ): CarsRepository
 }
