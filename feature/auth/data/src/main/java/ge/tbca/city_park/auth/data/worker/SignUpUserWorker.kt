@@ -20,7 +20,6 @@ import ge.tbca.city_park.auth.data.service.UserService
 import ge.tbca.city_park.auth.domain.error.AuthError
 import ge.tbca.city_park.core.data.helper.ApiHelper
 import ge.tbca.city_park.core.domain.util.Resource
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 
 @HiltWorker
@@ -51,7 +50,6 @@ class SignUpUserWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
 
         setForeground(getForegroundInfo())
-        delay(5000)
         val email = inputData.getString(EMAIL) ?: return Result.failure()
         val password = inputData.getString(PASSWORD) ?: return Result.failure()
         val response = authHelper.safeCallNoLoading(actionType = AuthActionType.REGISTER) {
