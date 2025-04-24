@@ -15,4 +15,6 @@ dependencies {
 
 dependencies {
     implementation(projects.core.domain)
+    implementation(projects.feature.cars.domain)
+    implementation(projects.feature.cars.presentation)
 }
