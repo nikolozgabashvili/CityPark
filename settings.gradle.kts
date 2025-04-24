@@ -2,7 +2,6 @@
 
 include(":feature:payment:data")
 
-
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -17,6 +16,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -24,8 +24,10 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "cityPark"
+
 include(":app")
 
 include(":feature:auth:presentation")
@@ -50,3 +52,5 @@ include(":feature:payment:domain")
 include(":feature:cars:presentation")
 include(":feature:cars:domain")
 include(":feature:cars:data")
+
+include(":feature:home:presentation")
