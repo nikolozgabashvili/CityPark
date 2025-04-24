@@ -14,7 +14,6 @@ fun NavGraphBuilder.settingsNavGraph(
 ) {
     composable<SettingsScreenRoute> {
         SettingsScreenRoot(
-            navigateBack = navigateBack,
             navigateToTheme = navigateToThemeSettings,
             navigateToLanguage = navigateToLanguageSettings
         )
