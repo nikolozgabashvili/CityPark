@@ -37,15 +37,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesRetrofit(
-        httpClient: OkHttpClient,
-        json: Json
+        httpClient: OkHttpClient, json: Json
     ): Retrofit {
-        return Retrofit
-            .Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(httpClient)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
+        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(httpClient)
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType())).build()
     }
 
     @Provides
@@ -58,8 +53,7 @@ object NetworkModule {
         }
         return OkHttpClient.Builder().apply {
             addInterceptor(networkInterceptor)
-            if (BuildConfig.DEBUG)
-                addInterceptor(loggingInterceptor)
+            if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
         }.build()
     }
 

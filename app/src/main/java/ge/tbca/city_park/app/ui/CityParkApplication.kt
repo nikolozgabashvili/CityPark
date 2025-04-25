@@ -33,13 +33,15 @@ import kotlin.reflect.KClass
 fun CityParkApplication(
     appState: AppState,
     startDestination: KClass<*>,
+    onSuccessfulAuth: () -> Unit,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     CityParkApplication(
         appState = appState,
         startDestination = startDestination,
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
+        onSuccessfulAuth = onSuccessfulAuth
     )
 
 }
@@ -48,7 +50,8 @@ fun CityParkApplication(
 fun CityParkApplication(
     appState: AppState,
     startDestination: KClass<*>,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    onSuccessfulAuth: () -> Unit ,
 ) {
 
     val currentDestination = appState.currentDestination
@@ -110,6 +113,7 @@ fun CityParkApplication(
             AppNavHost(
                 appState = appState,
                 startDestination = startDestination,
+                onSuccessfulAuth = onSuccessfulAuth ,
                 onShowSnackBar = { message ->
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(message)

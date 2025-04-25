@@ -1,7 +1,11 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package ge.tbca.city_park.home.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,16 +13,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.DirectionsCar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
+import com.example.core.designsystem.components.divider.Divider
+import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
+import com.example.core.designsystem.components.image.IconWithBackground
+import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
@@ -32,7 +44,8 @@ import ge.tbca.city_park.home.presentation.component.car_item.CarItem
 
 @Composable
 fun HomeScreenRoot(
-    navigateToAddCar:() -> Unit,
+    navigateToAddCar: () -> Unit,
+    onShowSnackBar: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
@@ -41,6 +54,11 @@ fun HomeScreenRoot(
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
             HomeEffect.NavigateToAddCar -> navigateToAddCar()
+            is HomeEffect.Error -> {
+                val message = effect.error.getString(context)
+                onShowSnackBar(message)
+
+            }
         }
     }
 
@@ -50,66 +68,95 @@ fun HomeScreenRoot(
     )
 }
 
+
 @Composable
 private fun HomeScreen(
     state: HomeState,
     onEvent: (HomeEvent) -> Unit
 ) {
-    Column (
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(Dimen.appPadding)
+
+
+    PullToRefreshWrapper(
+        isRefreshing = state.carsLoading,
+        onRefresh = { onEvent(HomeEvent.Refresh) },
     ) {
-        TopNavigationBar(
-            title = stringResource(R.string.home)
-        )
 
-        when {
-            state.isLoading -> {
-                CircularProgressIndicator()
-            }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Column(
+                modifier = Modifier.padding(horizontal = Dimen.appPadding),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(Dimen.size16)
+            ) {
+                TopNavigationBar(
+                    title = stringResource(R.string.home)
+                )
 
-            state.cars.isEmpty() -> {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(R.string.no_cars),
-                        style = TextStyles.bodyLarge,
-                        color = AppColors.primary
-                    )
-
-                    Spacer(modifier = Modifier.height(Dimen.size16))
-
-                    PrimaryButton(
-                        onClick = { onEvent(HomeEvent.AddCarButtonClicked) },
-                        text = stringResource(R.string.add_car),
-                        buttonSize = ButtonSize.LARGE
-                    )
-                }
-            }
-
-            else -> {
 
                 PrimaryButton(
-                    modifier = Modifier.fillMaxWidth().padding(top = Dimen.size16),
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = { onEvent(HomeEvent.AddCarButtonClicked) },
                     text = stringResource(R.string.add_car),
                     buttonSize = ButtonSize.LARGE,
                 )
 
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = Dimen.size16),
-                    verticalArrangement = Arrangement.spacedBy(Dimen.size8)
-                ) {
+                Divider(text = stringResource(R.string.your_cars))
 
+            }
 
-                    items(items=state.cars, key = { it.id }) { car ->
+            Spacer(modifier = Modifier.height(Dimen.size6))
+
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = Dimen.appPadding)
+            ) {
+
+                if (state.noCars) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = Dimen.size20)
+                                .background(
+                                    AppColors.surface, shape = RoundedCornerShape(
+                                        Dimen.roundedCornerMediumSize
+                                    )
+                                )
+                                .padding(vertical = Dimen.size8),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(Dimen.size12)
+                        ) {
+                            IconWithBackground(
+                                icon = Icons.Rounded.DirectionsCar
+                            )
+
+                            Text(
+                                style = TextStyles.bodyMedium,
+                                fontWeight = FontWeight.Medium,
+                                color = AppColors.onBackground,
+                                text = stringResource(R.string.no_cars)
+                            )
+
+                        }
+                    }
+
+                } else if (state.error != null) {
+                    item {
+                        val error = state.error.getString()
+                        ErrorWrapper(
+                            error = error,
+                            onRetry = { onEvent(HomeEvent.Refresh) },
+                        )
+                    }
+
+                } else if (state.cars.isNotEmpty()) {
+
+                    items(state.cars) { car ->
                         CarItem(
                             car = car,
+                            modifier = Modifier.padding(vertical = Dimen.size6),
                             onClick = { onEvent(HomeEvent.CarClicked(car.id)) }
                         )
                     }
@@ -117,6 +164,7 @@ private fun HomeScreen(
             }
         }
     }
+
 }
 
 @AppPreview
@@ -152,7 +200,7 @@ private fun HomeScreenPreview() {
 private fun HomeScreenPreviewNoCars() {
     AppTheme {
         HomeScreen(
-            state = HomeState(),
+            state = HomeState(noCars = true),
             onEvent = {}
         )
     }

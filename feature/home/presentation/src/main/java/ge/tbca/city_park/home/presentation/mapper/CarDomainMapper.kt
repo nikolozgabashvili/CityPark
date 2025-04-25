@@ -6,7 +6,7 @@ import ge.tbca.city_park.cars.presentation.model.CarUi
 private fun CarDomain.toPresenter(): CarUi {
     return CarUi(
         id = id,
-        carName = carName,
+        carName = if (carName.isNullOrEmpty()) null else carName,
         plateNumber = plateNumber
     )
 }

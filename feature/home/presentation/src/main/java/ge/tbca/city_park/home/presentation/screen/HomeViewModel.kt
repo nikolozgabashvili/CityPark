@@ -4,6 +4,7 @@ package ge.tbca.city_park.home.presentation.screen
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.citi_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.usecase.DeleteCarByIdUseCase
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
 import ge.tbca.city_park.core.domain.util.Resource
@@ -17,7 +18,7 @@ class HomeViewModel @Inject constructor(
     private val getAllCarsUseCase: GetAllCarsUseCase,
     private val deleteCarByIdUseCase: DeleteCarByIdUseCase,
 
-) : BaseViewModel<HomeState, HomeEffect, HomeEvent>(HomeState()) {
+    ) : BaseViewModel<HomeState, HomeEffect, HomeEvent>(HomeState()) {
 
     override fun onEvent(event: HomeEvent) {
         when (event) {
@@ -25,16 +26,20 @@ class HomeViewModel @Inject constructor(
                 navigateToAddCar()
 
             }
+
             is HomeEvent.CarClicked -> {
                 viewModelScope.launch {
-                    deleteCarByIdUseCase(event.carId).collect{
-                        println(it)
+                    deleteCarByIdUseCase(event.carId).collect {
                         if (it is Resource.Success) {
                             fetchCars()
                         }
                     }
                 }
 
+            }
+
+            HomeEvent.Refresh -> {
+                fetchCars()
             }
         }
     }
@@ -52,15 +57,25 @@ class HomeViewModel @Inject constructor(
     private fun fetchCars() {
         viewModelScope.launch {
             getAllCarsUseCase().collect { resource ->
-                updateState { copy(isLoading = resource.isLoading()) }
+                updateState { copy(carsLoading = resource.isLoading(), error = null) }
 
                 when (resource) {
                     is Resource.Error -> {
 
+                        val error = resource.error.toGenericString()
+                        if (state.cars.isEmpty()) {
+                            updateState { copy(error = error) }
+
+                        }
+
+                        sendSideEffect(HomeEffect.Error(error))
+
                     }
 
                     is Resource.Success -> {
-                        updateState { copy(cars = resource.data.toPresenter()) }
+                        val carsList = resource.data.toPresenter()
+
+                        updateState { copy(cars = carsList, noCars = carsList.isEmpty()) }
                     }
 
                     is Resource.Loading -> Unit

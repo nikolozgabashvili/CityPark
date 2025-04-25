@@ -1,4 +1,4 @@
-package ge.tbca.city_park.app
+package ge.tbca.city_park.app.activity
 
 import android.content.Context
 import android.graphics.Color
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.ui.CityParkApplication
 import ge.tbca.city_park.app.ui.rememberAppState
 import ge.tbca.city_park.app.util.languageManager
-import ge.tbca.city_park.auth.presentation.navigation.LoginScreenRoute
+import ge.tbca.city_park.auth.presentation.navigation.AuthNavGraphRoute
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.settings.domain.model.AppThemeOption
 import kotlinx.coroutines.launch
@@ -55,12 +55,15 @@ class MainActivity : ComponentActivity() {
 
 
             viewModel.state.isAuthorized?.let {isAuthorized->
-                val startDestination = if (isAuthorized) HomeScreenRoute::class else LoginScreenRoute::class
+                val startDestination = if (isAuthorized) HomeScreenRoute::class else AuthNavGraphRoute::class
                 val appState = rememberAppState()
                 AppTheme(darkTheme = showDarkTheme) {
                     CityParkApplication(
                         appState = appState,
-                        startDestination = startDestination
+                        startDestination = startDestination,
+                        onSuccessfulAuth = {
+                            viewModel.onEvent(MainActivityEvent.OnSuccessfulAuth)
+                        }
                     )
                 }
             }

@@ -20,9 +20,11 @@ import kotlin.reflect.KClass
 fun AppNavHost(
     appState: AppState,
     startDestination: KClass<*>,
-    onShowSnackBar: (String) -> Unit
+    onShowSnackBar: (String) -> Unit,
+    onSuccessfulAuth: () -> Unit,
 ) {
     val navController = appState.navController
+
 
     NavHost(
         navController = navController,
@@ -59,13 +61,15 @@ fun AppNavHost(
             },
             navigateBack = {
                 navController.navigateUp()
-            }
+            },
+            onSuccessfulAuth = onSuccessfulAuth
         )
 
         homeNavGraph(
             navigateToAddCar = {
                 navController.navigate(AddCarScreenRoute)
-            }
+            },
+            onShowSnackBar = onShowSnackBar,
         )
 
         settingsNavGraph(

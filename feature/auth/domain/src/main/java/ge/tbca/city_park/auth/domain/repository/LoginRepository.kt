@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface LoginRepository {
     fun logIn(email: String, password: String): Flow<Resource<Unit, AuthError>>
     fun signOut(): Flow<Resource<Unit, AuthError>>
-    fun getAuthState(): Flow<Boolean>
+
 }

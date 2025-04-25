@@ -1,4 +1,4 @@
-package ge.tbca.city_park.app
+package ge.tbca.city_park.app.activity
 
 import ge.tbca.city_park.settings.domain.model.AppThemeOption
 

@@ -39,13 +39,22 @@ fun AddCarScreenRoot(
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
+    val successMessage = stringResource(R.string.car_added_successfully)
+
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when(effect) {
+
             is AddCarEffect.ShowSnackbar -> {
-                val error = effect.message.getString(context)
-                onShowSnackBar(error)
+                val message = effect.message.getString(context)
+                onShowSnackBar(message)
             }
+
             is AddCarEffect.NavigateBack -> navigateBack()
+
+            AddCarEffect.Success -> {
+                onShowSnackBar(successMessage)
+                navigateBack()
+            }
         }
     }
 

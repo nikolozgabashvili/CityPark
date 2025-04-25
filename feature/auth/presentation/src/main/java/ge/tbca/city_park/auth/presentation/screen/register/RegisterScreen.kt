@@ -38,8 +38,9 @@ import ge.tbca.city_park.auth.presentation.R
 
 @Composable
 fun RegisterScreenRoot(
-    onShowSnackBar:  (String) -> Unit,
+    onShowSnackBar: (String) -> Unit,
     navigateBack: () -> Unit,
+    onSuccessfulAuth: () -> Unit,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
 
@@ -51,6 +52,7 @@ fun RegisterScreenRoot(
         when (effect) {
             is RegisterEffect.NavigateBack -> navigateBack()
             is RegisterEffect.Error -> onShowSnackBar(effect.error.getString(context))
+            RegisterEffect.Success -> onSuccessfulAuth()
         }
 
     }

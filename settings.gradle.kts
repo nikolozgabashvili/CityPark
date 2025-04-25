@@ -1,5 +1,20 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":feature:messaging:presentation")
+
+
+include(":feature:messaging:domain")
+
+
+include(":feature:messaging:data")
+
+
+include(":feature:user:domain")
+
+
+include(":feature:user:data")
+
+
 include(":feature:payment:data")
 
 pluginManagement {

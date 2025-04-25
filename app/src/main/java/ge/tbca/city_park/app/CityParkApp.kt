@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class CityParkApp : Application(), LanguageManagerProvider, Configuration.Provider {
+
     @Inject
     lateinit var languageManager: LanguageManager
 

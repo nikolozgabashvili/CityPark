@@ -9,4 +9,5 @@
     <string name="owner_personal_number">Owner\'s personal number</string>
     <string name="save_car">Save car</string>
     <string name="add_car_name">Add car name</string>
+    <string name="car_added_successfully">ავტომობილი წარამტებით დაემატა</string>
 </resources>

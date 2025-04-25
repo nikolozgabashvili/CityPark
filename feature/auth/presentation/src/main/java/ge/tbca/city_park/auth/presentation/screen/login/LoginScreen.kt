@@ -42,6 +42,7 @@ import ge.tbca.city_park.auth.presentation.R
 fun LoginScreenRoot(
     onShowSnackBar: (String) -> Unit,
     navigateToRegister: () -> Unit,
+    onSuccessfulAuth:() -> Unit,
     navigateToRecovery: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
@@ -58,6 +59,8 @@ fun LoginScreenRoot(
                 val error = effect.error.getString(context)
                 onShowSnackBar(error)
             }
+
+            LoginEffect.Success -> onSuccessfulAuth()
         }
 
     }

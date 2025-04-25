@@ -75,7 +75,9 @@ class RegisterViewModel @Inject constructor(
                 ).collect { resource ->
                     updateState { copy(isLoading = resource.isLoading()) }
                     when (resource) {
-                        is Resource.Success -> Unit
+                        is Resource.Success -> {
+                            sendSideEffect(RegisterEffect.Success)
+                        }
                         is Resource.Error -> {
                             val error = resource.error.toGenericString()
                             sendSideEffect(RegisterEffect.Error(error))

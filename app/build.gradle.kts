@@ -47,7 +47,6 @@ dependencies {
 }
 
 dependencies {
-
     implementation(projects.feature.settings.data)
     implementation(projects.feature.settings.domain)
     implementation(projects.feature.settings.presentation)
@@ -73,4 +72,11 @@ dependencies {
     implementation(projects.feature.cars.data)
 
     implementation(projects.feature.home.presentation)
+
+    implementation(projects.feature.user.domain)
+    implementation(projects.feature.user.data)
+
+    implementation(projects.feature.messaging.data)
+    implementation(projects.feature.messaging.domain)
+    implementation(projects.feature.messaging.presentation)
 }

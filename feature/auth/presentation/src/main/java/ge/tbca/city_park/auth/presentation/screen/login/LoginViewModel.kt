@@ -60,7 +60,9 @@ class LoginViewModel @Inject constructor(
                             sendSideEffect(LoginEffect.Error(error))
                         }
 
-                        is Resource.Success -> Unit
+                        is Resource.Success -> {
+                            sendSideEffect(LoginEffect.Success)
+                        }
                         Resource.Loading -> Unit
                     }
                 }

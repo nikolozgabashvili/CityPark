@@ -66,7 +66,7 @@ class SignUpUserWorker @AssistedInject constructor(
 
         val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setContentTitle(appContext.getString(R.string.sync_user_data))
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_car)
             .setOngoing(true)
             .build()
 

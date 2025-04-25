@@ -8,7 +8,7 @@ internal object AndroidProject {
     const val COMPILE_SDK = 35
     const val MIN_SDK = 24
 
-    private const val BASE_URL_LOCAL = "http://localhost/api/"
+    private const val BASE_URL_LOCAL = "http://192.168.0.163:8080/api/"
     private const val BASE_URL_REMOTE = "https://warm-harbor-69480-39ac226f3805.herokuapp.com/api/"
 
     const val BASE_URL = BASE_URL_REMOTE
