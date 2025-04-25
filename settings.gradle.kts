@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":feature:payment:data")
-
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -48,9 +46,14 @@ include(":feature:settings:data")
 
 include(":feature:payment:presentation")
 include(":feature:payment:domain")
+include(":feature:payment:data")
 
 include(":feature:cars:presentation")
 include(":feature:cars:domain")
 include(":feature:cars:data")
 
 include(":feature:home:presentation")
+
+include(":feature:reservation:presentation")
+include(":feature:reservation:domain")
+include(":feature:reservation:data")

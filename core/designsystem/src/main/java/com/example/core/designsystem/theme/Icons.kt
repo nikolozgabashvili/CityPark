@@ -13,3 +13,9 @@ val ErrorIcon: ImageVector
 
 val GoogleIcon: ImageVector
     @Composable get() = ImageVector.vectorResource(R.drawable.ic_google)
+
+val MasterCardIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_mastercard)
+
+val VisaIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_visa)
