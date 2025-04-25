@@ -1,4 +1,4 @@
-package ge.tbca.city_park.home.presentation.component.car_item
+package ge.tbca.city_park.cars.presentation.component.car_item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

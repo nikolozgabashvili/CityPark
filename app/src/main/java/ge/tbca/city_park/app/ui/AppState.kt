@@ -6,10 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import ge.tba.city_park.reservation.presentation.navigation.ReservationsRoute
 import ge.tbca.city_park.app.navigation.TopLevelDestination
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.SettingsScreenRoute
@@ -47,6 +49,12 @@ data class AppState(
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries
 
+    val currentTopLevelDestination: TopLevelDestination?
+        @Composable get() {
+            return TopLevelDestination.entries.firstOrNull { topLevelDestination ->
+                currentDestination?.hasRoute(route = topLevelDestination.route) == true
+            }
+        }
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
             val topLevelNavOptions = navOptions {
@@ -60,6 +68,7 @@ data class AppState(
             when (topLevelDestination) {
                 TopLevelDestination.HOME -> navController.navigate(HomeScreenRoute, topLevelNavOptions)
                 TopLevelDestination.SETTINGS -> navController.navigate(SettingsScreenRoute, topLevelNavOptions)
+                TopLevelDestination.RESERVATION -> navController.navigate(ReservationsRoute, topLevelNavOptions)
             }
 
     }

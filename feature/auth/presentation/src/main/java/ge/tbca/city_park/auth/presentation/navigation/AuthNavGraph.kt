@@ -19,6 +19,7 @@ fun NavGraphBuilder.authNavGraph(
 ) {
 
     navigation<AuthNavGraphRoute>(startDestination = LoginScreenRoute){
+
         composable<LoginScreenRoute> {
             LoginScreenRoot(
                 onShowSnackBar = onShowSnackBar,

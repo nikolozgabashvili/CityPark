@@ -23,8 +23,8 @@ import ge.tba.city_park.reservation.presentation.model.ReservationUi
 
 @Composable
 fun ReservationItem(
-    reservation: ReservationUi,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    reservation: ReservationUi
 ) {
     Box(
         modifier = modifier
@@ -33,7 +33,7 @@ fun ReservationItem(
             .background(AppColors.surface)
     ) {
         Column(
-            modifier = Modifier.padding(Dimen.appPadding),
+            modifier = Modifier.padding(Dimen.size16),
             verticalArrangement = Arrangement.spacedBy(Dimen.size8)
         ) {
 

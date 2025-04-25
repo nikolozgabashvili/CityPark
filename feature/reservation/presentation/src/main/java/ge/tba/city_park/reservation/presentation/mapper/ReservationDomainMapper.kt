@@ -18,3 +18,7 @@ fun ReservationDomain.toPresenter() : ReservationUi {
         cost = cost
     )
 }
+
+fun List<ReservationDomain>.toPresenter(): List<ReservationUi> {
+    return map { it.toPresenter() }
+}

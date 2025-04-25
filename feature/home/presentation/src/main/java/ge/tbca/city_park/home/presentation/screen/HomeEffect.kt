@@ -1,8 +1,0 @@
-package ge.tbca.city_park.home.presentation.screen
-
-import ge.tbca.citi_park.core.ui.util.GenericString
-
-sealed interface HomeEffect {
-    data object NavigateToAddCar : HomeEffect
-    data class Error(val error :GenericString) : HomeEffect
-}

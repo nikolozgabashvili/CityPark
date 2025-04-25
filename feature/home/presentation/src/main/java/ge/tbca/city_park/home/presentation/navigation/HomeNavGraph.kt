@@ -6,14 +6,13 @@ import ge.tbca.city_park.home.presentation.screen.HomeScreenRoot
 import kotlinx.serialization.Serializable
 
 fun NavGraphBuilder.homeNavGraph(
-    navigateToAddCar: () -> Unit,
+    navigateToCars: () -> Unit,
     onShowSnackBar: (String) -> Unit,
 ) {
 
     composable<HomeScreenRoute> {
         HomeScreenRoot(
-            navigateToAddCar = navigateToAddCar,
-            onShowSnackBar = onShowSnackBar
+            navigateToCars = navigateToCars,
         )
     }
 

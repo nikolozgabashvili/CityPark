@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-
-
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -59,4 +57,12 @@ include(":feature:home:presentation")
 include(":feature:reservation:presentation")
 include(":feature:reservation:domain")
 include(":feature:reservation:data")
+
+include(":feature:messaging:presentation")
+include(":feature:messaging:domain")
+include(":feature:messaging:data")
+
+include(":feature:user:domain")
+include(":feature:user:data")
+
 

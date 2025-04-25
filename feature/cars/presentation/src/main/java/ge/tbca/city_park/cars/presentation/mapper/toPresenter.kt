@@ -1,4 +1,4 @@
-package ge.tbca.city_park.home.presentation.mapper
+package ge.tbca.city_park.cars.presentation.mapper
 
 import ge.tbca.city_park.cars.domain.model.CarDomain
 import ge.tbca.city_park.cars.presentation.model.CarUi

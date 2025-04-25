@@ -51,11 +51,12 @@ fun CityParkApplication(
     appState: AppState,
     startDestination: KClass<*>,
     snackbarHostState: SnackbarHostState,
-    onSuccessfulAuth: () -> Unit ,
+    onSuccessfulAuth: () -> Unit,
 ) {
 
     val currentDestination = appState.currentDestination
     val topLevelDestinations = appState.topLevelDestinations
+    val currentTopLevelDestination = appState.currentTopLevelDestination
 
     val coroutineScope = appState.coroutineScope
 
@@ -68,9 +69,7 @@ fun CityParkApplication(
         },
         bottomBar = {
             AnimatedVisibility(
-                visible = topLevelDestinations.any { destination ->
-                    currentDestination?.isRouteInHierarchy(destination.route)==true
-                },
+                visible = currentTopLevelDestination != null,
                 enter = fadeIn() + expandVertically(),
                 exit = ExitTransition.None
 
@@ -113,12 +112,12 @@ fun CityParkApplication(
             AppNavHost(
                 appState = appState,
                 startDestination = startDestination,
-                onSuccessfulAuth = onSuccessfulAuth ,
+                onSuccessfulAuth = onSuccessfulAuth,
                 onShowSnackBar = { message ->
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar(message)
-                }
-            })
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                })
         }
 
     }

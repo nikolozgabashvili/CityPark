@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.core.designsystem.components.button.base.ButtonSize
-import com.example.core.designsystem.components.button.text_button.TertiaryButton
+import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
@@ -34,7 +34,7 @@ fun ErrorWrapper(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                AppColors.inverseSurface, shape = RoundedCornerShape(
+                AppColors.surface, shape = RoundedCornerShape(
                     Dimen.roundedCornerMediumSize
                 )
             )
@@ -46,9 +46,9 @@ fun ErrorWrapper(
                 .padding(Dimen.size12),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = error, color = AppColors.inverseOnSurface, style = TextStyles.bodyMedium)
+            Text(text = error, color = AppColors.onSurface, style = TextStyles.bodyMedium)
             Spacer(modifier=Modifier.height(Dimen.size20))
-            TertiaryButton(
+            PrimaryButton(
                 startIcon = Icons.Rounded.Refresh,
                 onClick = onRetry,
                 text = stringResource(R.string.retry),

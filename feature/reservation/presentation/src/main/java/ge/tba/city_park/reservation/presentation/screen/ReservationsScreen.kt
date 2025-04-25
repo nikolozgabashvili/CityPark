@@ -1,26 +1,30 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package ge.tba.city_park.reservation.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.rounded.HistoryEdu
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.core.designsystem.components.empty_data_indicator.EmptyDataIndicator
+import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
+import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
-import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
-import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tba.city_park.reservation.presentation.R
 import ge.tba.city_park.reservation.presentation.component.ReservationItem
@@ -29,15 +33,26 @@ import ge.tbca.citi_park.core.ui.util.CollectSideEffect
 
 @Composable
 fun ReservationsScreenRoot(
-    viewModel: ReservationsViewModel = hiltViewModel()
+    viewModel: ReservationsViewModel = hiltViewModel(),
+    navigateToMap: () -> Unit,
+    onShowSnackBar: (String) -> Unit,
 ) {
 
     val context = LocalContext.current
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
+
         when (effect) {
-            else -> {}
+            is ReservationsEffect.Error -> {
+                val error = effect.message.getString(context)
+                onShowSnackBar(error)
+            }
+
+            is ReservationsEffect.NavigateToAddReservation -> {
+                navigateToMap()
+            }
         }
+
     }
 
     ReservationsScreen(
@@ -51,47 +66,59 @@ private fun ReservationsScreen(
     state: ReservationsState,
     onEvent: (ReservationsEvent) -> Unit,
 ) {
-    // TODO pull to refresh
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(Dimen.appPadding)
+    PullToRefreshWrapper(
+        isRefreshing = state.isLoading,
+        onRefresh = { onEvent(ReservationsEvent.Refresh) },
     ) {
-        TopNavigationBar(
-            title = stringResource(R.string.reservations),
-            endIcon = Icons.Rounded.Add,
-            onEndIconClick = { onEvent(ReservationsEvent.AddReservationButtonClicked) }
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TopNavigationBar(
+                modifier = Modifier.padding(Dimen.appPadding),
+                title = stringResource(R.string.reservations),
+                endIcon = Icons.Rounded.Add,
+                onEndIconClick = { onEvent(ReservationsEvent.AddReservationButtonClicked) }
+            )
 
-        when {
-            state.isLoading -> {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            }
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = Dimen.size16),
+                contentPadding = PaddingValues(horizontal = Dimen.appPadding),
+                verticalArrangement = Arrangement.spacedBy(Dimen.size16)
+            ) {
+                if(state.noReservations){
+                    item {
+                       EmptyDataIndicator(
+                           icon = Icons.Rounded.HistoryEdu,
+                           text = stringResource(R.string.you_dont_have_reservations)
+                       )
+                    }
+                }else if (state.error!=null){
+                    item {
+                        val error = state.error.getString()
+                        ErrorWrapper(
+                            error = error,
+                            onRetry = { onEvent(ReservationsEvent.Refresh) },
+                        )
+                    }
+                }
+                else if (state.reservationsList.isNotEmpty()) {
 
-            state.reservationsList.isEmpty() -> {
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = stringResource(R.string.you_dont_have_reservations),
-                    style = TextStyles.bodyLarge,
-                    color = AppColors.primary
-                )
-            }
-
-            else -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = Dimen.size50),
-                    verticalArrangement = Arrangement.spacedBy(Dimen.size16)
-                ) {
                     items(items = state.reservationsList, key = { it.id }) { reservation ->
                         ReservationItem(reservation = reservation)
                     }
+
                 }
             }
+
+
         }
     }
 }
+
 
 @AppPreview
 @Composable

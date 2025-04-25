@@ -11,4 +11,7 @@
     <string name="empty" translatable="false" />
     <string name="add_car_name">დაამატე ავტომობილის სახელი</string>
     <string name="car_added_successfully">ავტომობილი წარამტებით დაემატა</string>
+    <string name="cars">ავტომობილები</string>
+    <string name="your_cars">შენი ავტომობილები</string>
+    <string name="no_cars">შენ არ გაქვს დამატებული ავტომობილი</string>
 </resources>

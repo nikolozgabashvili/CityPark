@@ -2,11 +2,14 @@ package ge.tbca.city_park.app.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.HistoryEdu
+import androidx.compose.material.icons.outlined.HistoryEdu
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import ge.tba.city_park.reservation.presentation.navigation.ReservationsRoute
 import ge.tbca.city_park.R
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.SettingsScreenRoute
@@ -23,6 +26,12 @@ enum class TopLevelDestination(
         unselectedIcon = Icons.Outlined.Home,
         iconTextId = R.string.home,
         route = HomeScreenRoute::class,
+    ),
+    RESERVATION(
+        selectedIcon = Icons.Filled.HistoryEdu,
+        unselectedIcon = Icons.Outlined.HistoryEdu,
+        iconTextId = R.string.reservations,
+        route = ReservationsRoute::class,
     ),
     SETTINGS(
         selectedIcon = Icons.Rounded.Settings,

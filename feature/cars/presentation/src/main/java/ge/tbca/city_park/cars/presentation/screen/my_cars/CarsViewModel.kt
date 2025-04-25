@@ -1,4 +1,4 @@
-package ge.tbca.city_park.home.presentation.screen
+package ge.tbca.city_park.cars.presentation.screen.my_cars
 
 
 import androidx.lifecycle.viewModelScope
@@ -7,27 +7,27 @@ import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.citi_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.usecase.DeleteCarByIdUseCase
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
+import ge.tbca.city_park.cars.presentation.mapper.toPresenter
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
-import ge.tbca.city_park.home.presentation.mapper.toPresenter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class CarsViewModel @Inject constructor(
     private val getAllCarsUseCase: GetAllCarsUseCase,
     private val deleteCarByIdUseCase: DeleteCarByIdUseCase,
 
-    ) : BaseViewModel<HomeState, HomeEffect, HomeEvent>(HomeState()) {
+    ) : BaseViewModel<CarsScreenState, CarsScreenEventEffect, CarsScreenEvent>(CarsScreenState()) {
 
-    override fun onEvent(event: HomeEvent) {
+    override fun onEvent(event: CarsScreenEvent) {
         when (event) {
-            is HomeEvent.AddCarButtonClicked -> {
+            is CarsScreenEvent.AddCarButtonClicked -> {
                 navigateToAddCar()
 
             }
 
-            is HomeEvent.CarClicked -> {
+            is CarsScreenEvent.CarClicked -> {
                 viewModelScope.launch {
                     deleteCarByIdUseCase(event.carId).collect {
                         if (it is Resource.Success) {
@@ -38,15 +38,23 @@ class HomeViewModel @Inject constructor(
 
             }
 
-            HomeEvent.Refresh -> {
+            CarsScreenEvent.Refresh -> {
                 fetchCars()
             }
+
+            CarsScreenEvent.BackButtonClicked -> navigateBack()
+        }
+    }
+
+    private fun navigateBack() {
+        viewModelScope.launch {
+            sendSideEffect(CarsScreenEventEffect.NavigateBack)
         }
     }
 
     private fun navigateToAddCar() {
         viewModelScope.launch {
-            sendSideEffect(HomeEffect.NavigateToAddCar)
+            sendSideEffect(CarsScreenEventEffect.NavigateToAddCar)
         }
     }
 
@@ -68,7 +76,7 @@ class HomeViewModel @Inject constructor(
 
                         }
 
-                        sendSideEffect(HomeEffect.Error(error))
+                        sendSideEffect(CarsScreenEventEffect.Error(error))
 
                     }
 

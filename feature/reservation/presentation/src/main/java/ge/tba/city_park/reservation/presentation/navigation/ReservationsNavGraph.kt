@@ -5,9 +5,16 @@ import androidx.navigation.compose.composable
 import ge.tba.city_park.reservation.presentation.screen.ReservationsScreenRoot
 import kotlinx.serialization.Serializable
 
-fun NavGraphBuilder.reservationsNavGraph() {
+fun NavGraphBuilder.reservationsNavGraph(
+    onShowSnackBar: (String) -> Unit,
+    navigateToMap: () -> Unit,
+
+) {
     composable<ReservationsRoute> {
-        ReservationsScreenRoot()
+        ReservationsScreenRoot(
+            navigateToMap = navigateToMap,
+            onShowSnackBar = onShowSnackBar
+        )
     }
 }
 
