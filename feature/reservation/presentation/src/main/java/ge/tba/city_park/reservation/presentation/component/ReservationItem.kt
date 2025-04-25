@@ -76,22 +76,12 @@ fun ReservationItem(
                 )
             }
 
-            if(reservation.duration != null && reservation.cost != null) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = stringResource(R.string.duration, reservation.duration),
-                        style = TextStyles.bodyMedium,
-                        color = AppColors.primary
-                    )
-                    Text(
-                        text = stringResource(R.string.cost, reservation.cost),
-                        style = TextStyles.bodyMedium,
-                        color = AppColors.primary
-                    )
-                }
+            reservation.cost?.let {
+                Text(
+                    text = stringResource(R.string.cost, reservation.cost),
+                    style = TextStyles.bodyMedium,
+                    color = AppColors.primary
+                )
             }
         }
     }
@@ -104,14 +94,11 @@ fun ReservationItemPreviewActive() {
         ReservationItem(
             reservation = ReservationUi(
                 id = 1,
-                userId = "123",
                 parkingSpotId = 1,
                 zoneCode = "AA123",
                 carNumber = "AA001BB",
-                createdAt = "25.04.25, 13:19",
-                active = true,
-                cost = 1000,
-                duration = "1 საათი"
+                createdAt = "13:19, 25.04.25",
+                active = true
             )
         )
     }
@@ -124,15 +111,13 @@ fun ReservationItemPreviewNotActive() {
         ReservationItem(
             reservation = ReservationUi(
                 id = 2,
-                userId = "123",
                 parkingSpotId = 1,
                 zoneCode = "AA123",
                 carNumber = "AA001BB",
                 createdAt = "25.04.25, 13:19",
                 active = false,
-                endedAt = "25.04.25, 14:19",
-                cost = 1000,
-                duration = "1 საათი"
+                endedAt = "14:19, 25.04.25",
+                cost = 1000
             )
         )
     }

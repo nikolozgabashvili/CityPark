@@ -1,6 +1,6 @@
 package ge.tbca.city_park.reservation.domain.model
 
-data class RemoveReservationRequest(
+data class FinishReservationRequest(
     val zoneCode: String,
     val carNumber: String
 )

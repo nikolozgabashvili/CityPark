@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,12 +51,17 @@ private fun ReservationsScreen(
     state: ReservationsState,
     onEvent: (ReservationsEvent) -> Unit,
 ) {
+    // TODO pull to refresh
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(Dimen.appPadding)
     ) {
-        TopNavigationBar(title = stringResource(R.string.reservations))
+        TopNavigationBar(
+            title = stringResource(R.string.reservations),
+            endIcon = Icons.Rounded.Add,
+            onEndIconClick = { onEvent(ReservationsEvent.AddReservationButtonClicked) }
+        )
 
         when {
             state.isLoading -> {
@@ -74,7 +81,7 @@ private fun ReservationsScreen(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = Dimen.size40),
+                        .padding(top = Dimen.size50),
                     verticalArrangement = Arrangement.spacedBy(Dimen.size16)
                 ) {
                     items(items = state.reservationsList, key = { it.id }) { reservation ->
@@ -95,26 +102,22 @@ private fun ReservationsScreenPreview() {
                 reservationsList = listOf(
                     ReservationUi(
                         id = 1,
-                        userId = "123",
                         parkingSpotId = 1,
                         zoneCode = "AA123",
                         carNumber = "AA001BB",
-                        createdAt = "25.04.25, 13:19",
+                        createdAt = "13:19, 25.04.25",
                         active = true,
-                        cost = 1000,
-                        duration = "1 საათი"
+                        cost = 1000
                     ),
                     ReservationUi(
                         id = 2,
-                        userId = "1234",
                         parkingSpotId = 2,
                         zoneCode = "AA123",
                         carNumber = "AA001BB",
-                        createdAt = "25.04.25, 13:19",
+                        createdAt = "13:19, 25.04.25",
                         active = false,
-                        endedAt = "25.04.25, 14:19",
-                        cost = 1000,
-                        duration = "1 საათი"
+                        endedAt = "14:19, 25.04.25",
+                        cost = 1000
                     )
                 )
             ),

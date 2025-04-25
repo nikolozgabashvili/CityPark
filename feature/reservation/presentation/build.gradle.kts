@@ -14,5 +14,6 @@ dependencies {
 }
 
 dependencies {
+    implementation(projects.feature.reservation.domain)
     implementation(projects.core.domain)
 }
