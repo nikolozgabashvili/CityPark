@@ -71,6 +71,10 @@ dependencies {
     implementation(projects.feature.cars.domain)
     implementation(projects.feature.cars.data)
 
+    implementation(projects.feature.reservation.presentation)
+    implementation(projects.feature.reservation.domain)
+    implementation(projects.feature.reservation.data)
+
     implementation(projects.feature.home.presentation)
 
     implementation(projects.feature.user.domain)
