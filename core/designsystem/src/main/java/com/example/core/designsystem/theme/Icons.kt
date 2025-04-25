@@ -19,3 +19,6 @@ val MasterCardIcon: ImageVector
 
 val VisaIcon: ImageVector
     @Composable get() = ImageVector.vectorResource(R.drawable.ic_visa)
+
+val OtherCardIcon: ImageVector
+    @Composable get() = ImageVector.vectorResource(R.drawable.ic_other_card)

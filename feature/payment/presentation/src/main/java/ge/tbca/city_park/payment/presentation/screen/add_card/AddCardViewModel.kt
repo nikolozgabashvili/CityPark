@@ -5,16 +5,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.citi_park.core.ui.util.GenericString
 import ge.tbca.city_park.core.domain.util.Resource
+import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.payment.domain.usecase.AddCreditCardUseCase
 import ge.tbca.city_park.payment.domain.usecase.ValidateCardCvvUseCase
 import ge.tbca.city_park.payment.domain.usecase.ValidateCardExpireDateUseCase
 import ge.tbca.city_park.payment.domain.usecase.ValidateCardHolderNameUseCase
 import ge.tbca.city_park.payment.domain.usecase.ValidateCardNumberUseCase
-import ge.tbca.city_park.payment.presentation.extension.toGenericString
-import ge.tbca.city_park.payment.presentation.mapper.toDomain
-import ge.tbca.city_park.payment.presentation.model.CreditCardUi
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,27 +41,25 @@ class AddCardViewModel @Inject constructor(
     }
 
     private fun saveCard() {
-        updateState { copy(isLoading = true) }
-
         val isCardNumberValid = validateCardNumberUseCase(state.cardNumber)
         val isExpireDateValid = validateExpireDateUseCase(state.expireDate)
         val isCvvValid = validateCvvUseCase(state.cvv)
         val isCardHolderNameValid = validateCardHolderNameUseCase(state.cardHolderName)
 
         if (isCardNumberValid && isExpireDateValid && isCvvValid && isCardHolderNameValid) {
-            val card = CreditCardUi(
-                id = UUID.randomUUID().toString(),
-                cardNumber = state.cardNumber,
-                expireDate = state.expireDate,
-                cvv = state.cvv,
-                cardHolderName = state.cardHolderName
-            ).toDomain()
-
+            updateState { copy(isLoading = true) }
             viewModelScope.launch {
-                addCreditCardUseCase(card).collect { resource ->
+                addCreditCardUseCase(
+                    cardNumber = state.cardNumber,
+                    holderName = state.cardHolderName,
+                    expirationMonth = state.expireDate.substring(0, 2).toInt(),
+                    expirationYear = state.expireDate.substring(2, 4).toInt(),
+                    cvv = state.cvv,
+                ).collect { resource ->
+                    updateState { copy(isLoading = resource.isLoading()) }
                     when (resource) {
+                        // TODO resource handling
                         is Resource.Success -> {
-                            updateState { copy(isLoading = false) }
                             sendSideEffect(
                                 AddCardEffect.ShowSnackbar(
                                     GenericString.DynamicString("Card added successfully")
@@ -74,11 +69,14 @@ class AddCardViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            updateState { copy(isLoading = false) }
-                            sendSideEffect(AddCardEffect.ShowSnackbar(resource.error.toGenericString()))
+                            sendSideEffect(
+                                AddCardEffect.ShowSnackbar(
+                                    GenericString.DynamicString("Failed to add the card")
+                                )
+                            )
                         }
 
-                        is Resource.Loading -> updateState { copy(isLoading = true) }
+                        is Resource.Loading -> Unit
                     }
                 }
             }
@@ -88,8 +86,7 @@ class AddCardViewModel @Inject constructor(
                     showCardNumberError = !isCardNumberValid,
                     showExpireDateError = !isExpireDateValid,
                     showCvvError = !isCvvValid,
-                    showCardHolderNameError = !isCardHolderNameValid,
-                    isLoading = false
+                    showCardHolderNameError = !isCardHolderNameValid
                 )
             }
         }
