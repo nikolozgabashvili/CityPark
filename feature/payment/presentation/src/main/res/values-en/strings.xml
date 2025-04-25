@@ -10,5 +10,6 @@
     <string name="cvv">CVV</string>
     <string name="cardholder_name">Cardholder name</string>
     <string name="save_button">Save card</string>
-    <string name="empty" />
+    <string name="credit_cards">Credit cards</string>
+    <string name="you_havent_added_any_cards">You haven\'t added any cards yet</string>
 </resources>

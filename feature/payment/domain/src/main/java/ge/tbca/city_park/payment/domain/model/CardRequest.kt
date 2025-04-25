@@ -1,12 +1,10 @@
 package ge.tbca.city_park.payment.domain.model
 
-data class CreditCard(
-    val id: Int,
+data class CardRequest(
     val cardNumber: String,
     val holderName: String,
-    val balance: Double,
     val expirationMonth: Int,
     val expirationYear: Int,
     val cvv: String,
-    val cardType: CardType
+    val cardType: String
 )

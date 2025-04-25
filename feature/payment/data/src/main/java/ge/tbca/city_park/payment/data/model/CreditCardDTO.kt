@@ -1,6 +1,10 @@
-package ge.tbca.city_park.payment.domain.model
+package ge.tbca.city_park.payment.data.model
 
-data class CreditCard(
+import ge.tbca.city_park.payment.domain.model.CardType
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class CreditCardDTO(
     val id: Int,
     val cardNumber: String,
     val holderName: String,
