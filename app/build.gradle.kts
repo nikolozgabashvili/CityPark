@@ -83,4 +83,8 @@ dependencies {
     implementation(projects.feature.messaging.data)
     implementation(projects.feature.messaging.domain)
     implementation(projects.feature.messaging.presentation)
+
+    implementation(projects.feature.parking.presentation)
+    implementation(projects.feature.parking.domain)
+    implementation(projects.feature.parking.data)
 }

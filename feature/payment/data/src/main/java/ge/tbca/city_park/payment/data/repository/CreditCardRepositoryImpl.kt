@@ -21,18 +21,16 @@ class CreditCardRepositoryImpl @Inject constructor(
     override fun addCreditCard(cardRequest: CardRequest): Flow<Resource<CreditCard, ApiError>> {
         return apiHelper.safeCall {
             creditCardService.addCreditCard(cardRequest.toDTO())
-        }.mapResource { creditCardDTO ->
-            creditCardDTO.toDomain()
+        }.mapResource {
+            it.toDomain()
         }
     }
 
     override fun getAllCreditCards(): Flow<Resource<List<CreditCard>, ApiError>> {
         return apiHelper.safeCall {
             creditCardService.getAllCreditCards()
-        }.mapResource { list ->
-            list.map { creditCardDTO ->
-                creditCardDTO.toDomain()
-            }
+        }.mapResource {
+            it.toDomain()
         }
     }
 

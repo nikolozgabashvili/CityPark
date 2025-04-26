@@ -23,18 +23,16 @@ class ReservationsRepositoryImpl @Inject constructor(
     override fun getAllReservations(): Flow<Resource<List<ReservationDomain>, ApiError>> {
         return apiHelper.safeCall {
             apiService.getReservationsHistory()
-        }.mapResource { list ->
-            list.map { reservationDTO ->
-                reservationDTO.toDomain()
-            }
+        }.mapResource {
+            it.toDomain()
         }
     }
 
     override fun createReservation(reservation: ReservationRequest): Flow<Resource<ReservationDomain, ApiError>> {
         return apiHelper.safeCall {
             apiService.createReservation(reservation.toDTO())
-        }.mapResource { reservationRequestDto ->
-            reservationRequestDto.toDomain()
+        }.mapResource {
+            it.toDomain()
         }
     }
 

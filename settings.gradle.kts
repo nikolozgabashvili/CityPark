@@ -65,4 +65,6 @@ include(":feature:messaging:data")
 include(":feature:user:domain")
 include(":feature:user:data")
 
-
+include(":feature:parking:presentation")
+include(":feature:parking:domain")
+include(":feature:parking:data")

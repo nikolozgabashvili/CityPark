@@ -15,3 +15,7 @@ fun CreditCardDTO.toDomain(): CreditCard {
         cardType = cardType,
     )
 }
+
+fun List<CreditCardDTO>.toDomain(): List<CreditCard> {
+    return map { it.toDomain() }
+}

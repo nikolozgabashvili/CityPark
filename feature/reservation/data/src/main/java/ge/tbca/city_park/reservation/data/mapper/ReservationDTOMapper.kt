@@ -17,3 +17,7 @@ fun ReservationDTO.toDomain(): ReservationDomain {
         duration = duration
     )
 }
+
+fun List<ReservationDTO>.toDomain(): List<ReservationDomain> {
+    return map { it.toDomain() }
+}
