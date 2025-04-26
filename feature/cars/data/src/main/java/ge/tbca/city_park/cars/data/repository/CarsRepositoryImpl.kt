@@ -22,8 +22,8 @@ class CarsRepositoryImpl @Inject constructor(
     override fun addCar(car: AddCarRequestDomain): Flow<Resource<CarDomain, ApiError>> {
         return apiHelper.safeCall {
             carApiService.addCar(car.toDTO())
-        }.mapResource { dto ->
-            dto.toDomain()
+        }.mapResource {
+            it.toDomain()
         }
     }
 
@@ -39,6 +39,5 @@ class CarsRepositoryImpl @Inject constructor(
         return apiHelper.safeCall {
             carApiService.deleteCar(id)
         }.toEmptyResource()
-
     }
 }

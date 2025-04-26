@@ -1,6 +1,5 @@
 package ge.tbca.city_park.cars.data.service
 
-
 import ge.tbca.city_park.cars.data.model.AddCarRequest
 import ge.tbca.city_park.cars.data.model.CarDTO
 import ge.tbca.city_park.core.data.model.BaseResponse
