@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
+import ge.tba.city_park.reservation.presentation.navigation.CreateReservationRoute
 import ge.tba.city_park.reservation.presentation.navigation.reservationsNavGraph
 import ge.tbca.city_park.app.ui.AppState
 import ge.tbca.city_park.auth.presentation.navigation.RecoverPasswordScreenRoute
@@ -63,7 +64,6 @@ fun AppNavHost(
             onShowSnackBar = onShowSnackBar,
             navigateToAddBalance = {
                 navController.navigate(AddBalanceScreenRoute)
-
             },
             navigateToProfile = {
 
@@ -75,7 +75,10 @@ fun AppNavHost(
             onShowSnackBar = onShowSnackBar,
             navigateToMap = {
 
-            }
+            },
+            navigateBack = { navController.navigateUp() },
+            navigateToCreateReservation = { navController.navigate(CreateReservationRoute) },
+            navigateToAddCar = { navController.navigate(AddCarScreenRoute) }
         )
 
         settingsNavGraph(

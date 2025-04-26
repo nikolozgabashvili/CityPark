@@ -28,9 +28,9 @@ object ButtonDefaults {
     val secondaryColors:ButtonColors
         @Composable
         get() = ButtonDefaults.buttonColors(
-            containerColor = AppColors.secondaryContainer,
-            contentColor = AppColors.onSecondaryContainer,
-            disabledContainerColor = AppColors.surface,
-            disabledContentColor = AppColors.onSurface
+            containerColor = AppColors.surface,
+            contentColor = AppColors.onSurface,
+            disabledContainerColor = AppColors.secondaryContainer,
+            disabledContentColor = AppColors.onSecondaryContainer
         )
 }

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package ge.tbca.city_park.payment.presentation.screen.add_balance
 
 import androidx.compose.foundation.ScrollState
@@ -17,9 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.AccountBalance
 import androidx.compose.material.icons.rounded.AccountBalanceWallet
-import androidx.compose.material.icons.rounded.AddCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -84,6 +80,7 @@ fun AddBalanceScreenRoot(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddBalanceScreen(
     state: AddBalanceScreenState,

@@ -16,6 +16,6 @@ fun CreditCardDTO.toDomain(): CreditCardDomain {
     )
 }
 
-fun List<CreditCardDTO>.toDomain(): List<CreditCard> {
+fun List<CreditCardDTO>.toDomain(): List<CreditCardDomain> {
     return map { it.toDomain() }
 }

@@ -11,4 +11,12 @@
     <string name="reservations">Reservations</string>
     <string name="parking_history">Parking History</string>
     <string name="you_dont_have_reservations">You don\'t have any reservations</string>
+    <string name="enter_valid_zone_code">Zone code should only contain 2 letters and 3 digits, e.x: AB123</string>
+    <string name="create_reservation">Create reservation</string>
+    <string name="zone_code">Zone code</string>
+    <string name="or_choose_place_on_map">Or choose a place on the map</string>
+    <string name="choose_on_map">Choose on map</string>
+    <string name="reservation_added">Reservation was added successfully</string>
+    <string name="or">Or</string>
+    <string name="add_car">Add a car</string>
 </resources>
