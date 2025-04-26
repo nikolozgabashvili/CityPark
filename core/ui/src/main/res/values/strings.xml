@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unknown_error">დაფიქსირდა შეცდომა</string>
+    <string name="internal_server_error">სერვერის პრობლემა</string>
+    <string name="parking_spot_not_found">ადგილი არ მოიძებნა</string>
+    <string name="no_available_spots">თავისუფალი ადგილი არ მოიძებნა</string>
+    <string name="car_already_reserved">"რეზერვაცია ავტომობილზე უკვე არსებობს "</string>
+    <string name="user_already_has_reservation">შენ უკვე გაქვს აქტიური რეზერვაცია</string>
+    <string name="car_already_exists">ავტომობილი უკვე არის დამატებული</string>
+    <string name="card_already_exists">ბარათი უკვე არის დამატებული</string>
+    <string name="card_expired">ბარათი ვადაგასულია</string>
+    <string name="insufficient_balance">ბარათზე არ არის საკმარისი თანხა</string>
+    <string name="network_error">დაფიქსირდა ინტერნეტის პრობლემა</string>
+</resources>

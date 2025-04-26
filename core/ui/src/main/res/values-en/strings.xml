@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="parking_spot_not_found">Parking Spot Not Found</string>
+    <string name="no_available_spots">No Available Parking place</string>
+    <string name="car_already_reserved">Reservation for this car Already exist</string>
+    <string name="user_already_has_reservation">You have active reservation</string>
+    <string name="car_already_exists">Car is already added</string>
+    <string name="card_already_exists">Card is already added</string>
+    <string name="card_expired">Card is Expired</string>
+    <string name="insufficient_balance">You do not have enough balance</string>
+    <string name="network_error">Network Error</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="internal_server_error">Internal Server Error</string>
+</resources>

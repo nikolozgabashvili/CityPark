@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.rounded.Highlight
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ import ge.tbca.city_park.settings.presentation.theme_settings.extension.displayN
 
 @Composable
 fun SettingsScreenRoot(
-    navigateBack: () -> Unit,
     navigateToTheme: () -> Unit,
     navigateToLanguage: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
@@ -34,7 +32,6 @@ fun SettingsScreenRoot(
     CollectSideEffect(flow = viewModel.effect) { effect ->
 
         when (effect) {
-            SettingsEffect.NavigateBack -> navigateBack()
             SettingsEffect.NavigateToLanguageSettings -> navigateToLanguage()
             SettingsEffect.NavigateToThemeSettings -> navigateToTheme()
         }
@@ -58,9 +55,7 @@ private fun SettingsScreen(
             .padding(Dimen.appPadding)
     ) {
         TopNavigationBar(
-            title = stringResource(R.string.settings),
-            startIcon = Icons.AutoMirrored.Default.ArrowBack,
-            onStartIconClick = { onEvent(SettingsEvent.BackButtonClicked) }
+            title = stringResource(R.string.settings)
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
@@ -72,7 +67,7 @@ private fun SettingsScreen(
                 hasUnderline = true,
                 icon = Icons.Rounded.Language,
                 onClick = {
-                    onEvent(SettingsEvent.BackButtonClicked)
+                    onEvent(SettingsEvent.NavigateToLanguageSettings)
                 }
             )
             Spacer(modifier = Modifier.height(Dimen.size8))
@@ -82,7 +77,9 @@ private fun SettingsScreen(
                 description = state.currentThemeMode.displayName(),
                 hasUnderline = false,
                 icon = Icons.Rounded.Highlight,
-                onClick = {}
+                onClick = {
+                    onEvent(SettingsEvent.NavigateToThemeSettings)
+                }
             )
 
         }

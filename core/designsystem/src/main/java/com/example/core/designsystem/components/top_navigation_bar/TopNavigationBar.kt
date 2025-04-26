@@ -2,6 +2,7 @@ package com.example.core.designsystem.components.top_navigation_bar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
+import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 
@@ -26,7 +28,7 @@ fun TopNavigationBar(
     endIcon: ImageVector? = null,
     onEndIconClick: () -> Unit = {},
 ) {
-    Box(modifier = modifier.fillMaxWidth()) {
+    Box(modifier = modifier.fillMaxWidth().height(Dimen.size40)) {
         title?.let { title ->
             Text(
                 modifier = Modifier.align(alignment = Alignment.Center),
@@ -38,7 +40,6 @@ fun TopNavigationBar(
         }
 
         startIcon?.let { startIcon ->
-            // TODO replace with custom component
             IconButton(
                 onClick = onStartIconClick
             ) {
@@ -51,7 +52,6 @@ fun TopNavigationBar(
         }
 
         endIcon?.let { endIcon ->
-            // TODO replace with custom component
             IconButton(
                 modifier = Modifier.align(alignment = Alignment.CenterEnd),
                 onClick = onEndIconClick

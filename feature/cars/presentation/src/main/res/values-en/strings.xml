@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_car_name">Enter car name</string>
+    <string name="add_car">Add a car</string>
+    <string name="car_name">Car name</string>
+    <string name="enter_valid_plate_number">Enter valid plate number</string>
+    <string name="enter_valid_personal_number">Enter valid personal number</string>
+    <string name="car_plate_number">Car plate number</string>
+    <string name="owner_personal_number">Owner\'s personal number</string>
+    <string name="save_car">Save car</string>
+    <string name="add_car_name">Add car name</string>
+    <string name="car_added_successfully">Car added successfully</string>
+    <string name="cars">Cars</string>
+    <string name="your_cars">Your Cars</string>
+    <string name="no_cars">You haven\'t added any cars</string>
+</resources>

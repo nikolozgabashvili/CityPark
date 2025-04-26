@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+hiltWork = "1.2.0"
 kotlin = "2.1.20"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -34,9 +35,15 @@ androidTools = "31.9.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 kotlinxCoroutinesCore = "1.10.2"
+workRuntimeKtx = "2.10.1"
+splashScreen = "1.0.1"
+firebaseMessaging = "24.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
+androidx-hilt-work-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltWork" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -75,6 +82,7 @@ androidx-credentials-play-services-auth = { group = "androidx.credentials", name
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+splash-screen = {group="androidx.core",name="core-splashscreen",version.ref = "splashScreen"}
 
 
 #gradle
@@ -84,6 +92,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 
 
 [plugins]
@@ -106,3 +115,4 @@ cityPark-android-library-compose = { id = "ge.tbca.android.library.compose", ver
 cityPark-dagger-hilt = { id = "ge.tbca.dagger.hilt", version = "unspecified" }
 cityPark-android-feature = { id = "ge.tbca.android.feature", version = "unspecified" }
 cityPark-jvm-library = { id = "ge.tbca.jvm.library", version = "unspecified" }
+cityPark-retrofit = { id = "ge.tbca.retrofit", version = "unspecified" }

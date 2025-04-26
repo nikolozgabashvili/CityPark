@@ -36,33 +36,55 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    // coil
-    implementation(libs.coil.compose)
-
-    // preferences datastore
-    implementation(libs.preferences.datastore)
-
     // serialization
     implementation(libs.serialization.json)
 
-    // lottie
-    implementation(libs.compose.lottie)
-
-    // okhttp
-    implementation(libs.logging.interceptor)
-    implementation(libs.okhttp)
-
-    // retrofit serialization
-    implementation(libs.retrofit.serialization)
+    //worker
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.work.compiler)
+    implementation(libs.splash.screen)
 }
 
 dependencies {
     implementation(projects.feature.settings.data)
     implementation(projects.feature.settings.domain)
+    implementation(projects.feature.settings.presentation)
+
+
     implementation(projects.feature.auth.data)
     implementation(projects.feature.auth.domain)
     implementation(projects.feature.auth.presentation)
+
     implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+
     implementation(projects.datastore.data)
 
+    implementation(projects.feature.payment.presentation)
+    implementation(projects.feature.payment.domain)
+    implementation(projects.feature.payment.data)
+
+    implementation(projects.feature.cars.presentation)
+    implementation(projects.feature.cars.domain)
+    implementation(projects.feature.cars.data)
+
+    implementation(projects.feature.reservation.presentation)
+    implementation(projects.feature.reservation.domain)
+    implementation(projects.feature.reservation.data)
+
+    implementation(projects.feature.home.presentation)
+
+    implementation(projects.feature.user.domain)
+    implementation(projects.feature.user.data)
+
+    implementation(projects.feature.messaging.data)
+    implementation(projects.feature.messaging.domain)
+    implementation(projects.feature.messaging.presentation)
+
+    implementation(projects.feature.parking.presentation)
+    implementation(projects.feature.parking.domain)
+    implementation(projects.feature.parking.data)
 }

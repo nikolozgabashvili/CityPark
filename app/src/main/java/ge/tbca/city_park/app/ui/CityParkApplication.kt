@@ -13,18 +13,26 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import ge.tbca.city_park.app.navigation.AppNavHost
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 @Composable
 fun CityParkApplication(
-    appState: AppState
+    appState: AppState,
+    startDestination: KClass<*>,
+    onSuccessfulAuth: () -> Unit,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     CityParkApplication(
-        appState,
-        snackbarHostState
+        appState = appState,
+        startDestination = startDestination,
+        snackbarHostState = snackbarHostState,
+        onSuccessfulAuth = onSuccessfulAuth
     )
 
 }
@@ -32,8 +40,15 @@ fun CityParkApplication(
 @Composable
 fun CityParkApplication(
     appState: AppState,
-    snackbarHostState: SnackbarHostState
+    startDestination: KClass<*>,
+    snackbarHostState: SnackbarHostState,
+    onSuccessfulAuth: () -> Unit,
 ) {
+
+    val currentDestination = appState.currentDestination
+    val topLevelDestinations = appState.topLevelDestinations
+    val currentTopLevelDestination = appState.currentTopLevelDestination
+
     val coroutineScope = appState.coroutineScope
 
     Scaffold(
@@ -41,6 +56,16 @@ fun CityParkApplication(
             SnackbarHost(
                 snackbarHostState,
                 modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
+            )
+        },
+        bottomBar = {
+            CityParkBottomNavigation(
+                destinations = topLevelDestinations,
+                visible = currentTopLevelDestination != null,
+                currentDestination = currentDestination,
+                onNavigateToDestination = { destination ->
+                    appState.navigateToTopLevelDestination(destination)
+                }
             )
         }
     ) { innerPadding ->
@@ -50,12 +75,21 @@ fun CityParkApplication(
                 .consumeWindowInsets(innerPadding)
                 .imePadding()
         ) {
-            AppNavHost(appState, onShowSnackBar = { message ->
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar(message)
-                }
-            })
+            AppNavHost(
+                appState = appState,
+                startDestination = startDestination,
+                onSuccessfulAuth = onSuccessfulAuth,
+                onShowSnackBar = { message ->
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                })
         }
 
     }
 }
+
+fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
+    this?.hierarchy?.any {
+        it.hasRoute(route)
+    } ?: false

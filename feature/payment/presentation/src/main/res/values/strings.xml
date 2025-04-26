@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_correct_card_number">შეიყვანეთ სწორი ბარათის ნომერი</string>
+    <string name="enter_valid_expire_date">შეიყვანეთ სწორი ვადა</string>
+    <string name="enter_valid_cvv">შეიყვანეთ სწორი CVV</string>
+    <string name="enter_valid_name">შეიყვანეთ სწორი სახელი და გვარი</string>
+    <string name="add_card">ბარათის დამატება</string>
+    <string name="card_number">ბარათის ნომერი</string>
+    <string name="expire_date">ვადა (თთ/წწ)</string>
+    <string name="cvv">CVV</string>
+    <string name="cardholder_name">მფლობელის სახელი</string>
+    <string name="save_button">ბარათის შენახვა</string>
+    <string name="hidden_card_number" translatable="false">**** **** **** %1$s</string>
+    <string name="credit_cards">ბარათები</string>
+    <string name="you_havent_added_any_cards">შენ არ გაქვს დამატებული ბარათები</string>
+    <string name="add_balance">შეავსე ბალანსი</string>
+    <string name="choose_card">აირჩიე ბარათი</string>
+    <string name="or">ან</string>
+    <string name="card_added_successfully">ბარათი წარმატებით დაემატა</string>
+    <string name="trailing_gel_symbol" translatable="false">₾</string>
+    <string name="enter_transaction_amount">შეიყვანე თანხა</string>
+    <string name="balance_added_successfully">ბალანსი წარმატებით შეივსო</string>
+    <string name="please_fill_amount">ველი არ უნდა იყოს ცარიელი</string>
+</resources>

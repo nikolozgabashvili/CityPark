@@ -5,3 +5,7 @@ plugins{
 android{
     namespace = "ge.tbca.city_park.core.ui"
 }
+
+dependencies{
+    implementation(projects.core.domain)
+}

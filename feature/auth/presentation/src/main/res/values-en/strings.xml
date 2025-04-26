@@ -23,9 +23,16 @@
     <string name="password_recovery">Password recovery</string>
     <string name="enter_password_recovery_email">Enter the email address where the password recovery link will be sent</string>
     <string name="submit">Submit</string>
+    <string name="password_updated_successfully">Password Updated</string>
     <string name="old_password_is_incorrect">Old password is incorrect</string>
     <string name="change_password">Change password</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
     <string name="repeat_new_password">Repeat new password</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="invalid_credentials">User was not found</string>
+    <string name="network_error">Network Error</string>
+    <string name="user_already_exists">User already exists</string>
+    <string name="password_recovery_email_sent">Email Sent</string>
+    <string name="invalid_email_format">Invalid Email Format</string>
 </resources>

@@ -43,5 +43,9 @@ gradlePlugin {
             id = "ge.tbca.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+        register("retrofit"){
+            id = "ge.tbca.retrofit"
+            implementationClass = "RetrofitConventionPlugin"
+        }
     }
 }

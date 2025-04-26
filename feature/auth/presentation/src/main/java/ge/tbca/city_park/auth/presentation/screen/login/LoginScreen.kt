@@ -41,8 +41,8 @@ import ge.tbca.city_park.auth.presentation.R
 @Composable
 fun LoginScreenRoot(
     onShowSnackBar: (String) -> Unit,
-    navigateToHome: () -> Unit,
     navigateToRegister: () -> Unit,
+    onSuccessfulAuth:() -> Unit,
     navigateToRecovery: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
@@ -55,11 +55,12 @@ fun LoginScreenRoot(
         when (effect) {
             LoginEffect.NavigateToPasswordRecovery -> navigateToRecovery()
             LoginEffect.NavigateToRegister -> navigateToRegister()
-            LoginEffect.Success -> navigateToHome()
             is LoginEffect.Error -> {
                 val error = effect.error.getString(context)
                 onShowSnackBar(error)
             }
+
+            LoginEffect.Success -> onSuccessfulAuth()
         }
 
     }

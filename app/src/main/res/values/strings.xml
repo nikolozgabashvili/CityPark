@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">City Park</string>
+    <string name="notification_channel_name" translatable="false">data sync channel</string>
+    <string name="home">მთავარი</string>
+    <string name="settings">პარამეტრები</string>
+    <string name="reservations">რეზერვაციები</string>
+    <string name="history">ისტორია</string>
 </resources>
+
+

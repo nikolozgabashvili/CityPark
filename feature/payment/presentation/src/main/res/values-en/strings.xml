@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_correct_card_number">Enter valid card number</string>
+    <string name="enter_valid_expire_date">Enter valid expiration date</string>
+    <string name="enter_valid_cvv">Enter valid CVV</string>
+    <string name="enter_valid_name">Enter valid full name</string>
+    <string name="add_card">Add card</string>
+    <string name="card_number">Card number</string>
+    <string name="expire_date">Expire date (MM/YY)</string>
+    <string name="cvv">CVV</string>
+    <string name="cardholder_name">Cardholder name</string>
+    <string name="save_button">Save card</string>
+    <string name="credit_cards">Credit cards</string>
+    <string name="you_havent_added_any_cards">You haven\'t added any cards yet</string>
+    <string name="add_balance">Add balance</string>
+    <string name="choose_card">Select card</string>
+    <string name="or">Or</string>
+    <string name="card_added_successfully">Card Added Successfully</string>
+    <string name="enter_transaction_amount">enter transaction amount</string>
+    <string name="balance_added_successfully">Balance added successfully</string>
+    <string name="please_fill_amount">Field must not be empty </string>
+</resources>
