@@ -5,4 +5,6 @@
     <string name="settings">Settings</string>
     <string name="reservations">Reservations</string>
     <string name="history">History</string>
+    <string name="notification_permission_required">Notification Permission</string>
+    <string name="notification_permission_required_message">Notification permission is needed to receive important information in a timely manner.</string>
 </resources>

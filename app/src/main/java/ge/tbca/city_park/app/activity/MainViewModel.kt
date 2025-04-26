@@ -28,10 +28,8 @@ class MainViewModel @Inject constructor(
     }
 
 
-
-
     override fun onEvent(event: MainActivityEvent) {
-        when(event) {
+        when (event) {
             MainActivityEvent.OnSuccessfulAuth -> {
                 checkIfAuthorized()
             }
@@ -44,7 +42,7 @@ class MainViewModel @Inject constructor(
             val isAuthorized = isUserAuthenticatedUseCase()
             updateState { copy(isAuthorized = isAuthorized) }
 
-            if (isAuthorized){
+            if (isAuthorized) {
                 updateMessagingToken()
 
             }

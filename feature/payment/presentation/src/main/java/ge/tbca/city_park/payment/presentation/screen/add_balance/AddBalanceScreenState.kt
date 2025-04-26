@@ -11,7 +11,6 @@ data class AddBalanceScreenState(
     val showDropDown: Boolean = false,
     val selectedCardId: Int? = null,
     val transactionAmount: String = "",
-    val showCardSelectedError: Boolean = false,
     val showTransactionAmountError: Boolean = false,
 ) {
     val selectedCard: CreditCardUi?

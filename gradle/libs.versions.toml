@@ -38,6 +38,7 @@ kotlinxCoroutinesCore = "1.10.2"
 workRuntimeKtx = "2.10.1"
 splashScreen = "1.0.1"
 firebaseMessaging = "24.1.1"
+accompanist = "0.37.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -83,6 +84,9 @@ googleid = { group = "com.google.android.libraries.identity.googleid", name = "g
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 splash-screen = {group="androidx.core",name="core-splashscreen",version.ref = "splashScreen"}
+
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
+
 
 
 #gradle

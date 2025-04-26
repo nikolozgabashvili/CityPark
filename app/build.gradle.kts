@@ -44,6 +44,8 @@ dependencies {
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.work.compiler)
     implementation(libs.splash.screen)
+
+    implementation(libs.accompanist.permissions)
 }
 
 dependencies {

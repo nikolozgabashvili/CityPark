@@ -40,7 +40,7 @@ fun CardDropDownMenu(
     BaseDropDownMenu(
         modifier = modifier,
         expanded = expanded,
-        onDismiss = onDismiss
+        onDismiss = onDismiss,
     ) {
         items.forEachIndexed { index, item ->
             CreditCardDropDownItem(
@@ -53,14 +53,14 @@ fun CardDropDownMenu(
 
             if (index != items.lastIndex) {
                 Divider(modifier = Modifier.padding(vertical = Dimen.size8))
+            }else{
+                Divider(text = stringResource(R.string.or))
+                Spacer(modifier = Modifier.height(Dimen.size8))
             }
         }
 
-        Divider(text = stringResource(R.string.or))
-
         Row(
             modifier = Modifier
-                .padding(top = Dimen.size8)
                 .clickable(
                     interactionSource = null,
                     indication = null,

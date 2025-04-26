@@ -4,7 +4,7 @@
     <string name="enter_valid_expire_date">შეიყვანეთ სწორი ვადა</string>
     <string name="enter_valid_cvv">შეიყვანეთ სწორი CVV</string>
     <string name="enter_valid_name">შეიყვანეთ სწორი სახელი და გვარი</string>
-    <string name="add_card">ბარათის დამატება</string>
+    <string name="add_card">დაამატე ბარათი</string>
     <string name="card_number">ბარათის ნომერი</string>
     <string name="expire_date">ვადა (თთ/წწ)</string>
     <string name="cvv">CVV</string>

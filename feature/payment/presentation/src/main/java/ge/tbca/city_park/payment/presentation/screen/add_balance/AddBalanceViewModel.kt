@@ -43,9 +43,12 @@ class AddBalanceViewModel @Inject constructor(
 
             updateState {
                 copy(
-                    showCardSelectedError = state.selectedCard == null,
                     showTransactionAmountError = state.transactionAmount.isEmpty()
                 )
+            }
+
+            if (state.selectedCard==null){
+                sendSideEffect(AddBalanceEffect.CardNotSelected)
             }
 
             if (state.canStartTransaction) {
@@ -81,6 +84,7 @@ class AddBalanceViewModel @Inject constructor(
     }
 
     private fun navigateToAddCard() {
+        updateState { copy(showDropDown = false) }
         viewModelScope.launch {
             sendSideEffect(AddBalanceEffect.NavigateToAddCard)
         }
@@ -96,14 +100,12 @@ class AddBalanceViewModel @Inject constructor(
     }
 
     private fun showCardDropDown() {
-        updateState { copy(showDropDown = true, showCardSelectedError = false) }
+        updateState { copy(showDropDown = true) }
     }
 
     private fun retry() {
-        viewModelScope.launch {
-            getCards()
+        getCards()
 
-        }
     }
 
     private fun getCards() {

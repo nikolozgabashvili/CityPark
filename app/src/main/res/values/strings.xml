@@ -5,6 +5,8 @@
     <string name="settings">პარამეტრები</string>
     <string name="reservations">რეზერვაციები</string>
     <string name="history">ისტორია</string>
+    <string name="notification_permission_required">საჭიროა უფლება</string>
+    <string name="notification_permission_required_message">შეტყობინებების ნებართვა საჭიროა იმისთვის, რომ დროულად მიიღოთ მნიშვნელოვანი ინფორმაცია</string>
 </resources>
 
 
