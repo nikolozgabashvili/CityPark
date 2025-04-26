@@ -1,17 +1,19 @@
-plugins{
+plugins {
     alias(libs.plugins.cityPark.android.library)
     alias(libs.plugins.cityPark.dagger.hilt)
+    alias(libs.plugins.cityPark.retrofit)
 }
 
-android{
+android {
     namespace = "ge.tbca.city_park.user.data"
 }
 
-dependencies{
+dependencies {
     implementation(libs.firebase.auth)
 }
 
-dependencies{
+dependencies {
     implementation(projects.feature.user.domain)
     implementation(projects.core.domain)
+    implementation(projects.core.data)
 }

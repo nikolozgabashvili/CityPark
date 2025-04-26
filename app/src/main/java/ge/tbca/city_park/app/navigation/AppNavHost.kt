@@ -1,5 +1,8 @@
 package ge.tbca.city_park.app.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import ge.tba.city_park.reservation.presentation.navigation.reservationsNavGraph
@@ -11,6 +14,9 @@ import ge.tbca.city_park.cars.presentation.navigation.AddCarScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.CarsScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.carNavGraph
 import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
+import ge.tbca.city_park.payment.presentation.navigation.AddBalanceScreenRoute
+import ge.tbca.city_park.payment.presentation.navigation.AddCardScreenRoute
+import ge.tbca.city_park.payment.presentation.navigation.paymentNavGraph
 import ge.tbca.city_park.settings.presentation.navigation.LanguageSettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.ThemeSettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.settingsNavGraph
@@ -29,6 +35,11 @@ fun AppNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination,
+        enterTransition = { fadeIn(tween(400)) },
+        exitTransition = { fadeOut(tween(400)) },
+        popEnterTransition = { fadeIn(tween(400)) },
+        popExitTransition = { fadeOut(tween(400)) }
+
 
     ) {
         authNavGraph(
@@ -50,6 +61,13 @@ fun AppNavHost(
                 navController.navigate(CarsScreenRoute)
             },
             onShowSnackBar = onShowSnackBar,
+            navigateToAddBalance = {
+                navController.navigate(AddBalanceScreenRoute)
+
+            },
+            navigateToProfile = {
+
+            },
         )
 
 
@@ -78,6 +96,16 @@ fun AppNavHost(
             onShowSnackBar = onShowSnackBar,
             navigateToAddCar = {
                 navController.navigate(AddCarScreenRoute)
+            }
+        )
+
+        paymentNavGraph(
+            navigateBack = {
+                navController.navigateUp()
+            },
+            onShowSnackBar = onShowSnackBar,
+            navigateToAddCard = {
+                navController.navigate(AddCardScreenRoute)
             }
         )
 

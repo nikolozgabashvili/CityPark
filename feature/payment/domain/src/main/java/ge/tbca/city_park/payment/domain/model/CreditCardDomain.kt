@@ -1,6 +1,6 @@
 package ge.tbca.city_park.payment.domain.model
 
-data class CreditCard(
+data class CreditCardDomain(
     val id: Int,
     val cardNumber: String,
     val holderName: String,

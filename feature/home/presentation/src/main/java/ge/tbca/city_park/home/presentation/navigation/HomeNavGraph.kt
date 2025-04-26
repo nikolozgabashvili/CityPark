@@ -8,11 +8,16 @@ import kotlinx.serialization.Serializable
 fun NavGraphBuilder.homeNavGraph(
     navigateToCars: () -> Unit,
     onShowSnackBar: (String) -> Unit,
+    navigateToAddBalance: () -> Unit,
+    navigateToProfile: () -> Unit,
 ) {
 
     composable<HomeScreenRoute> {
         HomeScreenRoot(
             navigateToCars = navigateToCars,
+            onShowSnackBar = onShowSnackBar,
+            navigateToAddBalance = navigateToAddBalance,
+            navigateToProfile = navigateToProfile,
         )
     }
 

@@ -1,9 +1,9 @@
 package ge.tbca.city_park.payment.data.mapper
 
 import ge.tbca.city_park.payment.data.model.CardRequestDTO
-import ge.tbca.city_park.payment.domain.model.CardRequest
+import ge.tbca.city_park.payment.domain.model.CardRequestDomain
 
-fun CardRequest.toDTO(): CardRequestDTO {
+fun CardRequestDomain.toDTO(): CardRequestDTO {
     return CardRequestDTO(
         cardNumber = cardNumber,
         holderName = holderName,

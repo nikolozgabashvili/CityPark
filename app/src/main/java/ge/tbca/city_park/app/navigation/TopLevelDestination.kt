@@ -30,7 +30,7 @@ enum class TopLevelDestination(
     RESERVATION(
         selectedIcon = Icons.Filled.HistoryEdu,
         unselectedIcon = Icons.Outlined.HistoryEdu,
-        iconTextId = R.string.reservations,
+        iconTextId = R.string.history,
         route = ReservationsRoute::class,
     ),
     SETTINGS(

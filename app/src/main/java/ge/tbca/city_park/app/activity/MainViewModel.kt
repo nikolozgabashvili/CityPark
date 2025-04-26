@@ -4,10 +4,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.city_park.messaging.domain.usecase.GetAndUpdateMessagingTokenUseCase
-import ge.tbca.city_park.messaging.domain.usecase.UpdateMessagingTokenUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedLanguageUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedThemeUseCase
-import ge.tbca.city_park.user.domain.usecase.GetUserAuthStateUseCase
 import ge.tbca.city_park.user.domain.usecase.IsUserAuthenticatedUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,9 +16,7 @@ class MainViewModel @Inject constructor(
     private val getSavedThemeUseCase: GetSavedThemeUseCase,
     private val getSavedLanguageUseCase: GetSavedLanguageUseCase,
     private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase,
-    private val getAndUpdateTokenUseCase: GetAndUpdateMessagingTokenUseCase,
-    private val updateMessagingTokenUseCase: UpdateMessagingTokenUseCase,
-    private val getUserAuthStateUseCase: GetUserAuthStateUseCase
+    private val getAndUpdateTokenUseCase: GetAndUpdateMessagingTokenUseCase
 ) : BaseViewModel<MainActivityState, MainActivityEffect, MainActivityEvent>(MainActivityState()) {
 
     init {
@@ -28,22 +24,10 @@ class MainViewModel @Inject constructor(
         observeTheme()
         observeLanguage()
         checkIfAuthorized()
-        observeAuthorizedState()
 
     }
 
-    private fun observeAuthorizedState() {
-        viewModelScope.launch {
-            getUserAuthStateUseCase().collect {isAuthorized->
-                if (!isAuthorized){
-                    updateState { copy(isAuthorized = false) }
-                    updateMessagingTokenUseCase(token = null)
-                }
 
-            }
-        }
-
-    }
 
 
     override fun onEvent(event: MainActivityEvent) {

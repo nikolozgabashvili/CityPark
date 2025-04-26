@@ -61,6 +61,7 @@ fun CityParkApplication(
         bottomBar = {
             CityParkBottomNavigation(
                 destinations = topLevelDestinations,
+                visible = currentTopLevelDestination != null,
                 currentDestination = currentDestination,
                 onNavigateToDestination = { destination ->
                     appState.navigateToTopLevelDestination(destination)

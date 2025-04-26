@@ -3,7 +3,7 @@ package ge.tbca.city_park.payment.presentation.screen.add_card
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
-import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.citi_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.payment.domain.usecase.AddCreditCardUseCase
@@ -58,20 +58,16 @@ class AddCardViewModel @Inject constructor(
                 ).collect { resource ->
                     updateState { copy(isLoading = resource.isLoading()) }
                     when (resource) {
-                        // TODO resource handling
+
                         is Resource.Success -> {
-                            sendSideEffect(
-                                AddCardEffect.ShowSnackbar(
-                                    GenericString.DynamicString("Card added successfully")
-                                )
-                            )
-                            sendSideEffect(AddCardEffect.NavigateBack)
+                            sendSideEffect(AddCardEffect.Success)
                         }
 
                         is Resource.Error -> {
+                            val error = resource.error.toGenericString()
                             sendSideEffect(
-                                AddCardEffect.ShowSnackbar(
-                                    GenericString.DynamicString("Failed to add the card")
+                                AddCardEffect.Error(
+                                    error
                                 )
                             )
                         }

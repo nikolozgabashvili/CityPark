@@ -7,7 +7,8 @@
     <string name="start_time">დაწყების დრო: %1$s</string>
     <string name="end_time">დასრულების დრო: %1$s</string>
     <string name="duration">დრო: %1$s</string>
-    <string name="cost">ღირებულება: %1$s</string>
+    <string name="cost">ღირებულება: %1$s ₾</string>
     <string name="reservations">რეზერვაციები</string>
+    <string name="parking_history">პარკირების ისტორია</string>
     <string name="you_dont_have_reservations">რეზერვაციები არ გაქვთ</string>
 </resources>

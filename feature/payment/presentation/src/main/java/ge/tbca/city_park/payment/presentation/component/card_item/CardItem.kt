@@ -1,55 +1,60 @@
-package ge.tbca.city_park.payment.presentation.component
+package ge.tbca.city_park.payment.presentation.component.card_item
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
-import com.example.core.designsystem.theme.MasterCardIcon
-import com.example.core.designsystem.theme.OtherCardIcon
 import com.example.core.designsystem.theme.TextStyles
-import com.example.core.designsystem.theme.VisaIcon
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.city_park.payment.domain.model.CardType
 import ge.tbca.city_park.payment.presentation.R
+import ge.tbca.city_park.payment.presentation.mapper.getIcon
 import ge.tbca.city_park.payment.presentation.model.CreditCardUi
 
 @Composable
 fun CardItem(
     modifier: Modifier = Modifier,
-    card: CreditCardUi
+    card: CreditCardUi,
+    enabled: Boolean = true,
+    onclick: (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(Dimen.roundedCornerMediumSize))
-            .background(AppColors.surface)
-            .padding(Dimen.appPadding),
+            .background(
+                color = AppColors.surface,
+                shape = RoundedCornerShape(Dimen.roundedCornerMediumSize)
+            )
+            .padding(Dimen.appPadding)
+            .clickable(
+                enabled = onclick != null && enabled,
+                indication = null,
+                interactionSource = null,
+                onClick = {
+                    onclick?.invoke()
+                }
+            ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            imageVector = when (card.cardType) {
-                CardType.VISA -> VisaIcon
-                CardType.MASTERCARD -> MasterCardIcon
-                CardType.OTHER -> OtherCardIcon
-            },
+            imageVector = card.cardType.getIcon(),
             contentDescription = null,
-            modifier = Modifier.size(Dimen.size100)
+            modifier = Modifier.width(Dimen.size100)
         )
 
         Spacer(modifier = Modifier.width(Dimen.size16))

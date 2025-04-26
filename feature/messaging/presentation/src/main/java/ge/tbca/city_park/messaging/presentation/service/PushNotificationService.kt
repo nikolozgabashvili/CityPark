@@ -3,10 +3,10 @@ package ge.tbca.city_park.messaging.presentation.service
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.content.getSystemService
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,12 +20,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PushNotificationService :FirebaseMessagingService() {
-
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+class PushNotificationService : FirebaseMessagingService() {
 
     @Inject
     lateinit var updateMessagingTokenUseCase: UpdateMessagingTokenUseCase
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    private val notificationManager by lazy {
+        getSystemService<NotificationManager>()!!
+    }
+
+    private val baseNotification by lazy {
+        NotificationCompat.Builder(
+            applicationContext,
+            applicationContext.getString(R.string.default_notification_channel_id)
+        ).setSmallIcon(R.drawable.ic_car)
+            .setAutoCancel(true)
+    }
+
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -43,21 +56,11 @@ class PushNotificationService :FirebaseMessagingService() {
         }
 
     }
-
-    private fun showNotification(notification: RemoteMessage.Notification) {
-        val channelId = getString(R.string.default_notification_channel_id)
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                getString(R.string.default_notification_channel_id),
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-
+    override fun onCreate() {
+        super.onCreate()
+        createNotificationChannel()
+    }
+    private fun showNotification(notificationData: RemoteMessage.Notification) {
 
         val intent = Intent().setClassName(
             this,
@@ -74,16 +77,28 @@ class PushNotificationService :FirebaseMessagingService() {
         )
 
 
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setContentTitle(notification.title)
-            .setContentText(notification.body)
-            .setSmallIcon(R.drawable.ic_car)
-            .setAutoCancel(true)
+
+        val notification = baseNotification
+            .setContentTitle(notificationData.title)
+            .setContentText(notificationData.body)
             .setContentIntent(pendingIntent)
+            .build()
+        notificationManager.notify(1, notification)
 
-
-        notificationManager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
     }
+
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                /* id = */ applicationContext.getString(R.string.default_notification_channel_id),
+                /* name = */ applicationContext.getString(R.string.push_notification_channel_name),
+                /* importance = */ NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         scope.cancel()

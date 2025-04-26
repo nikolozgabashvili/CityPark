@@ -6,9 +6,9 @@ import ge.tbca.city_park.payment.data.model.CardRequestDTO
 import ge.tbca.city_park.payment.data.model.CreditCardDTO
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface CreditCardService {
 
@@ -22,7 +22,7 @@ interface CreditCardService {
 
     @UserId
     @DELETE(DELETE_CREDIT_CARD)
-    suspend fun deleteCreditCard(@Field("id") id: String): BaseResponse<Boolean>
+    suspend fun deleteCreditCard(@Path("id") id: String): BaseResponse<Boolean>
 
     companion object {
         private const val ADD_CREDIT_CARD = "users/cards"

@@ -3,6 +3,7 @@ package ge.tbca.city_park.payment.presentation.screen.cards
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.citi_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.payment.domain.usecase.GetAllCreditCardsUseCase
@@ -22,21 +23,36 @@ class CardsViewModel @Inject constructor(
     override fun onEvent(event: CardsEvent) {
         when (event) {
             is CardsEvent.NavigateBack -> navigateBack()
+            CardsEvent.Refresh -> refresh()
         }
+    }
+
+    private fun refresh() {
+        fetchCards()
     }
 
     private fun fetchCards() {
         viewModelScope.launch {
             getAllCreditCardsUseCase().collect { resource ->
-                updateState { copy(isLoading = resource.isLoading()) }
+                updateState { copy(isLoading = resource.isLoading(), error = null) }
                 when (resource) {
                     is Resource.Success -> {
+                        val cards = resource.data.toPresenter()
                         updateState {
-                            copy(cardsList = resource.data.map { it.toPresenter() })
+                            copy(
+                                cardsList = cards,
+                                noCards = cards.isEmpty()
+                            )
                         }
                     }
 
-                    is Resource.Error -> Unit
+                    is Resource.Error -> {
+                        val error = resource.error.toGenericString()
+                        if (state.cardsList.isEmpty()) {
+                            updateState { copy(error = error) }
+                        }
+                        sendSideEffect(CardsEffect.ShowSnackbar(error))
+                    }
 
                     is Resource.Loading -> Unit
                 }

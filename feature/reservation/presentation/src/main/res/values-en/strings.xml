@@ -2,12 +2,13 @@
 <resources>
     <string name="car">Car: %1$s</string>
     <string name="active">Active</string>
-    <string name="ended">Ended</string>
+    <string name="ended">Finished</string>
     <string name="zone">Zone: %1$s</string>
     <string name="start_time">Start time: %1$s</string>
     <string name="end_time">End time: %1$s</string>
     <string name="duration">Duration: %1$s</string>
-    <string name="cost">Cost: %1$s</string>
+    <string name="cost">Cost: %1$s ₾</string>
     <string name="reservations">Reservations</string>
+    <string name="parking_history">Parking History</string>
     <string name="you_dont_have_reservations">You don\'t have any reservations</string>
 </resources>

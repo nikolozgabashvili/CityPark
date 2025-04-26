@@ -1,6 +1,7 @@
 package com.example.core.designsystem.components.bottom_nav_item
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,11 +12,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.AppTypography
@@ -34,8 +39,12 @@ fun BottomNavItem(
     Column(
         modifier = modifier
             .clickable(
-                interactionSource = null,
-                indication = null,
+                indication = ripple(
+                    color = LocalContentColor.current,
+                    bounded = true,
+
+                ),
+                interactionSource = remember { MutableInteractionSource() },
                 onClick = onClick
             )
             .padding(vertical = Dimen.size12),
@@ -53,6 +62,7 @@ fun BottomNavItem(
 
         Text(
             text = label,
+            fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Medium,
             style = AppTypography.labelSmall,
             color = if (selected) AppColors.primary else AppColors.onSurfaceVariant
         )

@@ -9,6 +9,6 @@ data class ReservationDomain(
     val createdAt: Long,
     val active: Boolean = true,
     val endedAt: Long? = null,
-    val cost: Long? = null,
+    val cost: Double? = null,
     val duration: Long? = null
 )

@@ -12,5 +12,13 @@
     <string name="save_button">ბარათის შენახვა</string>
     <string name="hidden_card_number" translatable="false">**** **** **** %1$s</string>
     <string name="credit_cards">ბარათები</string>
-    <string name="you_havent_added_any_cards">არ გაქვთ დამატებული ბარათები</string>
+    <string name="you_havent_added_any_cards">შენ არ გაქვს დამატებული ბარათები</string>
+    <string name="add_balance">შეავსე ბალანსი</string>
+    <string name="choose_card">აირჩიე ბარათი</string>
+    <string name="or">ან</string>
+    <string name="card_added_successfully">ბარათი წარმატებით დაემატა</string>
+    <string name="trailing_gel_symbol" translatable="false">₾</string>
+    <string name="enter_transaction_amount">შეიყვანე თანხა</string>
+    <string name="balance_added_successfully">ბალანსი წარმატებით შეივსო</string>
+    <string name="please_fill_amount">ველი არ უნდა იყოს ცარიელი</string>
 </resources>

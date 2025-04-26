@@ -8,5 +8,5 @@ data class ReservationUi(
     val createdAt: String,
     val active: Boolean = true,
     val endedAt: String? = null,
-    val cost: Long? = null
+    val cost: Double? = null
 )

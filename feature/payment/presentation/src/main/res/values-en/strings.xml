@@ -12,4 +12,11 @@
     <string name="save_button">Save card</string>
     <string name="credit_cards">Credit cards</string>
     <string name="you_havent_added_any_cards">You haven\'t added any cards yet</string>
+    <string name="add_balance">Add balance</string>
+    <string name="choose_card">Select card</string>
+    <string name="or">Or</string>
+    <string name="card_added_successfully">Card Added Successfully</string>
+    <string name="enter_transaction_amount">enter transaction amount</string>
+    <string name="balance_added_successfully">Balance added successfully</string>
+    <string name="please_fill_amount">Field must not be empty </string>
 </resources>

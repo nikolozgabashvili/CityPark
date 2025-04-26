@@ -1,9 +1,9 @@
 package ge.tbca.city_park.payment.presentation.mapper
 
-import ge.tbca.city_park.payment.domain.model.CreditCard
+import ge.tbca.city_park.payment.domain.model.CreditCardDomain
 import ge.tbca.city_park.payment.presentation.model.CreditCardUi
 
-fun CreditCard.toPresenter(): CreditCardUi {
+fun CreditCardDomain.toPresenter(): CreditCardUi {
     return CreditCardUi(
         id = id,
         cardNumber = cardNumber,
@@ -13,6 +13,10 @@ fun CreditCard.toPresenter(): CreditCardUi {
         cvv = cvv,
         cardType = cardType
     )
+}
+
+fun List<CreditCardDomain>.toPresenter(): List<CreditCardUi> {
+    return map { it.toPresenter() }
 }
 
 // add 0 in front of single digit months

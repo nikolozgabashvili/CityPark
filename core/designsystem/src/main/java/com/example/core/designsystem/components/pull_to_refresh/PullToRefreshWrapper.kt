@@ -34,8 +34,8 @@ fun PullToRefreshWrapper(
             Indicator(
                 modifier = Modifier.align(Alignment.TopCenter),
                 isRefreshing = isRefreshing,
-                containerColor = AppColors.background,
-                color = AppColors.onBackground,
+                containerColor = AppColors.secondaryContainer,
+                color = AppColors.onSecondaryContainer,
                 state = pullToRefreshState
             )
         }

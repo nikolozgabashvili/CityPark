@@ -15,15 +15,24 @@ class SettingsViewModel @Inject constructor(
 ) : BaseViewModel<SettingsState, SettingsEffect, SettingsEvent>(SettingsState()) {
 
     init {
-        viewModelScope.launch {
-            getSavedThemeUseCase().collect { theme ->
-                updateState { copy(currentThemeMode = theme) }
-            }
-        }
 
+        observeSavedTheme()
+
+        observeSavedLanguage()
+    }
+
+    private fun observeSavedLanguage() {
         viewModelScope.launch {
             getSavedLanguageUseCase().collect { language ->
                 updateState { copy(currentLanguage = language) }
+            }
+        }
+    }
+
+    private fun observeSavedTheme() {
+        viewModelScope.launch {
+            getSavedThemeUseCase().collect { theme ->
+                updateState { copy(currentThemeMode = theme) }
             }
         }
     }

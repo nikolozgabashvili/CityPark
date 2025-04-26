@@ -39,15 +39,20 @@ fun AddCardScreenRoot(
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val successMesage = stringResource(R.string.card_added_successfully)
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
-            is AddCardEffect.ShowSnackbar -> {
+            is AddCardEffect.Error -> {
                 val error = effect.message.getString(context)
                 onShowSnackBar(error)
             }
 
             is AddCardEffect.NavigateBack -> navigateBack()
+            is AddCardEffect.Success -> {
+                onShowSnackBar(successMesage)
+                navigateBack()
+            }
         }
     }
 

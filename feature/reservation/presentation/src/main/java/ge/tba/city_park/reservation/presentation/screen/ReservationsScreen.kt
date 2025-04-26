@@ -77,7 +77,7 @@ private fun ReservationsScreen(
         ) {
             TopNavigationBar(
                 modifier = Modifier.padding(Dimen.appPadding),
-                title = stringResource(R.string.reservations),
+                title = stringResource(R.string.parking_history),
                 endIcon = Icons.Rounded.Add,
                 onEndIconClick = { onEvent(ReservationsEvent.AddReservationButtonClicked) }
             )
@@ -134,7 +134,7 @@ private fun ReservationsScreenPreview() {
                         carNumber = "AA001BB",
                         createdAt = "13:19, 25.04.25",
                         active = true,
-                        cost = 1000
+                        cost = 1000.0
                     ),
                     ReservationUi(
                         id = 2,
@@ -144,7 +144,7 @@ private fun ReservationsScreenPreview() {
                         createdAt = "13:19, 25.04.25",
                         active = false,
                         endedAt = "14:19, 25.04.25",
-                        cost = 1000
+                        cost = 1000.0
                     )
                 )
             ),

@@ -4,60 +4,64 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavDestination
-import com.example.core.designsystem.components.bottom_nav_item.BottomNavItem
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.Dimen
-import com.example.core.designsystem.theme.transparent
 import ge.tbca.city_park.app.navigation.TopLevelDestination
 
 @Composable
 fun CityParkBottomNavigation(
     destinations: List<TopLevelDestination>,
     currentDestination: NavDestination?,
-    onNavigateToDestination: (TopLevelDestination) -> Unit,
-    modifier: Modifier = Modifier
+    visible: Boolean,
+    onNavigateToDestination: (TopLevelDestination) -> Unit
 ) {
     AnimatedVisibility(
-        visible = destinations.isNotEmpty(),
+        visible = visible,
         enter = fadeIn() + expandVertically(),
         exit = ExitTransition.None
     ) {
-        Surface(
-            modifier = modifier,
-            color = AppColors.transparent,
-            shadowElevation = Dimen.size1,
-            shape = RoundedCornerShape(topStart = Dimen.size16, topEnd = Dimen.size16)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(Dimen.size75),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                destinations.forEach { destination ->
-                    val selected = currentDestination.isRouteInHierarchy(destination.route)
 
-                    BottomNavItem(
-                        selectedIcon = destination.selectedIcon,
-                        unselectedIcon = destination.unselectedIcon,
-                        label = stringResource(destination.iconTextId),
-                        selected = selected,
-                        onClick = { onNavigateToDestination(destination) },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
+        NavigationBar(
+            modifier = Modifier.clip(
+                shape = RoundedCornerShape(
+                    topStart = Dimen.size16,
+                    topEnd = Dimen.size16
+                )
+            )
+        ) {
+            destinations.forEach { destination ->
+                val selected = currentDestination.isRouteInHierarchy(destination.route)
+
+                NavigationBarItem(
+
+                    icon = {
+                        Icon(
+                            imageVector = if (selected) destination.selectedIcon else destination.unselectedIcon,
+                            contentDescription = destination.name,
+                            tint = if (selected) AppColors.inverseSurface else AppColors.onBackground
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = stringResource(destination.iconTextId),
+                            color = if (selected) AppColors.inverseSurface else AppColors.onSurfaceVariant,
+                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                        )
+                    },
+                    selected = selected,
+                    onClick = { onNavigateToDestination(destination) },
+                )
             }
         }
     }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -51,7 +52,7 @@ fun BaseButton(
 
     Button(
         contentPadding = PaddingValues(horizontal = buttonParams.outPadding),
-        modifier = modifier.height(buttonParams.buttonHeight),
+        modifier = modifier.heightIn(buttonParams.buttonHeight),
         onClick = onClick,
         enabled = isEnabled,
         colors = colors

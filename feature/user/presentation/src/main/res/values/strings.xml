@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="balance_formatted_gel" translatable="false">%1$s ₾</string>
+    <string name="add_balance">შეავსე ბალანსი</string>
+    <string name="balance">ბალანსი</string>
+</resources>

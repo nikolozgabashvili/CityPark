@@ -117,7 +117,7 @@ fun ReservationItemPreviewNotActive() {
                 createdAt = "25.04.25, 13:19",
                 active = false,
                 endedAt = "14:19, 25.04.25",
-                cost = 1000
+                cost = 1000.0
             )
         )
     }
