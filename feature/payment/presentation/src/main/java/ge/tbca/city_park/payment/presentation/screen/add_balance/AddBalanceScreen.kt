@@ -17,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.AccountBalance
+import androidx.compose.material.icons.rounded.AccountBalanceWallet
 import androidx.compose.material.icons.rounded.AddCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -201,7 +203,7 @@ private fun AddBalanceScreen(
                         loading = state.transactionInProgress,
                         onClick = { onEvent(AddBalanceEvent.StartTransaction) },
                         text = stringResource(R.string.add_balance),
-                        startIcon = Icons.Rounded.AddCard
+                        startIcon = Icons.Rounded.AccountBalanceWallet
 
                     )
 

@@ -40,10 +40,9 @@ class CityParkApp : Application(), LanguageManagerProvider, Configuration.Provid
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                applicationContext.getString(R.string.notification_channel_name),
+                 applicationContext.getString(R.string.notification_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             )
-            NOTIFICATION_SERVICE
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
