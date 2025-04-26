@@ -1,9 +1,5 @@
 package ge.tbca.city_park.app.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -11,17 +7,12 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -68,39 +59,13 @@ fun CityParkApplication(
             )
         },
         bottomBar = {
-            AnimatedVisibility(
-                visible = currentTopLevelDestination != null,
-                enter = fadeIn() + expandVertically(),
-                exit = ExitTransition.None
-
-            ) {
-                NavigationBar {
-                    topLevelDestinations.forEach { destination ->
-                        val selected = currentDestination.isRouteInHierarchy(destination.route)
-                        NavigationBarItem(
-                            selected = selected,
-                            onClick = {
-                                appState.navigateToTopLevelDestination(destination)
-                            },
-                            icon = {
-                                Icon(
-                                    imageVector = if (selected) destination.selectedIcon else destination.unselectedIcon,
-                                    contentDescription = null
-                                )
-                            },
-
-                            label = {
-                                Text(
-                                    text = stringResource(destination.iconTextId)
-                                )
-                            },
-                            alwaysShowLabel = true,
-                        )
-
-                    }
+            CityParkBottomNavigation(
+                destinations = topLevelDestinations,
+                currentDestination = currentDestination,
+                onNavigateToDestination = { destination ->
+                    appState.navigateToTopLevelDestination(destination)
                 }
-            }
-
+            )
         }
     ) { innerPadding ->
         Box(
@@ -123,7 +88,7 @@ fun CityParkApplication(
     }
 }
 
-private fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
+fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
     this?.hierarchy?.any {
         it.hasRoute(route)
     } ?: false
