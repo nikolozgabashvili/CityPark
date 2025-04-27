@@ -22,7 +22,6 @@ fun NavGraphBuilder.homeNavGraph(
             navigateToProfile = navigateToProfile,
             navigateToAddReservation = navigateToAddReservation,
             navigateToCards = navigateToCards
-
         )
     }
 

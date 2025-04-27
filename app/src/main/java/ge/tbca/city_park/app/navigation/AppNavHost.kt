@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import ge.tba.city_park.reservation.presentation.navigation.CreateReservationRoute
 import ge.tba.city_park.reservation.presentation.navigation.reservationsNavGraph
 import ge.tbca.city_park.app.ui.AppState
+import ge.tbca.city_park.auth.presentation.navigation.ChangePasswordScreenRoute
 import ge.tbca.city_park.auth.presentation.navigation.RecoverPasswordScreenRoute
 import ge.tbca.city_park.auth.presentation.navigation.RegisterScreenRoute
 import ge.tbca.city_park.auth.presentation.navigation.authNavGraph
@@ -24,6 +25,8 @@ import ge.tbca.city_park.settings.presentation.navigation.LanguageSettingsScreen
 import ge.tbca.city_park.settings.presentation.navigation.SettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.ThemeSettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.settingsNavGraph
+import ge.tbca.city_park.user.presentation.navigation.ProfileScreenRoute
+import ge.tbca.city_park.user.presentation.navigation.profileNavGraph
 import kotlin.reflect.KClass
 
 @Composable
@@ -69,7 +72,7 @@ fun AppNavHost(
                 navController.navigate(AddBalanceScreenRoute)
             },
             navigateToProfile = {
-
+                navController.navigate(ProfileScreenRoute)
             },
             navigateToAddReservation = {
                 navController.navigate(CreateReservationRoute)
@@ -133,7 +136,17 @@ fun AppNavHost(
                 navController.navigate(CardsScreenRoute)
             },
             navigateToProfile = {
-                // TODO profile navigation
+                navController.navigate(ProfileScreenRoute)
+            }
+        )
+
+        profileNavGraph(
+            onShowSnackBar = onShowSnackBar,
+            navigateBack = {
+                navController.navigateUp()
+            },
+            navigateToChangePassword = {
+                navController.navigate(ChangePasswordScreenRoute)
             }
         )
     }

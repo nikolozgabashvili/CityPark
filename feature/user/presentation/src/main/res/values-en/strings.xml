@@ -2,4 +2,7 @@
 <resources>
     <string name="add_balance">Add balance</string>
     <string name="balance">Balance</string>
+    <string name="profile">Profile</string>
+    <string name="change_password">Change password</string>
+    <string name="sign_out">Sign out</string>
 </resources>

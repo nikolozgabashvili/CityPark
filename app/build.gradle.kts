@@ -79,6 +79,7 @@ dependencies {
 
     implementation(projects.feature.home.presentation)
 
+    implementation(projects.feature.user.presentation)
     implementation(projects.feature.user.domain)
     implementation(projects.feature.user.data)
 
