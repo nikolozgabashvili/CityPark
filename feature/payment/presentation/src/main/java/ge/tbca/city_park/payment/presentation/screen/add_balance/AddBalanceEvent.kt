@@ -5,7 +5,7 @@ sealed interface AddBalanceEvent {
     data object StartTransaction : AddBalanceEvent
     data object Retry : AddBalanceEvent
     data object ChooseCard : AddBalanceEvent
-    data object CloseDropDown : AddBalanceEvent
+    data object CloseBottomSheet : AddBalanceEvent
     data object NavigateToAddCard : AddBalanceEvent
 
     data class CardSelected(val cardId: Int) : AddBalanceEvent

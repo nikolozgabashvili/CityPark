@@ -4,6 +4,7 @@ import ge.tbca.citi_park.core.ui.util.GenericString
 
 sealed interface CreateReservationEffect {
     data object Success : CreateReservationEffect
+    data object NoCarSelected : CreateReservationEffect
     data class Error(val error: GenericString) : CreateReservationEffect
     data object NavigateBack : CreateReservationEffect
     data object NavigateToMap : CreateReservationEffect

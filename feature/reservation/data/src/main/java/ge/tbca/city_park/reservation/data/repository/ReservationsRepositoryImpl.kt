@@ -21,11 +21,20 @@ class ReservationsRepositoryImpl @Inject constructor(
     private val apiService: ReservationApiService
 ) : ReservationsRepository {
 
+
     override fun getAllReservations(): Flow<Resource<List<ReservationDomain>, ApiError>> {
         return apiHelper.safeCall {
             apiService.getReservationsHistory()
         }.mapResource {
             it.toDomain()
+        }
+    }
+
+    override fun getActiveReservation(): Flow<Resource<ReservationDomain?, ApiError>> {
+        return apiHelper.safeCall {
+            apiService.getActiveReservation()
+        }.mapResource {
+            it.firstOrNull()?.toDomain()
         }
     }
 

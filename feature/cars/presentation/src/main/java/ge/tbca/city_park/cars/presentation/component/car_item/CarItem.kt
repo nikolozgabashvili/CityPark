@@ -24,14 +24,14 @@ import ge.tbca.city_park.cars.presentation.model.CarUi
 fun CarItem(
     car: CarUi,
     modifier: Modifier = Modifier,
-    onClick: (CarUi) -> Unit
+    onClick: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dimen.roundedCornerMediumSize))
             .background(AppColors.surface)
-            .clickable { onClick(car) }
+            .clickable { onClick?.invoke() }
     ) {
         Column(modifier = Modifier.padding(Dimen.appPadding)) {
             car.carName?.let {

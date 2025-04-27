@@ -6,6 +6,7 @@ import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.citi_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
+import ge.tbca.city_park.reservation.domain.usecase.GetActiveReservationUseCase
 import ge.tbca.city_park.user.domain.usecase.FetchUserInfoUseCase
 import ge.tbca.city_park.user.domain.usecase.GetUserInfoUseCase
 import kotlinx.coroutines.launch
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
-    private val fetchUserInfoUseCase: FetchUserInfoUseCase
+    private val fetchUserInfoUseCase: FetchUserInfoUseCase,
+    private val getActiveReservationUseCase: GetActiveReservationUseCase,
 ) :
     BaseViewModel<HomeScreenState, HomeScreenEffect, HomeScreenEvent>(HomeScreenState()) {
 

@@ -34,8 +34,8 @@ class CreateReservationViewModel @Inject constructor(
             is CreateReservationEvent.ChooseOnMapButtonClicked -> navigateToMap()
             is CreateReservationEvent.CreateReservationButtonClicked -> createReservation()
             is CreateReservationEvent.CarSelected -> cardSelected(event.id)
-            is CreateReservationEvent.CloseDropDown -> closeDropDown()
-            is CreateReservationEvent.ShowDropDown -> showDropDown()
+            is CreateReservationEvent.CloseBottomSheet -> closeBottomSheet()
+            is CreateReservationEvent.ShowBottomSheet -> showBottomSheet()
             is CreateReservationEvent.NavigateToAddCar -> navigateToAddCar()
             is CreateReservationEvent.Retry -> retry()
         }
@@ -58,10 +58,17 @@ class CreateReservationViewModel @Inject constructor(
     }
 
     private fun createReservation() {
-        val plateNumber = state.selectedCar?.plateNumber ?: ""
+        val plateNumber = state.selectedCar?.plateNumber
         val isZoneCodeValid = validateZoneCodeUseCase(state.zoneCode)
-        if (isZoneCodeValid && plateNumber.isNotEmpty()) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            updateState { copy(showZoneCodeError = !isZoneCodeValid) }
+            if (plateNumber == null) {
+                sendSideEffect(CreateReservationEffect.NoCarSelected)
+                return@launch
+            }
+
+
+            if (isZoneCodeValid) {
                 createReservationUseCase(
                     ReservationRequest(
                         zoneCode = state.zoneCode,
@@ -83,25 +90,24 @@ class CreateReservationViewModel @Inject constructor(
                     }
                 }
             }
-        } else {
-            updateState { copy(showZoneCodeError = !isZoneCodeValid) }
         }
     }
 
-    private fun showDropDown() {
-        updateState { copy(showDropDown = true) }
+    private fun showBottomSheet() {
+        updateState { copy(showBottomSheet = true) }
     }
 
-    private fun closeDropDown() {
-        updateState { copy(showDropDown = false) }
+    private fun closeBottomSheet() {
+        updateState { copy(showBottomSheet = false) }
     }
 
     private fun cardSelected(carId: Int) {
-        closeDropDown()
+        closeBottomSheet()
         updateState { copy(selectedCarId = carId) }
     }
 
     private fun retry() {
+        updateState { copy(showZoneCodeError = false, selectedCarId = null) }
         getAllCars()
     }
 
@@ -113,11 +119,12 @@ class CreateReservationViewModel @Inject constructor(
                 when (resource) {
                     is Resource.Success -> {
                         val cars = resource.data.toPresenter()
-                        updateState { copy(carsList = cars) }
+                        updateState { copy(carsList = cars, error = null) }
                     }
 
                     is Resource.Error -> {
                         val error = resource.error.toGenericString()
+                        updateState { copy(error = error) }
                         sendSideEffect(CreateReservationEffect.Error(error))
                     }
 
@@ -128,8 +135,8 @@ class CreateReservationViewModel @Inject constructor(
     }
 
     private fun navigateToAddCar() {
+        updateState { copy(showBottomSheet = false) }
         viewModelScope.launch {
-            updateState { copy(showDropDown = false) }
             sendSideEffect(CreateReservationEffect.NavigateToAddCar)
         }
     }

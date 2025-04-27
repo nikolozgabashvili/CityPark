@@ -8,7 +8,7 @@ data class AddBalanceScreenState(
     val error: GenericString? = null,
     val loading: Boolean = false,
     val transactionInProgress: Boolean = false,
-    val showDropDown: Boolean = false,
+    val showBottomSheet: Boolean = false,
     val selectedCardId: Int? = null,
     val transactionAmount: String = "",
     val showTransactionAmountError: Boolean = false,

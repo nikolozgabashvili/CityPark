@@ -3,6 +3,7 @@
 package ge.tbca.city_park.home.presentation.screen
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -78,7 +79,7 @@ private fun HomeScreen(
 
         Column(modifier = Modifier.fillMaxSize()) {
             TopNavigationBar(
-                modifier = Modifier.padding(vertical = Dimen.appPadding),
+                modifier = Modifier.padding( Dimen.appPadding),
                 title = stringResource(R.string.home),
                 endIcon = Icons.Rounded.Person,
                 onEndIconClick = { onEvent(HomeScreenEvent.NavigateToProfile) },
@@ -89,29 +90,28 @@ private fun HomeScreen(
                     .fillMaxWidth()
                     .weight(1f)
                     .verticalScroll(scrollState, enabled = !state.isLoading)
-                    .padding(horizontal = Dimen.appPadding)
+                    .padding(horizontal = Dimen.appPadding),
+                verticalArrangement = Arrangement.spacedBy(Dimen.size20)
 
 
             ) {
 
-                when {
-                    state.error != null -> {
-                        ErrorWrapper(
-                            error = state.error.getString(),
-                            onRetry = { onEvent(HomeScreenEvent.Refresh) }
-                        )
-                    }
 
-                    else -> {
-                        state.userBalance?.let {
-                            UserBalanceCard(
-                                balance = state.userBalance,
-                                onAddBalanceClick = {
-                                    onEvent(HomeScreenEvent.NavigateToAddBalance)
-                                }
-                            )
+                state.error?.let {
+                    ErrorWrapper(
+                        error = state.error.getString(),
+                        onRetry = { onEvent(HomeScreenEvent.Refresh) }
+                    )
+                }
+
+
+                state.userBalance?.let {
+                    UserBalanceCard(
+                        balance = state.userBalance,
+                        onAddBalanceClick = {
+                            onEvent(HomeScreenEvent.NavigateToAddBalance)
                         }
-                    }
+                    )
                 }
 
             }

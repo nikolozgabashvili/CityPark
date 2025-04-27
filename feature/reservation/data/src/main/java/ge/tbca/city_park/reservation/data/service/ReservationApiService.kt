@@ -23,9 +23,14 @@ interface ReservationApiService {
     @POST(FINISH_RESERVATION)
     suspend fun finishReservation(@Body body: FinishReservationRequestDTO): BaseResponse<FinishReservationResponseDTO>
 
+    @UserId
+    @GET(RESERVATION_ACTIVE)
+    suspend fun getActiveReservation(): BaseResponse<List<ReservationDTO>>
+
     companion object {
         private const val RESERVATION_HISTORY = "reservations/history"
         private const val CREATE_RESERVATION = "reservations"
+        private const val RESERVATION_ACTIVE = "reservations/active"
         private const val FINISH_RESERVATION = "reservations/finish"
     }
 }

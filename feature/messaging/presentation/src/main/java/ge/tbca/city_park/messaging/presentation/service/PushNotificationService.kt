@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,6 +43,9 @@ class PushNotificationService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
+
+        println(message.notification?.title)
+        println(message.notification?.body)
         message.notification?.let {
             showNotification(it)
         }
@@ -83,7 +87,8 @@ class PushNotificationService : FirebaseMessagingService() {
             .setContentText(notificationData.body)
             .setContentIntent(pendingIntent)
             .build()
-        notificationManager.notify(1, notification)
+        val unqueTag = UUID.randomUUID().toString()
+        notificationManager.notify(unqueTag,1, notification)
 
     }
 

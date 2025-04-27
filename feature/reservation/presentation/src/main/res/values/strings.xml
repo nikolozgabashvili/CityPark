@@ -12,11 +12,13 @@
     <string name="parking_history">პარკირების ისტორია</string>
     <string name="you_dont_have_reservations">რეზერვაციები არ გაქვთ</string>
     <string name="enter_valid_zone_code">ზონის კოდი უნდა შედგებოდეს მხოლოდ 2 ასოსგან და 3 ციფრისგან, მაგ: AB123</string>
-    <string name="create_reservation">რეზერვაციის დამატება</string>
+    <string name="start_parking">დაიწყე პარკირება</string>
     <string name="zone_code">ზონის კოდი</string>
     <string name="or_choose_place_on_map">ან აირჩიე ადგილი რუკაზე</string>
     <string name="choose_on_map">რუკაზე არჩევა</string>
-    <string name="reservation_added">რეზერვაცია დაემატა წარმატებით</string>
+    <string name="reservation_added">პარკირება ჩაირთო</string>
     <string name="or">ან</string>
     <string name="add_car">ავტომობილის დამატება</string>
+    <string name="select_car">აირჩიე ავტომობილი</string>
+    <string name="selected_car">არჩეული მანქანა</string>
 </resources>

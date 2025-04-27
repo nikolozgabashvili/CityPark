@@ -28,8 +28,8 @@ class AddBalanceViewModel @Inject constructor(
         when (event) {
             is AddBalanceEvent.NavigateBack -> navigateBack()
             is AddBalanceEvent.Retry -> retry()
-            is AddBalanceEvent.ChooseCard -> showCardDropDown()
-            is AddBalanceEvent.CloseDropDown -> closeDropDown()
+            is AddBalanceEvent.ChooseCard -> showBottomSheet()
+            is AddBalanceEvent.CloseBottomSheet -> closeBottomSheet()
             is AddBalanceEvent.CardSelected -> cardSelected(event.cardId)
             is AddBalanceEvent.NavigateToAddCard -> navigateToAddCard()
             is AddBalanceEvent.TransactionAmountChanged -> updateTransactionAmount(event.amount)
@@ -84,26 +84,27 @@ class AddBalanceViewModel @Inject constructor(
     }
 
     private fun navigateToAddCard() {
-        updateState { copy(showDropDown = false) }
+        updateState { copy(showBottomSheet = false) }
         viewModelScope.launch {
             sendSideEffect(AddBalanceEffect.NavigateToAddCard)
         }
     }
 
     private fun cardSelected(cardId: Int) {
-        closeDropDown()
+        closeBottomSheet()
         updateState { copy(selectedCardId = cardId) }
     }
 
-    private fun closeDropDown() {
-        updateState { copy(showDropDown = false) }
+    private fun closeBottomSheet() {
+        updateState { copy(showBottomSheet = false) }
     }
 
-    private fun showCardDropDown() {
-        updateState { copy(showDropDown = true) }
+    private fun showBottomSheet() {
+        updateState { copy(showBottomSheet = true) }
     }
 
     private fun retry() {
+        updateState { copy(showTransactionAmountError = false, selectedCardId = null) }
         getCards()
 
     }
@@ -112,7 +113,7 @@ class AddBalanceViewModel @Inject constructor(
         viewModelScope.launch {
             getCardsUseCase().collect { resource ->
 
-                updateState { copy(loading = resource.isLoading(), error = null) }
+                updateState { copy(loading = resource.isLoading()) }
                 when (resource) {
                     Resource.Loading -> Unit
                     is Resource.Error -> {
@@ -125,7 +126,8 @@ class AddBalanceViewModel @Inject constructor(
                         val cards = resource.data.toPresenter()
                         updateState {
                             copy(
-                                cards = cards
+                                cards = cards,
+                                error = null
                             )
                         }
                     }

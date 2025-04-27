@@ -1,21 +1,33 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package ge.tba.city_park.reservation.presentation.screen.create_reservation
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
@@ -23,15 +35,18 @@ import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.SecondaryButton
 import com.example.core.designsystem.components.button.text_button.TertiaryButton
 import com.example.core.designsystem.components.divider.Divider
+import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
 import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
 import com.example.core.designsystem.components.text_field.TextInputField
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
+import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
+import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tba.city_park.reservation.presentation.R
-import ge.tba.city_park.reservation.presentation.component.CarDropDownMenu
 import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.cars.presentation.component.car_item.CarItem
 
 @Composable
 fun CreateReservationScreenRoot(
@@ -44,12 +59,15 @@ fun CreateReservationScreenRoot(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val sheetState = rememberModalBottomSheetState()
+    val successText = stringResource(R.string.reservation_added)
+    val noCarSelectedError = stringResource(R.string.select_car)
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
             is CreateReservationEffect.Success -> {
-                val successText = context.getString(R.string.reservation_added)
                 onShowSnackBar(successText)
+                navigateBack()
             }
 
             is CreateReservationEffect.Error -> {
@@ -62,12 +80,14 @@ fun CreateReservationScreenRoot(
             is CreateReservationEffect.NavigateToMap -> navigateToMap()
 
             is CreateReservationEffect.NavigateToAddCar -> navigateToAddCar()
+            CreateReservationEffect.NoCarSelected -> onShowSnackBar(noCarSelectedError)
         }
     }
 
     CreateReservationScreen(
         state = viewModel.state,
         scrollState = scrollState,
+        sheetState = sheetState,
         onEvent = viewModel::onEvent
     )
 }
@@ -77,6 +97,7 @@ fun CreateReservationScreenRoot(
 private fun CreateReservationScreen(
     state: CreateReservationState,
     scrollState: ScrollState,
+    sheetState: SheetState,
     onEvent: (CreateReservationEvent) -> Unit
 ) {
 
@@ -87,76 +108,129 @@ private fun CreateReservationScreen(
         isRefreshing = state.isLoading,
         onRefresh = { onEvent(CreateReservationEvent.Retry) }) {
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState, enabled = !state.isLoading)
-                .padding(Dimen.appPadding)
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             TopNavigationBar(
-                title = stringResource(R.string.create_reservation),
+                modifier = Modifier.padding(Dimen.appPadding),
+                title = stringResource(R.string.start_parking),
                 startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
                 onStartIconClick = { onEvent(CreateReservationEvent.BackButtonClicked) }
             )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .verticalScroll(scrollState, enabled = !state.isLoading)
+                    .padding(Dimen.appPadding)
+            ) {
 
-            Spacer(modifier = Modifier.height(Dimen.size16))
+                Spacer(modifier = Modifier.height(Dimen.size16))
 
-            Column {
-                TertiaryButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = !state.isLoading,
-                    text = "აირჩიე ავტომობილი",
-                    onClick = { onEvent(CreateReservationEvent.ShowDropDown) }
-                )
+                if (state.error != null) {
+                    ErrorWrapper(
+                        error = state.error.getString(),
+                        onRetry = { onEvent(CreateReservationEvent.Retry) }
+                    )
+                } else {
+                    state.selectedCar?.let {
+                        Text(
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            text = stringResource(R.string.selected_car), color = AppColors.primary,
+                            style = TextStyles.bodyLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(Dimen.size6))
+                        CarItem(
+                            car = it,
+                            onClick = { onEvent(CreateReservationEvent.ShowBottomSheet) })
+                    } ?: run {
+                        SecondaryButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = !state.isLoading,
+                            text = stringResource(R.string.select_car),
+                            onClick = { onEvent(CreateReservationEvent.ShowBottomSheet) }
+                        )
+                    }
 
-                Spacer(modifier = Modifier.height(Dimen.size8))
+                    Spacer(modifier = Modifier.height(Dimen.size20))
 
-                CarDropDownMenu(
-                    items = state.carsList,
-                    expanded = state.showDropDown,
-                    onDismiss = { onEvent(CreateReservationEvent.CloseDropDown) },
-                    onCardClick = { onEvent(CreateReservationEvent.CarSelected(it)) },
-                    onAdditionalItemClick = { onEvent(CreateReservationEvent.NavigateToAddCar) }
-                )
+                    TextInputField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = state.zoneCode,
+                        enabled = !state.isLoading,
+                        errorText = zoneCodeError,
+                        label = stringResource(R.string.zone_code),
+                        imeAction = ImeAction.Next,
+                        onTextChanged = { onEvent(CreateReservationEvent.ZoneCodeChanged(it)) }
+                    )
+
+                    Spacer(modifier = Modifier.height(Dimen.size32))
+
+                    Divider(text = stringResource(R.string.or_choose_place_on_map))
+
+                    Spacer(modifier = Modifier.height(Dimen.size32))
+
+                    SecondaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !state.isLoading,
+                        text = stringResource(R.string.choose_on_map),
+                        onClick = { onEvent(CreateReservationEvent.ChooseOnMapButtonClicked) }
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    PrimaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !state.isLoading,
+                        loading = state.isLoading,
+                        buttonSize = ButtonSize.LARGE,
+                        text = stringResource(R.string.start_parking),
+                        onClick = { onEvent(CreateReservationEvent.CreateReservationButtonClicked) }
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.height(Dimen.size16))
-
-            TextInputField(
-                modifier = Modifier.fillMaxWidth(),
-                value = state.zoneCode,
-                enabled = !state.isLoading,
-                errorText = zoneCodeError,
-                label = stringResource(R.string.zone_code),
-                imeAction = ImeAction.Next,
-                onTextChanged = { onEvent(CreateReservationEvent.ZoneCodeChanged(it)) }
-            )
-
-            Spacer(modifier = Modifier.height(Dimen.size32))
-
-            Divider(text = stringResource(R.string.or_choose_place_on_map))
-
-            Spacer(modifier = Modifier.height(Dimen.size32))
-
-            SecondaryButton(
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !state.isLoading,
-                text = stringResource(R.string.choose_on_map),
-                onClick = { onEvent(CreateReservationEvent.ChooseOnMapButtonClicked) }
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            PrimaryButton(
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !state.isLoading,
-                loading = state.isLoading,
-                buttonSize = ButtonSize.LARGE,
-                text = stringResource(R.string.create_reservation),
-                onClick = { onEvent(CreateReservationEvent.CreateReservationButtonClicked) }
-            )
         }
     }
+    if (state.showBottomSheet)
+        ModalBottomSheet(
+            sheetState = sheetState,
+            onDismissRequest = { onEvent(CreateReservationEvent.CloseBottomSheet) }
+        ) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(Dimen.size12),
+                contentPadding = PaddingValues(horizontal = Dimen.size20)
+            ) {
+                items(state.carsList, key = { it.id }) { car ->
+                    CarItem(
+                        car = car,
+                        onClick = {
+                            onEvent(CreateReservationEvent.CarSelected(car.id))
+                        }
+                    )
+                }
+                if (state.carsList.isNotEmpty()) {
+                    item {
+                        Divider(
+                            text = stringResource(R.string.or)
+                        )
+                    }
+                }
+                item {
+                    TertiaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        buttonSize = ButtonSize.LARGE,
+                        text = stringResource(R.string.add_car),
+                        enabled = !state.isLoading,
+                        onClick = {
+                            onEvent(CreateReservationEvent.NavigateToAddCar)
+                        }
+                    )
+                }
+            }
+
+
+        }
+
+
 }
 
 @AppPreview
@@ -166,6 +240,7 @@ private fun CreateReservationScreenPreview() {
         CreateReservationScreen(
             state = CreateReservationState(),
             scrollState = rememberScrollState(),
+            sheetState = rememberModalBottomSheetState(),
             onEvent = {}
         )
     }

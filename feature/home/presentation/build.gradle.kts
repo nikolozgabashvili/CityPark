@@ -20,4 +20,6 @@ dependencies {
 
     implementation(projects.feature.user.domain)
     implementation(projects.feature.user.presentation)
+
+    implementation(projects.feature.reservation.domain)
 }
