@@ -7,6 +7,5 @@ sealed interface AddBalanceEffect {
     data object NavigateToAddCard : AddBalanceEffect
     data object CardNotSelected : AddBalanceEffect
     data object Success : AddBalanceEffect
-
     data class Error(val message: GenericString) : AddBalanceEffect
 }

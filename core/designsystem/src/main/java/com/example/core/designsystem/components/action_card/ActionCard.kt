@@ -4,12 +4,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocalParking
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
@@ -24,6 +28,7 @@ fun ActionCard(
     text: String,
     loading: Boolean = false,
     enabled: Boolean = true,
+    startIcon: ImageVector? = null,
     onclick: () -> Unit,
 ) {
 
@@ -34,14 +39,23 @@ fun ActionCard(
         onClick = onclick,
         enabled = isEnabled,
         shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
-
-        ) {
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = Dimen.size12, vertical = Dimen.size16),
             contentAlignment = Alignment.Center
         ) {
+            if (startIcon != null) {
+                Icon(
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = Dimen.size16),
+                    imageVector = startIcon,
+                    contentDescription = null,
+                    tint = AppColors.primary
+                )
+            }
 
             Text(
                 modifier = Modifier.alpha(if (loading) 0f else 1f),
@@ -50,18 +64,14 @@ fun ActionCard(
                 fontWeight = FontWeight.Bold,
                 color = AppColors.primary
             )
-
         }
-
     }
-
 }
 
 
 @AppPreview
 @Composable
 private fun ActionCardPreview() {
-
     AppTheme {
         ActionCard(
             modifier = Modifier.fillMaxWidth(),
@@ -69,5 +79,17 @@ private fun ActionCardPreview() {
             onclick = {}
         )
     }
+}
 
+@AppPreview
+@Composable
+private fun ActionCardPreviewWithIcon() {
+    AppTheme {
+        ActionCard(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Action Card",
+            startIcon = Icons.Default.LocalParking,
+            onclick = {}
+        )
+    }
 }

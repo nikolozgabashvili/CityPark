@@ -5,5 +5,5 @@ import ge.tbca.citi_park.core.ui.util.GenericString
 sealed interface CardsEffect {
     data object NavigateToAddCard : CardsEffect
     data object NavigateBack : CardsEffect
-    data class ShowSnackbar(val message: GenericString) : CardsEffect
+    data class Error(val error: GenericString) : CardsEffect
 }

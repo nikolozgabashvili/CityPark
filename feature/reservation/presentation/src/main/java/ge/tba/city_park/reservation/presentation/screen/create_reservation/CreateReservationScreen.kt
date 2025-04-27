@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -80,7 +81,8 @@ fun CreateReservationScreenRoot(
             is CreateReservationEffect.NavigateToMap -> navigateToMap()
 
             is CreateReservationEffect.NavigateToAddCar -> navigateToAddCar()
-            CreateReservationEffect.NoCarSelected -> onShowSnackBar(noCarSelectedError)
+
+            is CreateReservationEffect.NoCarSelected -> onShowSnackBar(noCarSelectedError)
         }
     }
 
@@ -139,7 +141,9 @@ private fun CreateReservationScreen(
                             style = TextStyles.bodyLarge,
                             fontWeight = FontWeight.Bold
                         )
+
                         Spacer(modifier = Modifier.height(Dimen.size6))
+
                         CarItem(
                             car = it,
                             onClick = { onEvent(CreateReservationEvent.ShowBottomSheet) })
@@ -174,6 +178,7 @@ private fun CreateReservationScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !state.isLoading,
                         text = stringResource(R.string.choose_on_map),
+                        startIcon = Icons.Rounded.LocationOn,
                         onClick = { onEvent(CreateReservationEvent.ChooseOnMapButtonClicked) }
                     )
 
@@ -181,7 +186,7 @@ private fun CreateReservationScreen(
 
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
-                        enabled = !state.isLoading,
+                        enabled = !state.isLoading && state.selectedCarId != null,
                         loading = state.isLoading,
                         buttonSize = ButtonSize.LARGE,
                         text = stringResource(R.string.start_parking),
@@ -208,13 +213,13 @@ private fun CreateReservationScreen(
                         }
                     )
                 }
+
                 if (state.carsList.isNotEmpty()) {
                     item {
-                        Divider(
-                            text = stringResource(R.string.or)
-                        )
+                        Divider(text = stringResource(R.string.or))
                     }
                 }
+
                 item {
                     TertiaryButton(
                         modifier = Modifier.fillMaxWidth(),
@@ -226,12 +231,12 @@ private fun CreateReservationScreen(
                         }
                     )
                 }
+
+                item {
+                    Spacer(modifier = Modifier.height(Dimen.size16))
+                }
             }
-
-
         }
-
-
 }
 
 @AppPreview

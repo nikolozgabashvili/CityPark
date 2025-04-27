@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.LocalParking
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -39,7 +42,6 @@ fun HomeScreenRoot(
     navigateToAddBalance: () -> Unit,
     navigateToProfile: () -> Unit,
     navigateToAddReservation: () -> Unit,
-
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state
@@ -52,10 +54,15 @@ fun HomeScreenRoot(
                 val error = effect.error.getString(context)
                 onShowSnackBar(error)
             }
+
             is HomeEffect.NavigateToAddBalance -> navigateToAddBalance()
+
             is HomeEffect.NavigateToProfile -> navigateToProfile()
+
             is HomeEffect.NavigateToCars -> navigateToCars()
+
             is HomeEffect.NavigateToAddReservation -> navigateToAddReservation()
+
             is HomeEffect.NavigateToCards -> navigateToCards()
         }
 
@@ -66,8 +73,6 @@ fun HomeScreenRoot(
         scrollState = scrollState,
         onEvent = viewModel::onEvent
     )
-
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,9 +84,7 @@ private fun HomeScreen(
 ) {
     PullToRefreshWrapper(
         isRefreshing = state.isLoading,
-        onRefresh = {
-            onEvent(HomeEvent.Refresh)
-        }
+        onRefresh = { onEvent(HomeEvent.Refresh) }
     ) {
 
         Column(modifier = Modifier.fillMaxSize()) {
@@ -99,11 +102,7 @@ private fun HomeScreen(
                     .verticalScroll(scrollState, enabled = !state.isLoading)
                     .padding(horizontal = Dimen.appPadding),
                 verticalArrangement = Arrangement.spacedBy(Dimen.size20)
-
-
             ) {
-
-
                 state.error?.let {
                     ErrorWrapper(
                         error = state.error.getString(),
@@ -134,6 +133,7 @@ private fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         loading = state.isLoading,
                         text = stringResource(R.string.start_parking),
+                        startIcon = Icons.Default.LocalParking,
                         onclick = { onEvent(HomeEvent.NavigateToAddReservation) }
                     )
                 }
@@ -142,28 +142,24 @@ private fun HomeScreen(
                     text = stringResource(R.string.my_cars),
                     enabled = state.clickEnabled,
                     loading = state.isLoading,
-                    onclick = {
-                        onEvent(HomeEvent.NavigateToCars)
-                    }
+                    startIcon = Icons.Default.DirectionsCar,
+                    onclick = { onEvent(HomeEvent.NavigateToCars) }
                 )
 
                 ActionCard(
                     text = stringResource(R.string.my_cards),
                     enabled = state.clickEnabled,
                     loading = state.isLoading,
-                    onclick = {
-                        onEvent(HomeEvent.NavigateToCards)
-                    }
+                    startIcon = Icons.Default.CreditCard,
+                    onclick = { onEvent(HomeEvent.NavigateToCards) }
                 )
-
             }
         }
+
         if (state.showParkingFinishDialog) {
             BaseAlertDialog(
                 onDismiss = { onEvent(HomeEvent.DismissParkingDialog) },
-                onPositiveButtonClick = {
-                    onEvent(HomeEvent.FinishParking)
-                },
+                onPositiveButtonClick = { onEvent(HomeEvent.FinishParking) },
                 onNegativeButtonClick = { onEvent(HomeEvent.DismissParkingDialog) },
                 positiveButtonText = stringResource(R.string.yes),
                 negativeButtonText = stringResource(R.string.no),
@@ -172,14 +168,11 @@ private fun HomeScreen(
             )
         }
     }
-
 }
-
 
 @AppPreview
 @Composable
-private fun HomeScreenPrev() {
-
+private fun HomeScreenPreview() {
     AppTheme {
         HomeScreen(
             state = HomeState(),
@@ -187,5 +180,4 @@ private fun HomeScreenPrev() {
             onEvent = {}
         )
     }
-
 }

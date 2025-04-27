@@ -7,8 +7,6 @@ sealed interface AddBalanceEvent {
     data object ChooseCard : AddBalanceEvent
     data object CloseBottomSheet : AddBalanceEvent
     data object NavigateToAddCard : AddBalanceEvent
-
     data class CardSelected(val cardId: Int) : AddBalanceEvent
-    data class TransactionAmountChanged(val amount:String) : AddBalanceEvent
-
+    data class TransactionAmountChanged(val amount: String) : AddBalanceEvent
 }

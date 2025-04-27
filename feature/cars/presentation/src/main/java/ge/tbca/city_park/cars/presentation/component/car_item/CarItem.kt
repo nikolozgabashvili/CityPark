@@ -2,15 +2,20 @@ package ge.tbca.city_park.cars.presentation.component.car_item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.rounded.DirectionsCar
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.example.core.designsystem.theme.AppColors
@@ -25,15 +30,25 @@ fun CarItem(
     modifier: Modifier = Modifier,
     car: CarUi,
     enabled: Boolean = true,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    hasDeleteIcon: Boolean = false,
+    onDeleteClick: (() -> Unit)? = null
 ) {
-    Box(
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dimen.roundedCornerMediumSize))
             .background(AppColors.surface)
-            .clickable(enabled = enabled) { onClick?.invoke() }
+            .clickable(enabled = enabled) { onClick?.invoke() },
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        Icon(
+            modifier = Modifier.padding(start = Dimen.appPadding),
+            imageVector = Icons.Rounded.DirectionsCar,
+            contentDescription = null,
+            tint = AppColors.primary
+        )
+
         Column(modifier = Modifier.padding(Dimen.appPadding)) {
             car.carName?.let {
                 Text(
@@ -49,6 +64,19 @@ fun CarItem(
                 text = car.plateNumber,
                 style = if (car.carName != null) TextStyles.bodyLarge else TextStyles.titleLarge,
                 color = AppColors.primary
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        if(hasDeleteIcon) {
+            Icon(
+                modifier = Modifier
+                    .padding(end = Dimen.appPadding)
+                    .clickable(onClick = { onDeleteClick?.invoke() }),
+                imageVector = Icons.Default.Delete,
+                contentDescription = null,
+                tint = AppColors.error
             )
         }
     }
@@ -80,8 +108,23 @@ fun CarItemPreviewWithoutName() {
                 car = CarUi(
                     id = 1,
                     plateNumber = "AA123BB"
+                )
+            )
+        }
+    }
+}
+
+@AppPreview
+@Composable
+fun CarItemPreviewWithDeleteIcon() {
+    AppTheme {
+        Column {
+            CarItem(
+                car = CarUi(
+                    id = 1,
+                    plateNumber = "AA123BB"
                 ),
-                onClick = {}
+                hasDeleteIcon = true
             )
         }
     }

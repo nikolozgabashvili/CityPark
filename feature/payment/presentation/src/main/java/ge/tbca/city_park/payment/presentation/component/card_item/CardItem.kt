@@ -34,8 +34,9 @@ fun CardItem(
     modifier: Modifier = Modifier,
     card: CreditCardUi,
     enabled: Boolean = true,
-    onclick: (() -> Unit)? = null,
-    onMenuClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    hasDeleteIcon: Boolean = false,
+    onDeleteClick: (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
@@ -46,11 +47,11 @@ fun CardItem(
             )
             .padding(Dimen.appPadding)
             .clickable(
-                enabled = onclick != null && enabled,
+                enabled = onClick != null && enabled,
                 indication = null,
                 interactionSource = null,
                 onClick = {
-                    onclick?.invoke()
+                    onClick?.invoke()
                 }
             ),
         verticalAlignment = Alignment.CenterVertically
@@ -87,12 +88,14 @@ fun CardItem(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Icon(
-            modifier = Modifier.clickable(onClick = { onMenuClick?.invoke() }),
-            imageVector = Icons.Default.Delete,
-            contentDescription = null,
-            tint = AppColors.error
-        )
+        if(hasDeleteIcon) {
+            Icon(
+                modifier = Modifier.clickable(onClick = { onDeleteClick?.invoke() }),
+                imageVector = Icons.Default.Delete,
+                contentDescription = null,
+                tint = AppColors.error
+            )
+        }
     }
 }
 
@@ -134,7 +137,7 @@ private fun CardItemPreviewVisa() {
 
 @AppPreview
 @Composable
-private fun CardItemPreviewOther() {
+private fun CardItemPreviewOtherWithDeleteIcon() {
     AppTheme {
         CardItem(
             card = CreditCardUi(
@@ -145,7 +148,8 @@ private fun CardItemPreviewOther() {
                 holderName = "John Doe",
                 balance = 100.0,
                 cardType = CardType.OTHER
-            )
+            ),
+            hasDeleteIcon = true
         )
     }
 }

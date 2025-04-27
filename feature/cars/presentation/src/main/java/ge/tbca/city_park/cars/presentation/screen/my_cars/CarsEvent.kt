@@ -4,5 +4,7 @@ sealed interface CarsEvent {
     data object AddCarButtonClicked : CarsEvent
     data object Refresh : CarsEvent
     data object BackButtonClicked : CarsEvent
-    data class CarClicked(val carId: Int) : CarsEvent
+    data object DismissDeleteCarDialog : CarsEvent
+    data object DeleteCar : CarsEvent
+    data class DeleteCarClicked(val carId: Int) : CarsEvent
 }

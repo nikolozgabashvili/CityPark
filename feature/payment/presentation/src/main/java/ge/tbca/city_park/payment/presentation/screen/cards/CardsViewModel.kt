@@ -57,7 +57,7 @@ class CardsViewModel @Inject constructor(
                         if (state.cardsList.isEmpty()) {
                             updateState { copy(error = error) }
                         }
-                        sendSideEffect(CardsEffect.ShowSnackbar(error))
+                        sendSideEffect(CardsEffect.Error(error))
                     }
 
                     is Resource.Loading -> Unit
@@ -100,12 +100,14 @@ class CardsViewModel @Inject constructor(
                             dismissDeleteDialog()
                             fetchCards()
                         }
+
                         is Resource.Error -> {
                             val error = resource.error.toGenericString()
-                            sendSideEffect(CardsEffect.ShowSnackbar(error))
+                            sendSideEffect(CardsEffect.Error(error))
                             dismissDeleteDialog()
                         }
-                        Resource.Loading -> Unit
+
+                        is Resource.Loading -> Unit
                     }
                 }
             }

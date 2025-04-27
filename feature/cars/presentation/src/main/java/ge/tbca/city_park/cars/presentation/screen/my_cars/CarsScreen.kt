@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
+import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.example.core.designsystem.components.divider.Divider
 import com.example.core.designsystem.components.empty_data_indicator.EmptyDataIndicator
 import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
@@ -141,16 +142,30 @@ private fun CarsScreen(
                     }
 
                 } else if (state.cars.isNotEmpty()) {
-
                     items(state.cars) { car ->
                         CarItem(
                             car = car,
                             enabled = !state.carsLoading,
                             modifier = Modifier.padding(vertical = Dimen.size6),
-                            onClick = { onEvent(CarsEvent.CarClicked(car.id)) }
+                            hasDeleteIcon = true,
+                            onDeleteClick = { onEvent(CarsEvent.DeleteCarClicked(car.id)) }
                         )
                     }
                 }
+            }
+
+            if (state.showDeleteCarDialog) {
+                BaseAlertDialog(
+                    onDismiss = { onEvent(CarsEvent.DismissDeleteCarDialog) },
+                    onPositiveButtonClick = {
+                        onEvent(CarsEvent.DeleteCar)
+                    },
+                    onNegativeButtonClick = { onEvent(CarsEvent.DismissDeleteCarDialog) },
+                    positiveButtonText = stringResource(R.string.yes),
+                    negativeButtonText = stringResource(R.string.no),
+                    title = stringResource(R.string.delete),
+                    message = stringResource(R.string.do_you_really_wish_to_delete),
+                )
             }
         }
     }

@@ -18,13 +18,11 @@ class AddBalanceViewModel @Inject constructor(
     private val buyBalanceUseCase: BuyBalanceUseCase
 ) : BaseViewModel<AddBalanceState, AddBalanceEffect, AddBalanceEvent>(AddBalanceState()) {
 
-
     init {
         getCards()
     }
 
     override fun onEvent(event: AddBalanceEvent) {
-
         when (event) {
             is AddBalanceEvent.NavigateBack -> navigateBack()
             is AddBalanceEvent.Retry -> retry()
@@ -33,9 +31,8 @@ class AddBalanceViewModel @Inject constructor(
             is AddBalanceEvent.CardSelected -> cardSelected(event.cardId)
             is AddBalanceEvent.NavigateToAddCard -> navigateToAddCard()
             is AddBalanceEvent.TransactionAmountChanged -> updateTransactionAmount(event.amount)
-            AddBalanceEvent.StartTransaction -> startTransaction()
+            is AddBalanceEvent.StartTransaction -> startTransaction()
         }
-
     }
 
     private fun startTransaction() {
@@ -47,7 +44,7 @@ class AddBalanceViewModel @Inject constructor(
                 )
             }
 
-            if (state.selectedCard==null){
+            if (state.selectedCard == null) {
                 sendSideEffect(AddBalanceEffect.CardNotSelected)
             }
 
@@ -70,11 +67,8 @@ class AddBalanceViewModel @Inject constructor(
                             updateState { copy(transactionAmount = "") }
                         }
                     }
-
                 }
             }
-
-
         }
     }
 
@@ -106,7 +100,6 @@ class AddBalanceViewModel @Inject constructor(
     private fun retry() {
         updateState { copy(showTransactionAmountError = false, selectedCardId = null) }
         getCards()
-
     }
 
     private fun getCards() {
@@ -134,7 +127,6 @@ class AddBalanceViewModel @Inject constructor(
                 }
             }
         }
-
     }
 
     private fun navigateBack() {

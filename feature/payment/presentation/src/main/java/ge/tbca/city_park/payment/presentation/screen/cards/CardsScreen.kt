@@ -50,8 +50,8 @@ fun CardsScreenRoot(
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
-            is CardsEffect.ShowSnackbar -> {
-                val error = effect.message.getString(context)
+            is CardsEffect.Error -> {
+                val error = effect.error.getString(context)
                 onShowSnackBar(error)
             }
 
@@ -130,7 +130,8 @@ private fun CardsScreen(
                     items(items = state.cardsList, key = { it.id }) { card ->
                         CardItem(
                             card = card,
-                            onMenuClick = { onEvent(CardsEvent.DeleteCardClicked(card.id)) },
+                            hasDeleteIcon = true,
+                            onDeleteClick = { onEvent(CardsEvent.DeleteCardClicked(card.id)) },
                         )
                     }
                 }

@@ -1,6 +1,5 @@
 package ge.tbca.city_park.cars.presentation.screen.my_cars
 
-
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
@@ -20,29 +19,23 @@ class CarsViewModel @Inject constructor(
 
     ) : BaseViewModel<CarsState, CarsEffect, CarsEvent>(CarsState()) {
 
+    init {
+        fetchCars()
+    }
+
     override fun onEvent(event: CarsEvent) {
         when (event) {
-            is CarsEvent.AddCarButtonClicked -> {
-                navigateToAddCar()
+            is CarsEvent.BackButtonClicked -> navigateBack()
 
-            }
+            is CarsEvent.AddCarButtonClicked -> navigateToAddCar()
 
-            is CarsEvent.CarClicked -> {
-                viewModelScope.launch {
-                    deleteCarByIdUseCase(event.carId).collect {
-                        if (it is Resource.Success) {
-                            fetchCars()
-                        }
-                    }
-                }
+            is CarsEvent.Refresh -> fetchCars()
 
-            }
+            is CarsEvent.DeleteCarClicked -> showDeleteDialog(event.carId)
 
-            CarsEvent.Refresh -> {
-                fetchCars()
-            }
+            is CarsEvent.DismissDeleteCarDialog -> dismissDeleteDialog()
 
-            CarsEvent.BackButtonClicked -> navigateBack()
+            is CarsEvent.DeleteCar -> deleteCar()
         }
     }
 
@@ -56,10 +49,6 @@ class CarsViewModel @Inject constructor(
         viewModelScope.launch {
             sendSideEffect(CarsEffect.NavigateToAddCar)
         }
-    }
-
-    init {
-        fetchCars()
     }
 
     private fun fetchCars() {
@@ -87,6 +76,38 @@ class CarsViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> Unit
+                }
+            }
+        }
+    }
+
+    private fun showDeleteDialog(carId: Int) {
+        updateState { copy(deleteCarId = carId, showDeleteCarDialog = true) }
+    }
+
+    private fun dismissDeleteDialog() {
+        updateState { copy(showDeleteCarDialog = false) }
+    }
+
+    private fun deleteCar() {
+        viewModelScope.launch {
+            state.deleteCarId?.let {
+                deleteCarByIdUseCase(it).collect { resource ->
+                    updateState { copy(carsLoading = resource.isLoading()) }
+                    when (resource) {
+                        is Resource.Success -> {
+                            dismissDeleteDialog()
+                            fetchCars()
+                        }
+
+                        is Resource.Error -> {
+                            val error = resource.error.toGenericString()
+                            sendSideEffect(CarsEffect.Error(error))
+                            dismissDeleteDialog()
+                        }
+
+                        is Resource.Loading -> Unit
+                    }
                 }
             }
         }

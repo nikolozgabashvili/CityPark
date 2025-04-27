@@ -74,11 +74,13 @@ fun AddBalanceScreenRoot(
             }
 
             is AddBalanceEffect.NavigateBack -> navigateBack()
-            is AddBalanceEffect.NavigateToAddCard -> navigateToAddCard()
-            is AddBalanceEffect.Success -> onShowSnackbar(successMessage)
-            AddBalanceEffect.CardNotSelected -> onShowSnackbar(cardNotSelectedError)
-        }
 
+            is AddBalanceEffect.NavigateToAddCard -> navigateToAddCard()
+
+            is AddBalanceEffect.Success -> onShowSnackbar(successMessage)
+
+            is AddBalanceEffect.CardNotSelected -> onShowSnackbar(cardNotSelectedError)
+        }
     }
 
     AddBalanceScreen(
@@ -87,9 +89,7 @@ fun AddBalanceScreenRoot(
         sheetState = bottomSheetState,
         onEvent = viewModel::onEvent
     )
-
 }
-
 
 @Composable
 private fun AddBalanceScreen(
@@ -103,12 +103,9 @@ private fun AddBalanceScreen(
     val inputErrorText =
         if (state.showTransactionAmountError) stringResource(R.string.please_fill_amount) else null
 
-
-
     PullToRefreshWrapper(
         isRefreshing = state.loading,
         onRefresh = { onEvent(AddBalanceEvent.Retry) }) {
-
 
         Column(modifier = Modifier.fillMaxSize()) {
             TopNavigationBar(
@@ -117,7 +114,6 @@ private fun AddBalanceScreen(
                 title = stringResource(R.string.add_balance),
                 onStartIconClick = { onEvent(AddBalanceEvent.NavigateBack) },
             )
-
 
             Column(
                 modifier = Modifier
@@ -135,7 +131,6 @@ private fun AddBalanceScreen(
                         onRetry = { onEvent(AddBalanceEvent.Retry) }
                     )
                 } else {
-
                     state.selectedCard?.let {
                         Text(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -150,7 +145,9 @@ private fun AddBalanceScreen(
                         CardItem(
                             card = it,
                             enabled = !state.loading,
-                            onclick = { onEvent(AddBalanceEvent.ChooseCard) })
+                            onClick = { onEvent(AddBalanceEvent.ChooseCard) }
+                        )
+
                     } ?: run {
                         SecondaryButton(
                             enabled = !state.loading,
@@ -159,7 +156,9 @@ private fun AddBalanceScreen(
                             onClick = { onEvent(AddBalanceEvent.ChooseCard) }
                         )
                     }
+
                     Spacer(modifier = Modifier.height(Dimen.size20))
+
                     TextInputField(
                         modifier = Modifier.fillMaxWidth(),
                         errorText = inputErrorText,
@@ -173,27 +172,25 @@ private fun AddBalanceScreen(
                         keyboardType = KeyboardType.Number,
                         onTextChanged = {
                             onEvent(AddBalanceEvent.TransactionAmountChanged(it))
-
                         }
                     )
+
                     Spacer(modifier = Modifier.weight(1f))
 
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         buttonSize = ButtonSize.LARGE,
-                        enabled = !state.loading,
+                        enabled = !state.loading && state.selectedCardId != null,
                         loading = state.transactionInProgress,
                         onClick = { onEvent(AddBalanceEvent.StartTransaction) },
                         text = stringResource(R.string.add_balance),
                         startIcon = Icons.Rounded.AccountBalanceWallet
-
                     )
-
                 }
             }
-
         }
     }
+
     if (state.showBottomSheet)
         ModalBottomSheet(
             sheetState = sheetState,
@@ -207,35 +204,32 @@ private fun AddBalanceScreen(
                     CardItem(
                         card = card,
                         enabled = !state.loading,
-                        onclick = {
-                            onEvent(AddBalanceEvent.CardSelected(card.id))
-                        }
+                        onClick = { onEvent(AddBalanceEvent.CardSelected(card.id)) }
                     )
                 }
+
                 if (state.cards.isNotEmpty()) {
                     item {
-                        Divider(
-                            text = stringResource(R.string.or)
-                        )
+                        Divider(text = stringResource(R.string.or))
                     }
                 }
+
                 item {
                     TertiaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         buttonSize = ButtonSize.LARGE,
                         text = stringResource(R.string.add_card),
                         enabled = !state.loading,
-                        onClick = {
-                            onEvent(AddBalanceEvent.NavigateToAddCard)
-                        }
+                        onClick = { onEvent(AddBalanceEvent.NavigateToAddCard) }
                     )
                 }
+
+                item {
+                    Spacer(modifier = Modifier.height(Dimen.size16))
+                }
             }
-
-
         }
 }
-
 
 @AppPreview
 @Composable
@@ -247,6 +241,5 @@ private fun AddBalanceScreenPrev() {
             sheetState = rememberModalBottomSheetState(),
             onEvent = {}
         )
-
     }
 }
