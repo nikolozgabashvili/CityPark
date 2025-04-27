@@ -128,7 +128,8 @@ private fun CreateReservationScreen(
                 if (state.error != null) {
                     ErrorWrapper(
                         error = state.error.getString(),
-                        onRetry = { onEvent(CreateReservationEvent.Retry) }
+                        onRetry = { onEvent(CreateReservationEvent.Retry) },
+                        enabled = !state.isLoading
                     )
                 } else {
                     state.selectedCar?.let {

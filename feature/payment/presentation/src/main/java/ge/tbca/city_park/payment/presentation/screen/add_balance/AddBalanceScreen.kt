@@ -131,6 +131,7 @@ private fun AddBalanceScreen(
                 if (state.error != null) {
                     ErrorWrapper(
                         error = state.error.getString(),
+                        enabled = !state.loading,
                         onRetry = { onEvent(AddBalanceEvent.Retry) }
                     )
                 } else {

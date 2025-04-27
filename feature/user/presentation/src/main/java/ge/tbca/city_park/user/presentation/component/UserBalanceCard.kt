@@ -23,11 +23,13 @@ import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.city_park.user.presentation.R
+import java.util.Locale
 
 @Composable
 fun UserBalanceCard(
     modifier: Modifier = Modifier,
     balance: Double,
+    enabled:Boolean = true,
     onAddBalanceClick: () -> Unit,
 ) {
 
@@ -49,7 +51,10 @@ fun UserBalanceCard(
                 Text(
                     style = TextStyles.titleLarge,
                     fontWeight = FontWeight.ExtraBold,
-                    text = stringResource(R.string.balance_formatted_gel, balance)
+                    text = stringResource(
+                        R.string.balance_formatted_gel,
+                        String.format(locale = Locale.US, "%.2f", balance)
+                    )
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -57,6 +62,7 @@ fun UserBalanceCard(
             PrimaryButton(
                 buttonSize = ButtonSize.MEDIUM,
                 endIcon = Icons.Rounded.Add,
+                enabled = enabled,
                 text = stringResource(R.string.add_balance),
                 onClick = onAddBalanceClick,
             )

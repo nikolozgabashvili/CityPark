@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="home">მთავარი</string>
+    <string name="ongoing_parking">პარკირება ჩართულია</string>
+    <string name="car_with_number">ავტომობილი: %1$s</string>
+    <string name="zone_with_code">ზონა: %1$s</string>
+    <string name="start_time">დაწყების დრო: %1$s</string>
+    <string name="finish">დასრულება</string>
+    <string name="finish_parking_message">ნამდვილად გსურთ პარკირების დამთავრება?</string>
+    <string name="yes">დიახ</string>
+    <string name="no">არა</string>
+    <string name="my_cars">ჩემი ავტომობილები</string>
+    <string name="start_parking">დაიწყე პარკირება</string>
+    <string name="my_cards">ჩემი ბარათები</string>
 </resources>

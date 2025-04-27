@@ -22,8 +22,9 @@ import ge.tbca.city_park.cars.presentation.model.CarUi
 
 @Composable
 fun CarItem(
-    car: CarUi,
     modifier: Modifier = Modifier,
+    car: CarUi,
+    enabled: Boolean = true,
     onClick: (() -> Unit)? = null
 ) {
     Box(
@@ -31,7 +32,7 @@ fun CarItem(
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dimen.roundedCornerMediumSize))
             .background(AppColors.surface)
-            .clickable { onClick?.invoke() }
+            .clickable(enabled = enabled) { onClick?.invoke() }
     ) {
         Column(modifier = Modifier.padding(Dimen.appPadding)) {
             car.carName?.let {

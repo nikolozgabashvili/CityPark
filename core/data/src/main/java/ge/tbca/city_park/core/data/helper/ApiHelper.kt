@@ -14,7 +14,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 
 class ApiHelper(
-){
+) {
 
     inline fun <reified T> safeCall(noinline call: suspend () -> BaseResponse<T>): Flow<Resource<T, ApiError>> {
         return flow {
@@ -40,7 +40,11 @@ class ApiHelper(
                             Resource.Error(ApiError.UNKNOWN_ERROR)
                         } else {
                             val errorResponse = Json.decodeFromString<BaseDto<T>>(errorBodyString)
-                            Resource.Error(ApiError.valueOf(errorResponse.errorCode?:ApiError.UNKNOWN_ERROR.name))
+                            Resource.Error(
+                                ApiError.valueOf(
+                                    errorResponse.errorCode ?: ApiError.UNKNOWN_ERROR.name
+                                )
+                            )
 
                         }
                     }

@@ -16,7 +16,7 @@ object ButtonDefaults {
             disabledContentColor = AppColors.onSecondaryContainer
         )
 
-    val tertiaryColors:ButtonColors
+    val tertiaryColors: ButtonColors
         @Composable
         get() = ButtonDefaults.buttonColors(
             containerColor = AppColors.background,
@@ -25,12 +25,21 @@ object ButtonDefaults {
             disabledContentColor = AppColors.onSecondaryContainer
         )
 
-    val secondaryColors:ButtonColors
+    val secondaryColors: ButtonColors
         @Composable
         get() = ButtonDefaults.buttonColors(
             containerColor = AppColors.surface,
             contentColor = AppColors.onSurface,
             disabledContainerColor = AppColors.secondaryContainer,
             disabledContentColor = AppColors.onSecondaryContainer
+        )
+
+    val negativeColors: ButtonColors
+        @Composable
+        get() = ButtonDefaults.buttonColors(
+            containerColor = AppColors.error,
+            contentColor = AppColors.onError,
+            disabledContainerColor = AppColors.errorContainer.copy(alpha = 0.5f),
+            disabledContentColor = AppColors.onErrorContainer.copy(alpha = 0.5f)
         )
 }

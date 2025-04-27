@@ -5,7 +5,6 @@ import ge.tbca.city_park.reservation.domain.model.FinishReservationRequest
 
 fun FinishReservationRequest.toDTO(): FinishReservationRequestDTO {
     return FinishReservationRequestDTO(
-        zoneCode = zoneCode,
-        carNumber = carNumber
+        this.reservationId
     )
 }

@@ -6,4 +6,7 @@ sealed interface HomeScreenEffect {
     data class Error(val error: GenericString) : HomeScreenEffect
     data object NavigateToAddBalance : HomeScreenEffect
     data object NavigateToProfile : HomeScreenEffect
+    data object NavigateToCars : HomeScreenEffect
+    data object NavigateToCards : HomeScreenEffect
+    data object NavigateToAddReservation : HomeScreenEffect
 }

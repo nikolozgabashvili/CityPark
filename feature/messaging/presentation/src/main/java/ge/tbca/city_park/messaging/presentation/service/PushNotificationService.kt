@@ -48,8 +48,6 @@ class PushNotificationService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        println(message.notification?.title)
-        println(message.notification?.body)
         message.notification?.let {
             showNotification(it)
         }

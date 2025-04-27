@@ -99,6 +99,7 @@ private fun CarsScreen(
 
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth(),
+                    enabled = !state.carsLoading,
                     onClick = { onEvent(CarsScreenEvent.AddCarButtonClicked) },
                     text = stringResource(R.string.add_car),
                     buttonSize = ButtonSize.LARGE,
@@ -132,6 +133,7 @@ private fun CarsScreen(
                         val error = state.error.getString()
                         ErrorWrapper(
                             error = error,
+                            enabled = !state.carsLoading,
                             onRetry = { onEvent(CarsScreenEvent.Refresh) },
                         )
                     }
@@ -141,6 +143,7 @@ private fun CarsScreen(
                     items(state.cars) { car ->
                         CarItem(
                             car = car,
+                            enabled = !state.carsLoading,
                             modifier = Modifier.padding(vertical = Dimen.size6),
                             onClick = { onEvent(CarsScreenEvent.CarClicked(car.id)) }
                         )
@@ -196,7 +199,7 @@ private fun CarsScreenPreviewNoCars() {
 private fun CarsScreenPreviewLoading() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(isLoading = true),
+            state = CarsScreenState(carsLoading = true),
             onEvent = {}
         )
     }

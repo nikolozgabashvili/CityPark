@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.core.designsystem.components.action_card.ActionCard
+import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
 import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
@@ -26,14 +28,18 @@ import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.citi_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.home.presentation.R
+import ge.tbca.city_park.home.presentation.component.ActiveReservationCard
 import ge.tbca.city_park.user.presentation.component.UserBalanceCard
 
 @Composable
 fun HomeScreenRoot(
     onShowSnackBar: (String) -> Unit,
     navigateToCars: () -> Unit,
+    navigateToCards: () -> Unit,
     navigateToAddBalance: () -> Unit,
     navigateToProfile: () -> Unit,
+    navigateToAddReservation: () -> Unit,
+
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state
@@ -50,6 +56,9 @@ fun HomeScreenRoot(
             is HomeScreenEffect.NavigateToAddBalance -> navigateToAddBalance()
 
             is HomeScreenEffect.NavigateToProfile -> navigateToProfile()
+            is HomeScreenEffect.NavigateToCars -> navigateToCars()
+            is HomeScreenEffect.NavigateToAddReservation -> navigateToAddReservation()
+            is HomeScreenEffect.NavigateToCards -> navigateToCards()
         }
 
     }
@@ -79,7 +88,7 @@ private fun HomeScreen(
 
         Column(modifier = Modifier.fillMaxSize()) {
             TopNavigationBar(
-                modifier = Modifier.padding( Dimen.appPadding),
+                modifier = Modifier.padding(Dimen.appPadding),
                 title = stringResource(R.string.home),
                 endIcon = Icons.Rounded.Person,
                 onEndIconClick = { onEvent(HomeScreenEvent.NavigateToProfile) },
@@ -100,7 +109,8 @@ private fun HomeScreen(
                 state.error?.let {
                     ErrorWrapper(
                         error = state.error.getString(),
-                        onRetry = { onEvent(HomeScreenEvent.Refresh) }
+                        onRetry = { onEvent(HomeScreenEvent.Refresh) },
+                        enabled = state.clickEnabled,
                     )
                 }
 
@@ -108,13 +118,60 @@ private fun HomeScreen(
                 state.userBalance?.let {
                     UserBalanceCard(
                         balance = state.userBalance,
+                        enabled = state.clickEnabled,
                         onAddBalanceClick = {
                             onEvent(HomeScreenEvent.NavigateToAddBalance)
                         }
                     )
                 }
 
+                state.activeReservation?.let { reservation ->
+                    ActiveReservationCard(
+                        enabled = state.clickEnabled,
+                        reservation = reservation,
+                        onFinishRequest = { onEvent(HomeScreenEvent.OnFinishRequest) },
+                    )
+                } ?: run {
+                    ActionCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        loading = state.isLoading,
+                        text = stringResource(R.string.start_parking),
+                        onclick = { onEvent(HomeScreenEvent.NavigateToAddReservation) }
+                    )
+                }
+
+                ActionCard(
+                    text = stringResource(R.string.my_cars),
+                    enabled = state.clickEnabled,
+                    loading = state.isLoading,
+                    onclick = {
+                        onEvent(HomeScreenEvent.NavigateToCars)
+                    }
+                )
+
+                ActionCard(
+                    text = stringResource(R.string.my_cards),
+                    enabled = state.clickEnabled,
+                    loading = state.isLoading,
+                    onclick = {
+                        onEvent(HomeScreenEvent.NavigateToCards)
+                    }
+                )
+
             }
+        }
+        if (state.showParkingFinishDialog) {
+            BaseAlertDialog(
+                onDismiss = { onEvent(HomeScreenEvent.DismissParkingDialog) },
+                onPositiveButtonClick = {
+                    onEvent(HomeScreenEvent.FinishParking)
+                },
+                onNegativeButtonClick = { onEvent(HomeScreenEvent.DismissParkingDialog) },
+                positiveButtonText = stringResource(R.string.yes),
+                negativeButtonText = stringResource(R.string.no),
+                title = stringResource(R.string.finish),
+                message = stringResource(R.string.finish_parking_message),
+            )
         }
     }
 

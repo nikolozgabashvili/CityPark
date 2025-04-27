@@ -20,6 +20,7 @@ import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tba.city_park.reservation.presentation.R
 import ge.tba.city_park.reservation.presentation.model.ReservationUi
+import java.util.Locale
 
 @Composable
 fun ReservationItem(
@@ -77,11 +78,12 @@ fun ReservationItem(
             }
 
             reservation.cost?.let {
-                Text(
-                    text = stringResource(R.string.cost, reservation.cost),
-                    style = TextStyles.bodyMedium,
-                    color = AppColors.primary
-                )
+                if (!reservation.active)
+                    Text(
+                        text = stringResource(R.string.cost, String.format(Locale.US, "%.2f", it)),
+                        style = TextStyles.bodyMedium,
+                        color = AppColors.primary
+                    )
             }
         }
     }

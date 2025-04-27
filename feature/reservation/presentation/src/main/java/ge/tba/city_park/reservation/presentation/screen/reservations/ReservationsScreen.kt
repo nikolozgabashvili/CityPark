@@ -101,6 +101,7 @@ private fun ReservationsScreen(
                         val error = state.error.getString()
                         ErrorWrapper(
                             error = error,
+                            enabled = !state.isLoading,
                             onRetry = { onEvent(ReservationsEvent.Refresh) },
                         )
                     }

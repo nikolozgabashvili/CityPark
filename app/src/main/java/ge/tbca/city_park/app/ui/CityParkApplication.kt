@@ -45,6 +45,7 @@ fun CityParkApplication(
     onSuccessfulAuth: () -> Unit,
 ) {
 
+
     val currentDestination = appState.currentDestination
     val topLevelDestinations = appState.topLevelDestinations
     val currentTopLevelDestination = appState.currentTopLevelDestination
@@ -54,8 +55,8 @@ fun CityParkApplication(
     Scaffold(
         snackbarHost = {
             SnackbarHost(
-                snackbarHostState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
+                modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
+                hostState = snackbarHostState,
             )
         },
         bottomBar = {
@@ -81,7 +82,7 @@ fun CityParkApplication(
                 onSuccessfulAuth = onSuccessfulAuth,
                 onShowSnackBar = { message ->
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar(message)
+                        snackbarHostState.showSnackbar(message, withDismissAction = true)
                     }
                 })
         }

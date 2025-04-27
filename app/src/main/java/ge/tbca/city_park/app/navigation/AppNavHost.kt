@@ -17,6 +17,7 @@ import ge.tbca.city_park.cars.presentation.navigation.carNavGraph
 import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
 import ge.tbca.city_park.payment.presentation.navigation.AddBalanceScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.AddCardScreenRoute
+import ge.tbca.city_park.payment.presentation.navigation.CardsScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.paymentNavGraph
 import ge.tbca.city_park.settings.presentation.navigation.LanguageSettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.ThemeSettingsScreenRoute
@@ -68,6 +69,13 @@ fun AppNavHost(
             navigateToProfile = {
 
             },
+            navigateToAddReservation = {
+                navController.navigate(CreateReservationRoute)
+            },
+
+            navigateToCards = {
+                navController.navigate(CardsScreenRoute)
+            }
         )
 
 

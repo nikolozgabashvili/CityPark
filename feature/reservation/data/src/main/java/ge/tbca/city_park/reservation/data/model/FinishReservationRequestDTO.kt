@@ -4,6 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class FinishReservationRequestDTO(
-    val zoneCode: String,
-    val carNumber: String
+    val reservationId: Int
 )

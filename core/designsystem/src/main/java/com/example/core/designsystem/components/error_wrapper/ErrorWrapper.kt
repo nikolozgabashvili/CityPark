@@ -28,6 +28,7 @@ import ge.tbca.city_park.core.designsystem.R
 fun ErrorWrapper(
     modifier: Modifier = Modifier,
     error: String,
+    enabled:Boolean,
     onRetry: () -> Unit,
 ) {
     Box(
@@ -49,6 +50,7 @@ fun ErrorWrapper(
             Text(text = error, color = AppColors.onSurface, style = TextStyles.bodyMedium)
             Spacer(modifier=Modifier.height(Dimen.size20))
             PrimaryButton(
+                enabled = enabled,
                 startIcon = Icons.Rounded.Refresh,
                 onClick = onRetry,
                 text = stringResource(R.string.retry),
@@ -69,7 +71,8 @@ private fun ErrorWrapperPrev() {
     AppTheme {
         ErrorWrapper(
             error = "Error",
-            onRetry = {}
+            onRetry = {},
+            enabled = true
         )
     }
 

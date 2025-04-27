@@ -10,6 +10,8 @@ fun NavGraphBuilder.homeNavGraph(
     onShowSnackBar: (String) -> Unit,
     navigateToAddBalance: () -> Unit,
     navigateToProfile: () -> Unit,
+    navigateToAddReservation: () -> Unit,
+    navigateToCards: () -> Unit
 ) {
 
     composable<HomeScreenRoute> {
@@ -18,6 +20,9 @@ fun NavGraphBuilder.homeNavGraph(
             onShowSnackBar = onShowSnackBar,
             navigateToAddBalance = navigateToAddBalance,
             navigateToProfile = navigateToProfile,
+            navigateToAddReservation = navigateToAddReservation,
+            navigateToCards = navigateToCards
+
         )
     }
 
