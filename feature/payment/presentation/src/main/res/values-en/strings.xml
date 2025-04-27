@@ -19,4 +19,5 @@
     <string name="enter_transaction_amount">enter transaction amount</string>
     <string name="balance_added_successfully">Balance added successfully</string>
     <string name="please_fill_amount">Field must not be empty </string>
+    <string name="selected_card">Selected card</string>
 </resources>

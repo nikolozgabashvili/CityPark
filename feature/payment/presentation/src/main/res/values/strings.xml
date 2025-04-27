@@ -21,4 +21,5 @@
     <string name="enter_transaction_amount">შეიყვანე თანხა</string>
     <string name="balance_added_successfully">ბალანსი წარმატებით შეივსო</string>
     <string name="please_fill_amount">ველი არ უნდა იყოს ცარიელი</string>
+    <string name="selected_card">არჩეული ბარათი</string>
 </resources>
