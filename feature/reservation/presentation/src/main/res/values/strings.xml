@@ -20,5 +20,5 @@
     <string name="or">ან</string>
     <string name="add_car">ავტომობილის დამატება</string>
     <string name="select_car">აირჩიე ავტომობილი</string>
-    <string name="selected_car">არჩეული მანქანა</string>
+    <string name="selected_car">არჩეული ავტომობილი</string>
 </resources>
