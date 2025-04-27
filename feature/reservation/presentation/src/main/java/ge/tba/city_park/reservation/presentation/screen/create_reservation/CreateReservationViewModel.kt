@@ -42,7 +42,7 @@ class CreateReservationViewModel @Inject constructor(
     }
 
     private fun updateZoneCode(zoneCode: String) {
-        updateState { copy(zoneCode = zoneCode.take(5), showZoneCodeError = false) }
+        updateState { copy(zoneCode = zoneCode.take(5).uppercase(), showZoneCodeError = false) }
     }
 
     private fun navigateBack() {
