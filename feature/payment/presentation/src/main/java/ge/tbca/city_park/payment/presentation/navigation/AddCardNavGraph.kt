@@ -22,7 +22,8 @@ fun NavGraphBuilder.paymentNavGraph(
     composable<CardsScreenRoute> {
         CardsScreenRoot(
             navigateBack = navigateBack,
-            onShowSnackBar = onShowSnackBar
+            onShowSnackBar = onShowSnackBar,
+            navigateToAddCard = navigateToAddCard
         )
     }
 

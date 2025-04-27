@@ -40,7 +40,7 @@ import ge.tbca.city_park.cars.presentation.model.CarUi
 @Composable
 fun CarsScreenRoot(
     navigateToAddCar: () -> Unit,
-    navigateBack : () -> Unit,
+    navigateBack: () -> Unit,
     onShowSnackBar: (String) -> Unit,
     viewModel: CarsViewModel = hiltViewModel()
 ) {
@@ -49,14 +49,14 @@ fun CarsScreenRoot(
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
-            CarsScreenEventEffect.NavigateToAddCar -> navigateToAddCar()
-            is CarsScreenEventEffect.Error -> {
+            is CarsScreenEffect.NavigateToAddCar -> navigateToAddCar()
+
+            is CarsScreenEffect.Error -> {
                 val message = effect.error.getString(context)
                 onShowSnackBar(message)
-
             }
 
-            CarsScreenEventEffect.NavigateBack -> navigateBack()
+            is CarsScreenEffect.NavigateBack -> navigateBack()
         }
     }
 
@@ -80,7 +80,9 @@ private fun CarsScreen(
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(vertical = Dimen.appPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = Dimen.appPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(

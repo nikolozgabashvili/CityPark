@@ -4,7 +4,6 @@ plugins {
 
 android {
     namespace = "ge.tbca.city_park.settings.presentation"
-
 }
 
 dependencies {

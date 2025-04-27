@@ -23,7 +23,8 @@ class CardsViewModel @Inject constructor(
     override fun onEvent(event: CardsEvent) {
         when (event) {
             is CardsEvent.NavigateBack -> navigateBack()
-            CardsEvent.Refresh -> refresh()
+            is CardsEvent.Refresh -> refresh()
+            is CardsEvent.AddCardButtonClicked -> navigateToAddCard()
         }
     }
 
@@ -63,6 +64,12 @@ class CardsViewModel @Inject constructor(
     private fun navigateBack() {
         viewModelScope.launch {
             sendSideEffect(CardsEffect.NavigateBack)
+        }
+    }
+
+    private fun navigateToAddCard() {
+        viewModelScope.launch {
+            sendSideEffect(CardsEffect.NavigateToAddCard)
         }
     }
 }

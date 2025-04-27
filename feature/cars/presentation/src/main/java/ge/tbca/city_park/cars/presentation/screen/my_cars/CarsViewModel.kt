@@ -18,7 +18,7 @@ class CarsViewModel @Inject constructor(
     private val getAllCarsUseCase: GetAllCarsUseCase,
     private val deleteCarByIdUseCase: DeleteCarByIdUseCase,
 
-    ) : BaseViewModel<CarsScreenState, CarsScreenEventEffect, CarsScreenEvent>(CarsScreenState()) {
+    ) : BaseViewModel<CarsScreenState, CarsScreenEffect, CarsScreenEvent>(CarsScreenState()) {
 
     override fun onEvent(event: CarsScreenEvent) {
         when (event) {
@@ -48,13 +48,13 @@ class CarsViewModel @Inject constructor(
 
     private fun navigateBack() {
         viewModelScope.launch {
-            sendSideEffect(CarsScreenEventEffect.NavigateBack)
+            sendSideEffect(CarsScreenEffect.NavigateBack)
         }
     }
 
     private fun navigateToAddCar() {
         viewModelScope.launch {
-            sendSideEffect(CarsScreenEventEffect.NavigateToAddCar)
+            sendSideEffect(CarsScreenEffect.NavigateToAddCar)
         }
     }
 
@@ -76,7 +76,7 @@ class CarsViewModel @Inject constructor(
 
                         }
 
-                        sendSideEffect(CarsScreenEventEffect.Error(error))
+                        sendSideEffect(CarsScreenEffect.Error(error))
 
                     }
 

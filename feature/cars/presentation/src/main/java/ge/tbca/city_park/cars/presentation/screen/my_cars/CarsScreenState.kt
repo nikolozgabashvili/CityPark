@@ -9,5 +9,5 @@ data class CarsScreenState(
     val carsLoading:Boolean = false,
     val isRefreshing: Boolean = false,
     val noCars:Boolean = false,
-    val error: GenericString? = null,
+    val error: GenericString? = null
 )

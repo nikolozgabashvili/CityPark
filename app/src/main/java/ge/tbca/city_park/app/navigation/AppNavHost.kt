@@ -15,10 +15,13 @@ import ge.tbca.city_park.cars.presentation.navigation.AddCarScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.CarsScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.carNavGraph
 import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
+import ge.tbca.city_park.more.presentation.navigation.moreNavGraph
 import ge.tbca.city_park.payment.presentation.navigation.AddBalanceScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.AddCardScreenRoute
+import ge.tbca.city_park.payment.presentation.navigation.CardsScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.paymentNavGraph
 import ge.tbca.city_park.settings.presentation.navigation.LanguageSettingsScreenRoute
+import ge.tbca.city_park.settings.presentation.navigation.SettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.ThemeSettingsScreenRoute
 import ge.tbca.city_park.settings.presentation.navigation.settingsNavGraph
 import kotlin.reflect.KClass
@@ -112,6 +115,19 @@ fun AppNavHost(
             }
         )
 
+        moreNavGraph(
+            navigateToSettings = {
+                navController.navigate(SettingsScreenRoute)
+            },
+            navigateToCars = {
+                navController.navigate(CarsScreenRoute)
+            },
+            navigateToCards = {
+                navController.navigate(CardsScreenRoute)
+            },
+            navigateToProfile = {
+                // TODO profile navigation
+            }
+        )
     }
-
 }

@@ -89,4 +89,6 @@ dependencies {
     implementation(projects.feature.parking.presentation)
     implementation(projects.feature.parking.domain)
     implementation(projects.feature.parking.data)
+
+    implementation(projects.feature.more.presentation)
 }

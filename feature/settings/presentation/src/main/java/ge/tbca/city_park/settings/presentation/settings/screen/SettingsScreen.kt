@@ -1,11 +1,15 @@
 package ge.tbca.city_park.settings.presentation.settings.screen
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Highlight
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.runtime.Composable
@@ -24,22 +28,25 @@ import ge.tbca.city_park.settings.presentation.theme_settings.extension.displayN
 
 @Composable
 fun SettingsScreenRoot(
+    navigateBack: () -> Unit,
     navigateToTheme: () -> Unit,
     navigateToLanguage: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
 
-    CollectSideEffect(flow = viewModel.effect) { effect ->
+    val scrollState = rememberScrollState()
 
+    CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
             SettingsEffect.NavigateToLanguageSettings -> navigateToLanguage()
             SettingsEffect.NavigateToThemeSettings -> navigateToTheme()
+            SettingsEffect.NavigateBack -> navigateBack()
         }
-
     }
 
     SettingsScreen(
         state = viewModel.state,
+        scrollState = scrollState,
         onEvent = viewModel::onEvent
     )
 }
@@ -47,15 +54,19 @@ fun SettingsScreenRoot(
 @Composable
 private fun SettingsScreen(
     state: SettingsState,
+    scrollState: ScrollState,
     onEvent: (SettingsEvent) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(scrollState)
             .padding(Dimen.appPadding)
     ) {
         TopNavigationBar(
-            title = stringResource(R.string.settings)
+            title = stringResource(R.string.settings),
+            startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
+            onStartIconClick = {onEvent(SettingsEvent.BackButtonClicked)}
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
@@ -91,8 +102,8 @@ private fun SettingsScreen(
 private fun SettingsScreenPreview() {
     AppTheme {
         SettingsScreen(
-            state = SettingsState(
-            ),
+            state = SettingsState(),
+            scrollState = rememberScrollState(),
             onEvent = {}
         )
     }

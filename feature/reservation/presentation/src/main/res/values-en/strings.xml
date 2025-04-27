@@ -18,7 +18,7 @@
     <string name="choose_on_map">Choose on map</string>
     <string name="reservation_added">Parking Started</string>
     <string name="or">Or</string>
-    <string name="add_car">Add a car</string>
-    <string name="select_car">select_car</string>
+    <string name="add_car">Add car</string>
+    <string name="select_car">Select your car</string>
     <string name="selected_car">Selected Car</string>
 </resources>

@@ -14,9 +14,8 @@ import androidx.navigation.navOptions
 import ge.tba.city_park.reservation.presentation.navigation.ReservationsRoute
 import ge.tbca.city_park.app.navigation.TopLevelDestination
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
-import ge.tbca.city_park.settings.presentation.navigation.SettingsScreenRoute
+import ge.tbca.city_park.more.presentation.navigation.MoreScreenRoute
 import kotlinx.coroutines.CoroutineScope
-
 
 @Composable
 fun rememberAppState(
@@ -67,7 +66,7 @@ data class AppState(
 
             when (topLevelDestination) {
                 TopLevelDestination.HOME -> navController.navigate(HomeScreenRoute, topLevelNavOptions)
-                TopLevelDestination.SETTINGS -> navController.navigate(SettingsScreenRoute, topLevelNavOptions)
+                TopLevelDestination.MORE -> navController.navigate(MoreScreenRoute, topLevelNavOptions)
                 TopLevelDestination.RESERVATION -> navController.navigate(ReservationsRoute, topLevelNavOptions)
             }
 
