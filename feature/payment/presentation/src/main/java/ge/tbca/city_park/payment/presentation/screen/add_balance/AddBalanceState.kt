@@ -3,7 +3,7 @@ package ge.tbca.city_park.payment.presentation.screen.add_balance
 import ge.tbca.citi_park.core.ui.util.GenericString
 import ge.tbca.city_park.payment.presentation.model.CreditCardUi
 
-data class AddBalanceScreenState(
+data class AddBalanceState(
     val cards: List<CreditCardUi> = emptyList(),
     val error: GenericString? = null,
     val loading: Boolean = false,

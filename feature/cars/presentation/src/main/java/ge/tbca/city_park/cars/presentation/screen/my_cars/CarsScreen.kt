@@ -40,7 +40,7 @@ import ge.tbca.city_park.cars.presentation.model.CarUi
 @Composable
 fun CarsScreenRoot(
     navigateToAddCar: () -> Unit,
-    navigateBack : () -> Unit,
+    navigateBack: () -> Unit,
     onShowSnackBar: (String) -> Unit,
     viewModel: CarsViewModel = hiltViewModel()
 ) {
@@ -49,14 +49,14 @@ fun CarsScreenRoot(
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
-            CarsScreenEventEffect.NavigateToAddCar -> navigateToAddCar()
-            is CarsScreenEventEffect.Error -> {
+            is CarsEffect.NavigateToAddCar -> navigateToAddCar()
+
+            is CarsEffect.Error -> {
                 val message = effect.error.getString(context)
                 onShowSnackBar(message)
-
             }
 
-            CarsScreenEventEffect.NavigateBack -> navigateBack()
+            is CarsEffect.NavigateBack -> navigateBack()
         }
     }
 
@@ -69,18 +69,20 @@ fun CarsScreenRoot(
 
 @Composable
 private fun CarsScreen(
-    state: CarsScreenState,
-    onEvent: (CarsScreenEvent) -> Unit
+    state: CarsState,
+    onEvent: (CarsEvent) -> Unit
 ) {
 
 
     PullToRefreshWrapper(
         isRefreshing = state.carsLoading,
-        onRefresh = { onEvent(CarsScreenEvent.Refresh) },
+        onRefresh = { onEvent(CarsEvent.Refresh) },
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(vertical = Dimen.appPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = Dimen.appPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
@@ -92,7 +94,7 @@ private fun CarsScreen(
                     startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
                     title = stringResource(R.string.cars),
                     onStartIconClick = {
-                        onEvent(CarsScreenEvent.BackButtonClicked)
+                        onEvent(CarsEvent.BackButtonClicked)
                     }
                 )
 
@@ -100,7 +102,7 @@ private fun CarsScreen(
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !state.carsLoading,
-                    onClick = { onEvent(CarsScreenEvent.AddCarButtonClicked) },
+                    onClick = { onEvent(CarsEvent.AddCarButtonClicked) },
                     text = stringResource(R.string.add_car),
                     buttonSize = ButtonSize.LARGE,
                 )
@@ -133,8 +135,8 @@ private fun CarsScreen(
                         val error = state.error.getString()
                         ErrorWrapper(
                             error = error,
+                            onRetry = { onEvent(CarsEvent.Refresh) },
                             enabled = !state.carsLoading,
-                            onRetry = { onEvent(CarsScreenEvent.Refresh) },
                         )
                     }
 
@@ -145,7 +147,7 @@ private fun CarsScreen(
                             car = car,
                             enabled = !state.carsLoading,
                             modifier = Modifier.padding(vertical = Dimen.size6),
-                            onClick = { onEvent(CarsScreenEvent.CarClicked(car.id)) }
+                            onClick = { onEvent(CarsEvent.CarClicked(car.id)) }
                         )
                     }
                 }
@@ -160,7 +162,7 @@ private fun CarsScreen(
 private fun CarsScreenPreview() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(
+            state = CarsState(
                 cars = listOf(
                     CarUi(
                         id = 1,
@@ -188,7 +190,7 @@ private fun CarsScreenPreview() {
 private fun CarsScreenPreviewNoCars() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(noCars = true),
+            state = CarsState(noCars = true),
             onEvent = {}
         )
     }
@@ -199,7 +201,7 @@ private fun CarsScreenPreviewNoCars() {
 private fun CarsScreenPreviewLoading() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(carsLoading = true),
+            state = CarsState(isLoading = true),
             onEvent = {}
         )
     }

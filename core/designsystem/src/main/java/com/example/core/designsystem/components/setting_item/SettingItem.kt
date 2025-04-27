@@ -1,5 +1,6 @@
 package com.example.core.designsystem.components.setting_item
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronRight
@@ -24,7 +25,7 @@ fun SettingItem(
     icon: ImageVector
 ) {
     HorizontalPanel(
-        modifier = modifier,
+        modifier = modifier.padding(top = Dimen.size8, bottom = Dimen.size8),
         title = title,
         description = description,
         hasUnderline = hasUnderline,

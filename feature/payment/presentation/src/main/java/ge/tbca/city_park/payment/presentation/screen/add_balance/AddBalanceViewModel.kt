@@ -16,7 +16,7 @@ import javax.inject.Inject
 class AddBalanceViewModel @Inject constructor(
     private val getCardsUseCase: GetAllCreditCardsUseCase,
     private val buyBalanceUseCase: BuyBalanceUseCase
-) : BaseViewModel<AddBalanceScreenState, AddBalanceEffect, AddBalanceEvent>(AddBalanceScreenState()) {
+) : BaseViewModel<AddBalanceState, AddBalanceEffect, AddBalanceEvent>(AddBalanceState()) {
 
 
     init {

@@ -15,10 +15,16 @@ class SettingsViewModel @Inject constructor(
 ) : BaseViewModel<SettingsState, SettingsEffect, SettingsEvent>(SettingsState()) {
 
     init {
-
         observeSavedTheme()
-
         observeSavedLanguage()
+    }
+
+    override fun onEvent(event: SettingsEvent) {
+        when (event) {
+            is SettingsEvent.NavigateToLanguageSettings -> navigateToLanguageSettings()
+            is SettingsEvent.NavigateToThemeSettings -> navigateToThemeSettings()
+            is SettingsEvent.BackButtonClicked -> navigateBack()
+        }
     }
 
     private fun observeSavedLanguage() {
@@ -37,13 +43,6 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override fun onEvent(event: SettingsEvent) {
-        when (event) {
-            is SettingsEvent.NavigateToLanguageSettings -> navigateToLanguageSettings()
-            is SettingsEvent.NavigateToThemeSettings -> navigateToThemeSettings()
-        }
-    }
-
     private fun navigateToLanguageSettings() {
         viewModelScope.launch {
             sendSideEffect(SettingsEffect.NavigateToLanguageSettings)
@@ -53,6 +52,12 @@ class SettingsViewModel @Inject constructor(
     private fun navigateToThemeSettings() {
         viewModelScope.launch {
             sendSideEffect(SettingsEffect.NavigateToThemeSettings)
+        }
+    }
+
+    private fun navigateBack() {
+        viewModelScope.launch {
+            sendSideEffect(SettingsEffect.NavigateBack)
         }
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="more">მეტი</string>
+    <string name="settings">პარამეტრები</string>
+    <string name="my_cars">ჩემი ავტომობილები</string>
+    <string name="my_cards">ჩემი ბარათები</string>
+    <string name="profile">პროფილი</string>
+</resources>

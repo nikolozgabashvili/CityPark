@@ -1,5 +1,6 @@
 package ge.tbca.city_park.auth.domain.usecase
 
+import ge.tbca.city_park.core.domain.usecase.CheckSpecialCharUseCase
 import javax.inject.Inject
 
 class ValidatePasswordUseCase @Inject constructor(

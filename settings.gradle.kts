@@ -1,5 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":feature:more:presentation")
+
+
+include(":feature:more")
+
+
 include(":feature:user:presentation")
 
 

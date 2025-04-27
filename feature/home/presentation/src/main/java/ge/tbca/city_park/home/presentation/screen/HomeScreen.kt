@@ -48,17 +48,18 @@ fun HomeScreenRoot(
 
     CollectSideEffect(viewModel.effect) { effect ->
         when (effect) {
-            is HomeScreenEffect.Error -> {
+            is HomeEffect.Error -> {
                 val error = effect.error.getString(context)
                 onShowSnackBar(error)
             }
 
-            is HomeScreenEffect.NavigateToAddBalance -> navigateToAddBalance()
+            is HomeEffect.NavigateToAddBalance -> navigateToAddBalance()
 
-            is HomeScreenEffect.NavigateToProfile -> navigateToProfile()
-            is HomeScreenEffect.NavigateToCars -> navigateToCars()
-            is HomeScreenEffect.NavigateToAddReservation -> navigateToAddReservation()
-            is HomeScreenEffect.NavigateToCards -> navigateToCards()
+            is HomeEffect.NavigateToProfile -> navigateToProfile()
+            is HomeEffect.NavigateToProfile -> navigateToProfile()
+            is HomeEffect.NavigateToCars -> navigateToCars()
+            is HomeEffect.NavigateToAddReservation -> navigateToAddReservation()
+            is HomeEffect.NavigateToCards -> navigateToCards()
         }
 
     }
@@ -75,14 +76,14 @@ fun HomeScreenRoot(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HomeScreen(
-    state: HomeScreenState,
+    state: HomeState,
     scrollState: ScrollState,
-    onEvent: (HomeScreenEvent) -> Unit,
+    onEvent: (HomeEvent) -> Unit,
 ) {
     PullToRefreshWrapper(
         isRefreshing = state.isLoading,
         onRefresh = {
-            onEvent(HomeScreenEvent.Refresh)
+            onEvent(HomeEvent.Refresh)
         }
     ) {
 
@@ -91,7 +92,7 @@ private fun HomeScreen(
                 modifier = Modifier.padding(Dimen.appPadding),
                 title = stringResource(R.string.home),
                 endIcon = Icons.Rounded.Person,
-                onEndIconClick = { onEvent(HomeScreenEvent.NavigateToProfile) },
+                onEndIconClick = { onEvent(HomeEvent.NavigateToProfile) },
             )
 
             Column(
@@ -109,8 +110,8 @@ private fun HomeScreen(
                 state.error?.let {
                     ErrorWrapper(
                         error = state.error.getString(),
-                        onRetry = { onEvent(HomeScreenEvent.Refresh) },
                         enabled = state.clickEnabled,
+                        onRetry = { onEvent(HomeEvent.Refresh) }
                     )
                 }
 
@@ -120,7 +121,7 @@ private fun HomeScreen(
                         balance = state.userBalance,
                         enabled = state.clickEnabled,
                         onAddBalanceClick = {
-                            onEvent(HomeScreenEvent.NavigateToAddBalance)
+                            onEvent(HomeEvent.NavigateToAddBalance)
                         }
                     )
                 }
@@ -184,7 +185,7 @@ private fun HomeScreenPrev() {
 
     AppTheme {
         HomeScreen(
-            state = HomeScreenState(),
+            state = HomeState(),
             scrollState = rememberScrollState(),
             onEvent = {}
         )

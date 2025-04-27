@@ -20,15 +20,29 @@ class HomeViewModel @Inject constructor(
     private val getActiveReservationUseCase: GetActiveReservationUseCase,
     private val finishParkingUseCase: FinishReservationUseCase
 ) :
-    BaseViewModel<HomeScreenState, HomeScreenEffect, HomeScreenEvent>(HomeScreenState()) {
+    BaseViewModel<HomeState, HomeEffect, HomeEvent>(HomeState()) {
 
     init {
         fetchUserInfo()
         checkActiveReservation()
     }
 
+    private fun fetchUserInfo() {
+        viewModelScope.launch {
+            fetchUserInfoUseCase().collect {
+                updateState { copy(isLoading = it.isLoading(), error = null) }
 
-    override fun onEvent(event: HomeScreenEvent) {
+                if (it is Resource.Error) {
+                    val error = it.error.toGenericString()
+                    updateState { copy(error = error) }
+                    sendSideEffect(HomeEffect.Error(error))
+                }
+
+            }
+        }
+    }
+
+    override fun onEvent(event: HomeEvent) {
         when (event) {
             is HomeScreenEvent.Refresh -> refresh()
             is HomeScreenEvent.NavigateToAddBalance -> navigateToAddBalance()

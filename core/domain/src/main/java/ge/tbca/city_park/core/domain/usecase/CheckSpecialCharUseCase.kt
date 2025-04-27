@@ -1,4 +1,4 @@
-package ge.tbca.city_park.auth.domain.usecase
+package ge.tbca.city_park.core.domain.usecase
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
