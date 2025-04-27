@@ -10,6 +10,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReservationsRepository {
     fun getAllReservations(): Flow<Resource<List<ReservationDomain>, ApiError>>
-    fun createReservation(reservation: ReservationRequest): Flow<Resource<ReservationDomain, ApiError>>
+    fun createReservation(reservation: ReservationRequest): Flow<Resource<Unit, ApiError>>
     fun finishReservation(reservation: FinishReservationRequest): Flow<Resource<FinishReservationResponse, ApiError>>
 }

@@ -62,6 +62,7 @@ fun HomeScreenRoot(
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HomeScreen(
     state: HomeScreenState,
@@ -101,13 +102,15 @@ private fun HomeScreen(
                         )
                     }
 
-                    state.userBalance != null -> {
-                        UserBalanceCard(
-                            balance = state.userBalance,
-                            onAddBalanceClick = {
-                                onEvent(HomeScreenEvent.NavigateToAddBalance)
-                            }
-                        )
+                    else -> {
+                        state.userBalance?.let {
+                            UserBalanceCard(
+                                balance = state.userBalance,
+                                onAddBalanceClick = {
+                                    onEvent(HomeScreenEvent.NavigateToAddBalance)
+                                }
+                            )
+                        }
                     }
                 }
 

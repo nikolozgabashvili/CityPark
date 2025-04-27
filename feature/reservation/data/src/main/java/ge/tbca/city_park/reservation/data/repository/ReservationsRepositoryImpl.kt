@@ -1,6 +1,7 @@
 package ge.tbca.city_park.reservation.data.repository
 
 import ge.tbca.city_park.core.data.extension.mapResource
+import ge.tbca.city_park.core.data.extension.toEmptyResource
 import ge.tbca.city_park.core.data.helper.ApiHelper
 import ge.tbca.city_park.core.domain.util.ApiError
 import ge.tbca.city_park.core.domain.util.Resource
@@ -28,12 +29,10 @@ class ReservationsRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun createReservation(reservation: ReservationRequest): Flow<Resource<ReservationDomain, ApiError>> {
+    override fun createReservation(reservation: ReservationRequest): Flow<Resource<Unit, ApiError>> {
         return apiHelper.safeCall {
             apiService.createReservation(reservation.toDTO())
-        }.mapResource {
-            it.toDomain()
-        }
+        }.toEmptyResource()
     }
 
     override fun finishReservation(reservation: FinishReservationRequest): Flow<Resource<FinishReservationResponse, ApiError>> {

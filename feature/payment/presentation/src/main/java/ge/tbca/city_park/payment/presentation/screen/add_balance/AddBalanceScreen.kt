@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
-
 package ge.tbca.city_park.payment.presentation.screen.add_balance
 
 import androidx.compose.foundation.ScrollState
@@ -78,6 +76,7 @@ fun AddBalanceScreenRoot(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddBalanceScreen(
     state: AddBalanceScreenState,

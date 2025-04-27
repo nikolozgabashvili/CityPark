@@ -17,7 +17,7 @@ interface ReservationApiService {
 
     @UserId
     @POST(CREATE_RESERVATION)
-    suspend fun createReservation(@Body body: ReservationRequestDTO): BaseResponse<ReservationDTO>
+    suspend fun createReservation(@Body body: ReservationRequestDTO): BaseResponse<Unit>
 
     @UserId
     @POST(FINISH_RESERVATION)

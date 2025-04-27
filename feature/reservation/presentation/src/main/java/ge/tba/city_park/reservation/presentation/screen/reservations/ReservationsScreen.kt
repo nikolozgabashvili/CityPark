@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package ge.tba.city_park.reservation.presentation.screen
+package ge.tba.city_park.reservation.presentation.screen.reservations
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +34,7 @@ import ge.tbca.citi_park.core.ui.util.CollectSideEffect
 @Composable
 fun ReservationsScreenRoot(
     viewModel: ReservationsViewModel = hiltViewModel(),
-    navigateToMap: () -> Unit,
+    navigateToCreateReservation: () -> Unit,
     onShowSnackBar: (String) -> Unit,
 ) {
 
@@ -49,7 +49,7 @@ fun ReservationsScreenRoot(
             }
 
             is ReservationsEffect.NavigateToAddReservation -> {
-                navigateToMap()
+                navigateToCreateReservation()
             }
         }
 

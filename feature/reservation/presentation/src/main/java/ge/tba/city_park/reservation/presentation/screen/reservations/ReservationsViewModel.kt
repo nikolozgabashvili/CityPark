@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation.screen
+package ge.tba.city_park.reservation.presentation.screen.reservations
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,11 +46,19 @@ class ReservationsViewModel @Inject constructor(
 
     override fun onEvent(event: ReservationsEvent) {
         when (event) {
-            is ReservationsEvent.AddReservationButtonClicked -> {}
+            is ReservationsEvent.AddReservationButtonClicked -> {
+                navigateToAddReservation()
+            }
             ReservationsEvent.Refresh -> {
                 fetchReservations()
 
             }
+        }
+    }
+
+    private fun navigateToAddReservation() {
+        viewModelScope.launch {
+            sendSideEffect(ReservationsEffect.NavigateToAddReservation)
         }
     }
 
