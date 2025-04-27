@@ -49,14 +49,14 @@ fun CarsScreenRoot(
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
-            is CarsScreenEffect.NavigateToAddCar -> navigateToAddCar()
+            is CarsEffect.NavigateToAddCar -> navigateToAddCar()
 
-            is CarsScreenEffect.Error -> {
+            is CarsEffect.Error -> {
                 val message = effect.error.getString(context)
                 onShowSnackBar(message)
             }
 
-            is CarsScreenEffect.NavigateBack -> navigateBack()
+            is CarsEffect.NavigateBack -> navigateBack()
         }
     }
 
@@ -69,14 +69,14 @@ fun CarsScreenRoot(
 
 @Composable
 private fun CarsScreen(
-    state: CarsScreenState,
-    onEvent: (CarsScreenEvent) -> Unit
+    state: CarsState,
+    onEvent: (CarsEvent) -> Unit
 ) {
 
 
     PullToRefreshWrapper(
         isRefreshing = state.carsLoading,
-        onRefresh = { onEvent(CarsScreenEvent.Refresh) },
+        onRefresh = { onEvent(CarsEvent.Refresh) },
     ) {
 
         Column(
@@ -94,14 +94,14 @@ private fun CarsScreen(
                     startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
                     title = stringResource(R.string.cars),
                     onStartIconClick = {
-                        onEvent(CarsScreenEvent.BackButtonClicked)
+                        onEvent(CarsEvent.BackButtonClicked)
                     }
                 )
 
 
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { onEvent(CarsScreenEvent.AddCarButtonClicked) },
+                    onClick = { onEvent(CarsEvent.AddCarButtonClicked) },
                     text = stringResource(R.string.add_car),
                     buttonSize = ButtonSize.LARGE,
                 )
@@ -134,7 +134,7 @@ private fun CarsScreen(
                         val error = state.error.getString()
                         ErrorWrapper(
                             error = error,
-                            onRetry = { onEvent(CarsScreenEvent.Refresh) },
+                            onRetry = { onEvent(CarsEvent.Refresh) },
                         )
                     }
 
@@ -144,7 +144,7 @@ private fun CarsScreen(
                         CarItem(
                             car = car,
                             modifier = Modifier.padding(vertical = Dimen.size6),
-                            onClick = { onEvent(CarsScreenEvent.CarClicked(car.id)) }
+                            onClick = { onEvent(CarsEvent.CarClicked(car.id)) }
                         )
                     }
                 }
@@ -159,7 +159,7 @@ private fun CarsScreen(
 private fun CarsScreenPreview() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(
+            state = CarsState(
                 cars = listOf(
                     CarUi(
                         id = 1,
@@ -187,7 +187,7 @@ private fun CarsScreenPreview() {
 private fun CarsScreenPreviewNoCars() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(noCars = true),
+            state = CarsState(noCars = true),
             onEvent = {}
         )
     }
@@ -198,7 +198,7 @@ private fun CarsScreenPreviewNoCars() {
 private fun CarsScreenPreviewLoading() {
     AppTheme {
         CarsScreen(
-            state = CarsScreenState(isLoading = true),
+            state = CarsState(isLoading = true),
             onEvent = {}
         )
     }

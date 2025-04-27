@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(
     private val fetchUserInfoUseCase: FetchUserInfoUseCase,
     private val getActiveReservationUseCase: GetActiveReservationUseCase,
 ) :
-    BaseViewModel<HomeScreenState, HomeScreenEffect, HomeScreenEvent>(HomeScreenState()) {
+    BaseViewModel<HomeState, HomeEffect, HomeEvent>(HomeState()) {
 
     init {
         fetchUserInfo()
@@ -43,32 +43,32 @@ class HomeViewModel @Inject constructor(
                 if (it is Resource.Error) {
                     val error = it.error.toGenericString()
                     updateState { copy(error = error) }
-                    sendSideEffect(HomeScreenEffect.Error(error))
+                    sendSideEffect(HomeEffect.Error(error))
                 }
 
             }
         }
     }
 
-    override fun onEvent(event: HomeScreenEvent) {
+    override fun onEvent(event: HomeEvent) {
         when (event) {
-            is HomeScreenEvent.Refresh -> fetchUserInfo()
+            is HomeEvent.Refresh -> fetchUserInfo()
 
-            is HomeScreenEvent.NavigateToAddBalance -> navigateToAddBalance()
-            is HomeScreenEvent.NavigateToProfile -> navigateToProfile()
+            is HomeEvent.NavigateToAddBalance -> navigateToAddBalance()
+            is HomeEvent.NavigateToProfile -> navigateToProfile()
         }
 
     }
 
     private fun navigateToProfile() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToProfile)
+            sendSideEffect(HomeEffect.NavigateToProfile)
         }
     }
 
     private fun navigateToAddBalance() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToAddBalance)
+            sendSideEffect(HomeEffect.NavigateToAddBalance)
         }
     }
 

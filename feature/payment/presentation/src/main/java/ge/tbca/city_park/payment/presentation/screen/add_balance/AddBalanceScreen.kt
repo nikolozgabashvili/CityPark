@@ -93,7 +93,7 @@ fun AddBalanceScreenRoot(
 
 @Composable
 private fun AddBalanceScreen(
-    state: AddBalanceScreenState,
+    state: AddBalanceState,
     scrollState: ScrollState,
     sheetState: SheetState,
     onEvent: (AddBalanceEvent) -> Unit,
@@ -241,7 +241,7 @@ private fun AddBalanceScreen(
 private fun AddBalanceScreenPrev() {
     AppTheme {
         AddBalanceScreen(
-            state = AddBalanceScreenState(),
+            state = AddBalanceState(),
             scrollState = rememberScrollState(),
             sheetState = rememberModalBottomSheetState(),
             onEvent = {}
