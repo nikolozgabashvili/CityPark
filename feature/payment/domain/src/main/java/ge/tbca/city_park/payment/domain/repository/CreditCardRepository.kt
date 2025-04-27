@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface CreditCardRepository {
     fun addCreditCard(cardRequestDomain: CardRequestDomain): Flow<Resource<CreditCardDomain, ApiError>>
     fun getAllCreditCards(): Flow<Resource<List<CreditCardDomain>, ApiError>>
-    fun deleteCreditCardById(id: String): Flow<Resource<Boolean, ApiError>>
+    fun deleteCreditCardById(id: Int): Flow<Resource<Unit, ApiError>>
 }

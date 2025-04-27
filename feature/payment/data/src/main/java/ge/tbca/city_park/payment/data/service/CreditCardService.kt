@@ -22,7 +22,7 @@ interface CreditCardService {
 
     @UserId
     @DELETE(DELETE_CREDIT_CARD)
-    suspend fun deleteCreditCard(@Path("id") id: String): BaseResponse<Boolean>
+    suspend fun deleteCreditCard(@Path("id") id: Int): BaseResponse<Boolean>
 
     companion object {
         private const val ADD_CREDIT_CARD = "users/cards"

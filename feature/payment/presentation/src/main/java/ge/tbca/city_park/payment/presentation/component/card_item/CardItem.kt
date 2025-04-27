@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +34,8 @@ fun CardItem(
     modifier: Modifier = Modifier,
     card: CreditCardUi,
     enabled: Boolean = true,
-    onclick: (() -> Unit)? = null
+    onclick: (() -> Unit)? = null,
+    onMenuClick: (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
@@ -54,7 +58,7 @@ fun CardItem(
         Image(
             imageVector = card.cardType.getIcon(),
             contentDescription = null,
-            modifier = Modifier.width(Dimen.size100)
+            modifier = Modifier.width(Dimen.size100),
         )
 
         Spacer(modifier = Modifier.width(Dimen.size16))
@@ -80,6 +84,15 @@ fun CardItem(
                 color = AppColors.primary
             )
         }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Icon(
+            modifier = Modifier.clickable(onClick = { onMenuClick?.invoke() }),
+            imageVector = Icons.Default.Delete,
+            contentDescription = null,
+            tint = AppColors.error
+        )
     }
 }
 

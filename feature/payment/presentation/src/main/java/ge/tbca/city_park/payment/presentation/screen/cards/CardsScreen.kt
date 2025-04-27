@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
+import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.example.core.designsystem.components.divider.Divider
 import com.example.core.designsystem.components.empty_data_indicator.EmptyDataIndicator
 import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
@@ -127,14 +128,29 @@ private fun CardsScreen(
                 } else if (state.cardsList.isNotEmpty()) {
 
                     items(items = state.cardsList, key = { it.id }) { card ->
-                        CardItem(card = card)
+                        CardItem(
+                            card = card,
+                            onMenuClick = { onEvent(CardsEvent.DeleteCardClicked(card.id)) },
+                        )
                     }
                 }
             }
 
+            if (state.showDeleteCardDialog) {
+                BaseAlertDialog(
+                    onDismiss = { onEvent(CardsEvent.DismissDeleteCardDialog) },
+                    onPositiveButtonClick = {
+                        onEvent(CardsEvent.DeleteCard)
+                    },
+                    onNegativeButtonClick = { onEvent(CardsEvent.DismissDeleteCardDialog) },
+                    positiveButtonText = stringResource(R.string.yes),
+                    negativeButtonText = stringResource(R.string.no),
+                    title = stringResource(R.string.delete),
+                    message = stringResource(R.string.do_you_really_wish_to_delete),
+                )
+            }
         }
     }
-
 }
 
 @AppPreview
@@ -164,6 +180,17 @@ private fun CardsScreenPreview() {
                     )
                 )
             ),
+            onEvent = {}
+        )
+    }
+}
+
+@AppPreview
+@Composable
+private fun CardsScreenPreviewDialog() {
+    AppTheme {
+        CardsScreen(
+            state = CardsState(showDeleteCardDialog = true),
             onEvent = {}
         )
     }

@@ -1,6 +1,7 @@
 package ge.tbca.city_park.payment.data.repository
 
 import ge.tbca.city_park.core.data.extension.mapResource
+import ge.tbca.city_park.core.data.extension.toEmptyResource
 import ge.tbca.city_park.core.data.helper.ApiHelper
 import ge.tbca.city_park.core.domain.util.ApiError
 import ge.tbca.city_park.core.domain.util.Resource
@@ -34,9 +35,9 @@ class CreditCardRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun deleteCreditCardById(id: String): Flow<Resource<Boolean, ApiError>> {
+    override fun deleteCreditCardById(id: Int): Flow<Resource<Unit, ApiError>> {
         return apiHelper.safeCall {
             creditCardService.deleteCreditCard(id)
-        }
+        }.toEmptyResource()
     }
 }

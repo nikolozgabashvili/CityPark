@@ -7,5 +7,7 @@ data class CardsState(
     val cardsList: List<CreditCardUi> = emptyList(),
     val isLoading: Boolean = false,
     val noCards: Boolean = false,
-    val error: GenericString? = null
+    val error: GenericString? = null,
+    val showDeleteCardDialog: Boolean = false,
+    val deleteCardId: Int? = null
 )

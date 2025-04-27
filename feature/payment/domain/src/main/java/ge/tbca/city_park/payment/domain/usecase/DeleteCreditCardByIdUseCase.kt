@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class DeleteCreditCardByIdUseCase @Inject constructor(private val creditCardRepository: CreditCardRepository) {
 
-    operator fun invoke(id: String): Flow<Resource<Boolean, ApiError>> {
+    operator fun invoke(id: Int): Flow<Resource<Unit, ApiError>> {
         return creditCardRepository.deleteCreditCardById(id)
     }
 }

@@ -23,4 +23,8 @@
     <string name="please_fill_amount">ველი არ უნდა იყოს ცარიელი</string>
     <string name="selected_card">არჩეული ბარათი</string>
     <string name="your_cards">შენი ბარათები</string>
+    <string name="yes">დიახ</string>
+    <string name="no">არა</string>
+    <string name="delete">წაშლა</string>
+    <string name="do_you_really_wish_to_delete">ნამდვილად გსურთ ბარათის წაშლა?</string>
 </resources>
