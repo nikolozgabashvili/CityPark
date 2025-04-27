@@ -9,6 +9,11 @@ android{
 
 
 dependencies{
-    implementation(projects.feature.messaging.domain)
+
     implementation(libs.firebase.messaging)
+}
+
+dependencies{
+    implementation(projects.feature.messaging.domain)
+    implementation(projects.feature.user.domain)
 }

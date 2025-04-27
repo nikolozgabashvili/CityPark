@@ -24,7 +24,7 @@ import kotlinx.coroutines.tasks.await
 
 @HiltWorker
 class SignUpUserWorker @AssistedInject constructor(
-    @Assisted  private val appContext: Context,
+    @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val authHelper: AuthHelper,
     private val firebaseAuth: FirebaseAuth,

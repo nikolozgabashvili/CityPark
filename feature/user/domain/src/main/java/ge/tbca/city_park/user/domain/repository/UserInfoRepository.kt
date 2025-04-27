@@ -7,7 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserInfoRepository {
 
-    val userData: Flow<UserInfoDomain?>
-
     suspend fun fetchUserData(): Flow<Resource<UserInfoDomain, ApiError>>
 }

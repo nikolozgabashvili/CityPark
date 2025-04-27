@@ -12,6 +12,7 @@ import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.messaging.domain.usecase.UpdateMessagingTokenUseCase
 import ge.tbca.city_park.messaging.presentation.R
+import ge.tbca.city_park.user.domain.usecase.IsUserAuthenticatedUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -25,6 +26,9 @@ class PushNotificationService : FirebaseMessagingService() {
 
     @Inject
     lateinit var updateMessagingTokenUseCase: UpdateMessagingTokenUseCase
+
+    @Inject
+    lateinit var isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -56,14 +60,17 @@ class PushNotificationService : FirebaseMessagingService() {
         super.onNewToken(token)
 
         scope.launch {
+            if (!isUserAuthenticatedUseCase()) return@launch
             updateMessagingTokenUseCase(token)
         }
 
     }
+
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
     }
+
     private fun showNotification(notificationData: RemoteMessage.Notification) {
 
         val intent = Intent().setClassName(
@@ -81,14 +88,13 @@ class PushNotificationService : FirebaseMessagingService() {
         )
 
 
-
         val notification = baseNotification
             .setContentTitle(notificationData.title)
             .setContentText(notificationData.body)
             .setContentIntent(pendingIntent)
             .build()
         val unqueTag = UUID.randomUUID().toString()
-        notificationManager.notify(unqueTag,1, notification)
+        notificationManager.notify(unqueTag, 1, notification)
 
     }
 

@@ -3,9 +3,11 @@ package ge.tbca.city_park.app.activity
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.messaging.domain.usecase.GetAndUpdateMessagingTokenUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedLanguageUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedThemeUseCase
+import ge.tbca.city_park.user.domain.usecase.FetchUserInfoUseCase
 import ge.tbca.city_park.user.domain.usecase.IsUserAuthenticatedUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +18,7 @@ class MainViewModel @Inject constructor(
     private val getSavedThemeUseCase: GetSavedThemeUseCase,
     private val getSavedLanguageUseCase: GetSavedLanguageUseCase,
     private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase,
+    private val getUserInfoUseCase: FetchUserInfoUseCase,
     private val getAndUpdateTokenUseCase: GetAndUpdateMessagingTokenUseCase
 ) : BaseViewModel<MainActivityState, MainActivityEffect, MainActivityEvent>(MainActivityState()) {
 
@@ -42,9 +45,18 @@ class MainViewModel @Inject constructor(
             val isAuthorized = isUserAuthenticatedUseCase()
             updateState { copy(isAuthorized = isAuthorized) }
 
-            if (isAuthorized) {
-                updateMessagingToken()
+            updateMessagingTokenIfNeeded()
+        }
+    }
 
+    private fun updateMessagingTokenIfNeeded() {
+        viewModelScope.launch {
+            getUserInfoUseCase().collect {
+                if (it is Resource.Success) {
+                    if (it.data.fcmToken == null) {
+                        updateMessagingToken()
+                    }
+                }
             }
         }
     }

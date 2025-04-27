@@ -8,13 +8,11 @@ import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.reservation.domain.usecase.GetActiveReservationUseCase
 import ge.tbca.city_park.user.domain.usecase.FetchUserInfoUseCase
-import ge.tbca.city_park.user.domain.usecase.GetUserInfoUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getUserInfoUseCase: GetUserInfoUseCase,
     private val fetchUserInfoUseCase: FetchUserInfoUseCase,
     private val getActiveReservationUseCase: GetActiveReservationUseCase,
 ) :
@@ -22,42 +20,45 @@ class HomeViewModel @Inject constructor(
 
     init {
         fetchUserInfo()
-        observeUserInfo()
     }
 
-    private fun observeUserInfo() {
-        viewModelScope.launch {
-            getUserInfoUseCase().collect { userInfo ->
-                userInfo?.let {
-                    updateState { copy(userBalance = userInfo.parkingBalance) }
-                }
-            }
-        }
-    }
 
-    private fun fetchUserInfo() {
-        viewModelScope.launch {
-            fetchUserInfoUseCase().collect {
-                updateState { copy(isLoading = it.isLoading(), error = null) }
 
-                if (it is Resource.Error) {
-                    val error = it.error.toGenericString()
-                    updateState { copy(error = error) }
-                    sendSideEffect(HomeScreenEffect.Error(error))
-                }
-
-            }
-        }
-    }
 
     override fun onEvent(event: HomeScreenEvent) {
         when (event) {
-            is HomeScreenEvent.Refresh -> fetchUserInfo()
+            is HomeScreenEvent.Refresh -> refresh()
 
             is HomeScreenEvent.NavigateToAddBalance -> navigateToAddBalance()
             is HomeScreenEvent.NavigateToProfile -> navigateToProfile()
         }
 
+    }
+
+    private fun fetchUserInfo() {
+        viewModelScope.launch {
+            fetchUserInfoUseCase().collect { resource ->
+                updateState { copy(isLoading = resource.isLoading(), error = null) }
+
+                when (resource) {
+                    is Resource.Error -> {
+                        val error = resource.error.toGenericString()
+                        updateState { copy(error = error) }
+                        sendSideEffect(HomeScreenEffect.Error(error))
+                    }
+
+                    Resource.Loading -> Unit
+                    is Resource.Success -> {
+                        updateState { copy(userBalance = resource.data.parkingBalance) }
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun refresh() {
+        fetchUserInfo()
     }
 
     private fun navigateToProfile() {
