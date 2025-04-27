@@ -52,10 +52,7 @@ fun HomeScreenRoot(
                 val error = effect.error.getString(context)
                 onShowSnackBar(error)
             }
-
             is HomeEffect.NavigateToAddBalance -> navigateToAddBalance()
-
-            is HomeEffect.NavigateToProfile -> navigateToProfile()
             is HomeEffect.NavigateToProfile -> navigateToProfile()
             is HomeEffect.NavigateToCars -> navigateToCars()
             is HomeEffect.NavigateToAddReservation -> navigateToAddReservation()
@@ -130,14 +127,14 @@ private fun HomeScreen(
                     ActiveReservationCard(
                         enabled = state.clickEnabled,
                         reservation = reservation,
-                        onFinishRequest = { onEvent(HomeScreenEvent.OnFinishRequest) },
+                        onFinishRequest = { onEvent(HomeEvent.OnFinishRequest) },
                     )
                 } ?: run {
                     ActionCard(
                         modifier = Modifier.fillMaxWidth(),
                         loading = state.isLoading,
                         text = stringResource(R.string.start_parking),
-                        onclick = { onEvent(HomeScreenEvent.NavigateToAddReservation) }
+                        onclick = { onEvent(HomeEvent.NavigateToAddReservation) }
                     )
                 }
 
@@ -146,7 +143,7 @@ private fun HomeScreen(
                     enabled = state.clickEnabled,
                     loading = state.isLoading,
                     onclick = {
-                        onEvent(HomeScreenEvent.NavigateToCars)
+                        onEvent(HomeEvent.NavigateToCars)
                     }
                 )
 
@@ -155,7 +152,7 @@ private fun HomeScreen(
                     enabled = state.clickEnabled,
                     loading = state.isLoading,
                     onclick = {
-                        onEvent(HomeScreenEvent.NavigateToCards)
+                        onEvent(HomeEvent.NavigateToCards)
                     }
                 )
 
@@ -163,11 +160,11 @@ private fun HomeScreen(
         }
         if (state.showParkingFinishDialog) {
             BaseAlertDialog(
-                onDismiss = { onEvent(HomeScreenEvent.DismissParkingDialog) },
+                onDismiss = { onEvent(HomeEvent.DismissParkingDialog) },
                 onPositiveButtonClick = {
-                    onEvent(HomeScreenEvent.FinishParking)
+                    onEvent(HomeEvent.FinishParking)
                 },
-                onNegativeButtonClick = { onEvent(HomeScreenEvent.DismissParkingDialog) },
+                onNegativeButtonClick = { onEvent(HomeEvent.DismissParkingDialog) },
                 positiveButtonText = stringResource(R.string.yes),
                 negativeButtonText = stringResource(R.string.no),
                 title = stringResource(R.string.finish),

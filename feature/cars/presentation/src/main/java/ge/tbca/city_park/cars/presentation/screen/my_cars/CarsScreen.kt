@@ -201,7 +201,7 @@ private fun CarsScreenPreviewNoCars() {
 private fun CarsScreenPreviewLoading() {
     AppTheme {
         CarsScreen(
-            state = CarsState(isLoading = true),
+            state = CarsState(carsLoading = true),
             onEvent = {}
         )
     }

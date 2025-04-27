@@ -27,51 +27,37 @@ class HomeViewModel @Inject constructor(
         checkActiveReservation()
     }
 
-    private fun fetchUserInfo() {
-        viewModelScope.launch {
-            fetchUserInfoUseCase().collect {
-                updateState { copy(isLoading = it.isLoading(), error = null) }
-
-                if (it is Resource.Error) {
-                    val error = it.error.toGenericString()
-                    updateState { copy(error = error) }
-                    sendSideEffect(HomeEffect.Error(error))
-                }
-
-            }
-        }
-    }
 
     override fun onEvent(event: HomeEvent) {
         when (event) {
-            is HomeScreenEvent.Refresh -> refresh()
-            is HomeScreenEvent.NavigateToAddBalance -> navigateToAddBalance()
-            is HomeScreenEvent.NavigateToProfile -> navigateToProfile()
-            is HomeScreenEvent.OnFinishRequest -> showDialog()
-            is HomeScreenEvent.DismissParkingDialog -> dismissDialog()
-            is HomeScreenEvent.FinishParking -> finishParking()
-            is HomeScreenEvent.NavigateToCars -> navigateToCars()
-            is HomeScreenEvent.NavigateToAddReservation -> navigateToAddReservation()
-            is HomeScreenEvent.NavigateToCards -> navigateToCards()
+            is HomeEvent.Refresh -> refresh()
+            is HomeEvent.NavigateToAddBalance -> navigateToAddBalance()
+            is HomeEvent.NavigateToProfile -> navigateToProfile()
+            is HomeEvent.OnFinishRequest -> showDialog()
+            is HomeEvent.DismissParkingDialog -> dismissDialog()
+            is HomeEvent.FinishParking -> finishParking()
+            is HomeEvent.NavigateToCars -> navigateToCars()
+            is HomeEvent.NavigateToAddReservation -> navigateToAddReservation()
+            is HomeEvent.NavigateToCards -> navigateToCards()
         }
 
     }
 
     private fun navigateToCards() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToCards)
+            sendSideEffect(HomeEffect.NavigateToCards)
         }
     }
 
     private fun navigateToAddReservation() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToAddReservation)
+            sendSideEffect(HomeEffect.NavigateToAddReservation)
         }
     }
 
     private fun navigateToCars() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToCars)
+            sendSideEffect(HomeEffect.NavigateToCars)
         }
     }
 
@@ -90,7 +76,7 @@ class HomeViewModel @Inject constructor(
                     when (resource) {
                         is Resource.Error -> {
                             val error = resource.error.toGenericString()
-                            sendSideEffect(HomeScreenEffect.Error(error))
+                            sendSideEffect(HomeEffect.Error(error))
                         }
 
                         is Resource.Success -> {
@@ -169,13 +155,13 @@ class HomeViewModel @Inject constructor(
 
     private fun navigateToProfile() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToProfile)
+            sendSideEffect(HomeEffect.NavigateToProfile)
         }
     }
 
     private fun navigateToAddBalance() {
         viewModelScope.launch {
-            sendSideEffect(HomeScreenEffect.NavigateToAddBalance)
+            sendSideEffect(HomeEffect.NavigateToAddBalance)
         }
     }
 

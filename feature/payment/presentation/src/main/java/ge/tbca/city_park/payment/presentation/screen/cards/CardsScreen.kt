@@ -120,6 +120,7 @@ private fun CardsScreen(
                         val error = state.error.getString()
                         ErrorWrapper(
                             error = error,
+                            enabled = !state.isLoading,
                             onRetry = { onEvent(CardsEvent.Refresh) },
                         )
                     }
