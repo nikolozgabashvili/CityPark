@@ -106,7 +106,7 @@ private fun NotificationsScreen(
                         )
                     }
                 } else if (state.notificationsList.isNotEmpty()) {
-                    items(state.notificationsList) { notification ->
+                    items(state.notificationsList, key = { it.id }) { notification ->
                         NotificationItem(
                             modifier = Modifier.padding(vertical = Dimen.size6),
                             notification = notification,

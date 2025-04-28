@@ -142,7 +142,7 @@ private fun CarsScreen(
                     }
 
                 } else if (state.cars.isNotEmpty()) {
-                    items(state.cars) { car ->
+                    items(state.cars, key = { it.id }) { car ->
                         CarItem(
                             modifier = Modifier.padding(vertical = Dimen.size6),
                             car = car,
