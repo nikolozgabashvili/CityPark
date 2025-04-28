@@ -6,6 +6,7 @@ import ge.tbca.city_park.core.ui.base.BaseViewModel
 import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
 import ge.tbca.city_park.cars.presentation.mapper.toPresenter
+import ge.tbca.city_park.core.domain.util.ApiError
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.reservation.domain.model.ReservationRequest
@@ -38,6 +39,8 @@ class CreateReservationViewModel @Inject constructor(
             is CreateReservationEvent.ShowBottomSheet -> showBottomSheet()
             is CreateReservationEvent.NavigateToAddCar -> navigateToAddCar()
             is CreateReservationEvent.Retry -> retry()
+            is CreateReservationEvent.DismissAlertDialog -> dismissAlertDialog()
+            is CreateReservationEvent.NavigateToAddBalance -> navigateToAddBalance()
         }
     }
 
@@ -82,6 +85,7 @@ class CreateReservationViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
+                            updateState { copy(showInsufficientBalanceDialog = resource.error == ApiError.INSUFFICIENT_BALANCE) }
                             val error = resource.error.toGenericString()
                             sendSideEffect(CreateReservationEffect.Error(error))
                         }
@@ -138,6 +142,16 @@ class CreateReservationViewModel @Inject constructor(
         updateState { copy(showBottomSheet = false) }
         viewModelScope.launch {
             sendSideEffect(CreateReservationEffect.NavigateToAddCar)
+        }
+    }
+
+    private fun dismissAlertDialog() {
+        updateState { copy(showInsufficientBalanceDialog = false) }
+    }
+
+    private fun navigateToAddBalance() {
+        viewModelScope.launch {
+            sendSideEffect(CreateReservationEffect.NavigateToAddBalance)
         }
     }
 }

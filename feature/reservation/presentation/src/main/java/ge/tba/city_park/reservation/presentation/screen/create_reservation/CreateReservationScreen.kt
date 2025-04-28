@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.SecondaryButton
+import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.example.core.designsystem.components.divider.Divider
 import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
 import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
@@ -50,6 +51,7 @@ fun CreateReservationScreenRoot(
     navigateBack: () -> Unit,
     navigateToMap: () -> Unit,
     navigateToAddCar: () -> Unit,
+    navigateToAddBalance: () -> Unit,
     viewModel: CreateReservationViewModel = hiltViewModel()
 ) {
 
@@ -72,12 +74,10 @@ fun CreateReservationScreenRoot(
             }
 
             is CreateReservationEffect.NavigateBack -> navigateBack()
-
             is CreateReservationEffect.NavigateToMap -> navigateToMap()
-
             is CreateReservationEffect.NavigateToAddCar -> navigateToAddCar()
-
             is CreateReservationEffect.NoCarSelected -> onShowSnackBar(noCarSelectedError)
+            is CreateReservationEffect.NavigateToAddBalance -> navigateToAddBalance()
         }
     }
 
@@ -191,6 +191,7 @@ private fun CreateReservationScreen(
             }
         }
     }
+
     if (state.showBottomSheet)
         CarsBottomSheet(
             onDismissRequest = {
@@ -206,6 +207,22 @@ private fun CreateReservationScreen(
             sheetState = sheetState,
         )
 
+    if (state.showInsufficientBalanceDialog) {
+        BaseAlertDialog(
+            onDismiss = { onEvent(CreateReservationEvent.DismissAlertDialog) },
+            setDismissible = true,
+            onPositiveButtonClick = {
+                onEvent(CreateReservationEvent.NavigateToAddBalance)
+            },
+            onNegativeButtonClick = {
+                onEvent(CreateReservationEvent.DismissAlertDialog)
+            },
+            positiveButtonText = stringResource(R.string.add_balance),
+            negativeButtonText = stringResource(R.string.cancel),
+            title = stringResource(ge.tbca.city_park.core.ui.R.string.insufficient_balance),
+            message = stringResource(R.string.please_add_balance_to_start_parking)
+        )
+    }
 
 }
 

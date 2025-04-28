@@ -21,4 +21,7 @@
     <string name="add_car">ავტომობილის დამატება</string>
     <string name="select_car">აირჩიე ავტომობილი</string>
     <string name="selected_car">არჩეული ავტომობილი</string>
+    <string name="add_balance">შეავსე ბალანსი</string>
+    <string name="cancel">გათიშვა</string>
+    <string name="please_add_balance_to_start_parking">შეავსე ბალანსი რათა დაიწყო პარკირება</string>
 </resources>

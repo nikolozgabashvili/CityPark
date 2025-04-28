@@ -97,7 +97,8 @@ fun AppNavHost(
             },
             navigateBack = { navController.navigateUp() },
             navigateToCreateReservation = { navController.navigate(CreateReservationRoute) },
-            navigateToAddCar = { navController.navigate(AddCarScreenRoute) }
+            navigateToAddCar = { navController.navigate(AddCarScreenRoute) },
+            navigateToAddBalance = { navController.navigate(AddBalanceScreenRoute) }
         )
 
         settingsNavGraph(

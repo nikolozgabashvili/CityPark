@@ -12,5 +12,5 @@
     <string name="parking_started">parking started</string>
     <string name="add_balance">Add balance</string>
     <string name="cancel">Cancel</string>
-    <string name="please_add_balance_to_start_parking">add balence in order to start parking</string>
+    <string name="please_add_balance_to_start_parking">Add balance in order to start parking</string>
 </resources>

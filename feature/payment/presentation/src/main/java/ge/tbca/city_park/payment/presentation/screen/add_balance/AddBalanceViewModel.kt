@@ -73,8 +73,18 @@ class AddBalanceViewModel @Inject constructor(
     }
 
     private fun updateTransactionAmount(amount: String) {
-        val filtered = amount.filter { it.isDigit() && it.digitToInt() > 0 }
-        updateState { copy(transactionAmount = filtered, showTransactionAmountError = false) }
+        val filtered = amount.filter { it.isDigit() }
+
+        if (filtered.isEmpty()) {
+            updateState { copy(transactionAmount = "", showTransactionAmountError = false) }
+            return
+        }
+
+        val number = filtered.toIntOrNull()
+
+        if (filtered.length <= 9 && number != null && number > 0) {
+            updateState { copy(transactionAmount = filtered, showTransactionAmountError = false) }
+        }
     }
 
     private fun navigateToAddCard() {
