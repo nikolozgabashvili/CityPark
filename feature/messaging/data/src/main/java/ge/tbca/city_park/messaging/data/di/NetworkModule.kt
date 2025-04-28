@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ge.tbca.city_park.messaging.data.apiService.TokenApiService
+import ge.tbca.city_park.messaging.data.service.TokenApiService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

@@ -17,4 +17,5 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.feature.user.domain)
     implementation(projects.feature.messaging.domain)
+    implementation(projects.feature.auth.domain)
 }

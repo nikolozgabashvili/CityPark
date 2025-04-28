@@ -5,7 +5,7 @@ import ge.tbca.city_park.core.data.extension.toEmptyResource
 import ge.tbca.city_park.core.data.helper.ApiHelper
 import ge.tbca.city_park.core.domain.util.ApiError
 import ge.tbca.city_park.core.domain.util.Resource
-import ge.tbca.city_park.messaging.data.apiService.TokenApiService
+import ge.tbca.city_park.messaging.data.service.TokenApiService
 import ge.tbca.city_park.messaging.data.model.UpdateTokenRequest
 import ge.tbca.city_park.messaging.domain.repository.MessagingTokenRepository
 import kotlinx.coroutines.Dispatchers
@@ -39,5 +39,11 @@ class MessagingTokenRepositoryImpl @Inject constructor(
         }
     }
 
-
+    override suspend fun deleteMessagingToken(): Resource<Unit, ApiError> {
+        return withContext(Dispatchers.IO) {
+            apiHelper.safeCallNoLoading {
+                tokenApiService.deleteMessagingToken()
+            }.toEmptyResource()
+        }
+    }
 }

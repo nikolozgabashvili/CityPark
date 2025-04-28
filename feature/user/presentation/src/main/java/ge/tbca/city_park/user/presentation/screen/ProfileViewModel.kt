@@ -4,9 +4,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.citi_park.core.ui.base.BaseViewModel
 import ge.tbca.citi_park.core.ui.mapper.toGenericString
+import ge.tbca.city_park.auth.domain.usecase.SignOutUseCase
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
-import ge.tbca.city_park.messaging.domain.usecase.UpdateMessagingTokenUseCase
+import ge.tbca.city_park.messaging.domain.usecase.DeleteMessagingTokenUseCase
 import ge.tbca.city_park.user.domain.usecase.FetchUserInfoUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val fetchUserInfoUseCase: FetchUserInfoUseCase,
-    private val updateMessagingTokenUseCase: UpdateMessagingTokenUseCase
+    private val deleteMessagingTokenUseCase: DeleteMessagingTokenUseCase,
+    private val signOutUseCase: SignOutUseCase
 ) : BaseViewModel<ProfileState, ProfileEffect, ProfileEvent>(ProfileState()) {
 
     init {
@@ -70,8 +72,12 @@ class ProfileViewModel @Inject constructor(
     private fun signOut() {
         viewModelScope.launch {
             updateState { copy(isLoading = true) }
-            when (val request = updateMessagingTokenUseCase(null)) {
-                is Resource.Success -> Unit
+            when (val request = deleteMessagingTokenUseCase()) {
+                is Resource.Success -> {
+                    signOutUseCase().collect {
+                        updateState { copy(isLoading = false) }
+                    }
+                }
 
                 is Resource.Error -> {
                     updateState { copy(isLoading = false) }
