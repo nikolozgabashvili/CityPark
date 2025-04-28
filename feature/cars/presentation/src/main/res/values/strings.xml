@@ -17,7 +17,7 @@
     <string name="yes">დიახ</string>
     <string name="no">არა</string>
     <string name="delete">წაშლა</string>
-    <string name="do_you_really_wish_to_delete">ნამდვილად გსურთ ავტომობილის წაშლა?</string>
+    <string name="do_you_really_wish_to_delete_car">ნამდვილად გსურთ ავტომობილის წაშლა?</string>
     <string name="or">ან</string>
     <string name="add_cars">დაამატე ავტომობილი</string>
 </resources>

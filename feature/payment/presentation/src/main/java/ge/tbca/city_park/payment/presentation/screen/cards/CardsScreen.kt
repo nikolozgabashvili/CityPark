@@ -147,7 +147,7 @@ private fun CardsScreen(
                     positiveButtonText = stringResource(R.string.yes),
                     negativeButtonText = stringResource(R.string.no),
                     title = stringResource(R.string.delete),
-                    message = stringResource(R.string.do_you_really_wish_to_delete),
+                    message = stringResource(R.string.do_you_really_wish_to_delete_card),
                 )
             }
         }
