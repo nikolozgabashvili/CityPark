@@ -1,17 +1,14 @@
 package com.example.core.designsystem.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.ui.platform.LocalContext
+import com.example.core.designsystem.util.LocalDarkTheme
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -89,6 +86,15 @@ private val darkScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDark,
 )
 
+private val additionalColorsLight = AdditionalColor(
+    success = successLight,
+    markerColor = markerColorLight
+)
+private val additionalColorsDark = AdditionalColor(
+    success = successDark,
+    markerColor = markerColorDark
+)
+
 val AppColors: ColorScheme
     @Composable
     @ReadOnlyComposable
@@ -97,22 +103,31 @@ val AppColors: ColorScheme
 val ColorScheme.transparent
     get() = colorTransparent
 
+val ColorScheme.additionalColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColors.current
+
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
         darkTheme -> darkScheme
         else -> lightScheme
     }
-    CompositionLocalProvider(LocalDimen provides AppDimens()) {
+    val additionalColors = if (darkTheme) {
+        additionalColorsDark
+    } else {
+        additionalColorsLight
+    }
+
+    CompositionLocalProvider(
+        LocalDimen provides AppDimens(),
+        LocalColors provides additionalColors,
+        LocalDarkTheme provides darkTheme,
+    ) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = AppTypography,

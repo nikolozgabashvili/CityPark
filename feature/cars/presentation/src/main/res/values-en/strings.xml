@@ -17,4 +17,6 @@
     <string name="no">No</string>
     <string name="delete">Delete</string>
     <string name="do_you_really_wish_to_delete">Do you really wish to delete the car?</string>
+    <string name="or">OR</string>
+    <string name="add_cars">Add car</string>
 </resources>

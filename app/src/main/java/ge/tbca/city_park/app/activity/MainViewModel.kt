@@ -8,6 +8,7 @@ import ge.tbca.city_park.messaging.domain.usecase.GetAndUpdateMessagingTokenUseC
 import ge.tbca.city_park.settings.domain.usecase.GetSavedLanguageUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedThemeUseCase
 import ge.tbca.city_park.user.domain.usecase.FetchUserInfoUseCase
+import ge.tbca.city_park.user.domain.usecase.GetUserAuthStateUseCase
 import ge.tbca.city_park.user.domain.usecase.IsUserAuthenticatedUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +20,8 @@ class MainViewModel @Inject constructor(
     private val getSavedLanguageUseCase: GetSavedLanguageUseCase,
     private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase,
     private val getUserInfoUseCase: FetchUserInfoUseCase,
-    private val getAndUpdateTokenUseCase: GetAndUpdateMessagingTokenUseCase
+    private val getAndUpdateTokenUseCase: GetAndUpdateMessagingTokenUseCase,
+    private val getUserAuthStateUseCase: GetUserAuthStateUseCase
 ) : BaseViewModel<MainActivityState, MainActivityEffect, MainActivityEvent>(MainActivityState()) {
 
     init {
@@ -27,14 +29,27 @@ class MainViewModel @Inject constructor(
         observeTheme()
         observeLanguage()
         checkIfAuthorized()
+        observeAuthState()
 
+    }
+
+    private fun observeAuthState() {
+        viewModelScope.launch {
+            getUserAuthStateUseCase()
+                .collect { isAuthenticated ->
+                    if (!isAuthenticated) {
+                        updateState { copy(isAuthorized = false) }
+                    }
+                }
+        }
     }
 
 
     override fun onEvent(event: MainActivityEvent) {
         when (event) {
             MainActivityEvent.OnSuccessfulAuth -> {
-                checkIfAuthorized()
+                updateState { copy(isAuthorized = true) }
+                updateMessagingToken()
             }
         }
     }
@@ -44,7 +59,6 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val isAuthorized = isUserAuthenticatedUseCase()
             updateState { copy(isAuthorized = isAuthorized) }
-
             updateMessagingTokenIfNeeded()
         }
     }

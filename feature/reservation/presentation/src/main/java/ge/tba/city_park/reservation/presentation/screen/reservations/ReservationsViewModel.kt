@@ -36,7 +36,10 @@ class ReservationsViewModel @Inject constructor(
                         sendSideEffect(ReservationsEffect.Error(error))
                     }
 
-                    is Resource.Success -> updateReservations(resource.data)
+                    is Resource.Success -> {
+                        updateReservations(resource.data)
+                        sendSideEffect(ReservationsEffect.ReservationsRefreshed)
+                    }
 
                     is Resource.Loading -> Unit
                 }

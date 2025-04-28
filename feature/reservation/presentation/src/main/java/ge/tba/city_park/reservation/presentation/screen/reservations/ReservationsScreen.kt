@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.HistoryEdu
@@ -33,12 +35,13 @@ import ge.tbca.citi_park.core.ui.util.CollectSideEffect
 
 @Composable
 fun ReservationsScreenRoot(
-    viewModel: ReservationsViewModel = hiltViewModel(),
     navigateToCreateReservation: () -> Unit,
     onShowSnackBar: (String) -> Unit,
+    viewModel: ReservationsViewModel = hiltViewModel(),
 ) {
 
     val context = LocalContext.current
+    val scrollState = rememberLazyListState()
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
 
@@ -51,12 +54,18 @@ fun ReservationsScreenRoot(
             is ReservationsEffect.NavigateToAddReservation -> {
                 navigateToCreateReservation()
             }
+
+            ReservationsEffect.ReservationsRefreshed -> {
+                scrollState.animateScrollToItem(0)
+            }
+
         }
 
     }
 
     ReservationsScreen(
         state = viewModel.state,
+        scrollState = scrollState,
         onEvent = viewModel::onEvent
     )
 }
@@ -64,6 +73,7 @@ fun ReservationsScreenRoot(
 @Composable
 private fun ReservationsScreen(
     state: ReservationsState,
+    scrollState: LazyListState,
     onEvent: (ReservationsEvent) -> Unit,
 ) {
     PullToRefreshWrapper(
@@ -86,17 +96,18 @@ private fun ReservationsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = Dimen.size16),
+                state = scrollState,
                 contentPadding = PaddingValues(horizontal = Dimen.appPadding),
                 verticalArrangement = Arrangement.spacedBy(Dimen.size16)
             ) {
-                if(state.noReservations){
+                if (state.noReservations) {
                     item {
-                       EmptyDataIndicator(
-                           icon = Icons.Rounded.HistoryEdu,
-                           text = stringResource(R.string.you_dont_have_reservations)
-                       )
+                        EmptyDataIndicator(
+                            icon = Icons.Rounded.HistoryEdu,
+                            text = stringResource(R.string.you_dont_have_reservations)
+                        )
                     }
-                }else if (state.error!=null){
+                } else if (state.error != null) {
                     item {
                         val error = state.error.getString()
                         ErrorWrapper(
@@ -105,8 +116,7 @@ private fun ReservationsScreen(
                             onRetry = { onEvent(ReservationsEvent.Refresh) },
                         )
                     }
-                }
-                else if (state.reservationsList.isNotEmpty()) {
+                } else if (state.reservationsList.isNotEmpty()) {
 
                     items(items = state.reservationsList, key = { it.id }) { reservation ->
                         ReservationItem(reservation = reservation)
@@ -149,7 +159,8 @@ private fun ReservationsScreenPreview() {
                     )
                 )
             ),
-            onEvent = {}
+            onEvent = {},
+            scrollState = rememberLazyListState()
         )
     }
 }
@@ -160,7 +171,8 @@ private fun ReservationsScreenPreviewEmpty() {
     AppTheme {
         ReservationsScreen(
             state = ReservationsState(),
-            onEvent = {}
+            onEvent = {},
+            scrollState = rememberLazyListState()
         )
     }
 }

@@ -60,7 +60,10 @@ fun CityParkBottomNavigation(
                         )
                     },
                     selected = selected,
-                    onClick = { onNavigateToDestination(destination) },
+                    onClick = {
+                        if (!selected)
+                            onNavigateToDestination(destination)
+                    },
                 )
             }
         }

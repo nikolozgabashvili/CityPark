@@ -8,6 +8,7 @@
     <string name="notification_permission_required_message">შეტყობინებების ნებართვა საჭიროა იმისთვის, რომ დროულად მიიღოთ მნიშვნელოვანი ინფორმაცია</string>
     <string name="more">მეტი</string>
     <string name="settings">პარამეტრები</string>
+    <string name="map">რუკა</string>
 </resources>
 
 

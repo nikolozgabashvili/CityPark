@@ -1,6 +1,5 @@
 package ge.tbca.city_park.cars.presentation.component.car_item
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +12,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.DirectionsCar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
@@ -30,56 +30,66 @@ fun CarItem(
     modifier: Modifier = Modifier,
     car: CarUi,
     enabled: Boolean = true,
+    containerColor : Color = AppColors.surface,
     onClick: (() -> Unit)? = null,
     hasDeleteIcon: Boolean = false,
-    onDeleteClick: (() -> Unit)? = null
+    onDeleteClick: (() -> Unit)? = null,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(Dimen.roundedCornerMediumSize))
-            .background(AppColors.surface)
-            .clickable(enabled = enabled) { onClick?.invoke() },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            modifier = Modifier.padding(start = Dimen.appPadding),
-            imageVector = Icons.Rounded.DirectionsCar,
-            contentDescription = null,
-            tint = AppColors.primary
-        )
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
+        onClick = { onClick?.invoke() },
+        color = containerColor,
+        enabled = enabled
 
-        Column(modifier = Modifier.padding(Dimen.appPadding)) {
-            car.carName?.let {
+    ) {
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Icon(
+                modifier = Modifier.padding(start = Dimen.appPadding),
+                imageVector = Icons.Rounded.DirectionsCar,
+                contentDescription = null,
+                tint = AppColors.primary
+            )
+
+            Column(modifier = Modifier.padding(Dimen.appPadding)) {
+                car.carName?.let {
+                    Text(
+                        text = it,
+                        style = TextStyles.bodyLarge,
+                        color = AppColors.primary
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(Dimen.sizeSmall))
+
                 Text(
-                    text = it,
-                    style = TextStyles.bodyLarge,
+                    text = car.plateNumber,
+                    style = if (car.carName != null) TextStyles.bodyLarge else TextStyles.titleLarge,
                     color = AppColors.primary
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
 
-            Spacer(modifier = Modifier.height(Dimen.sizeSmall))
-
-            Text(
-                text = car.plateNumber,
-                style = if (car.carName != null) TextStyles.bodyLarge else TextStyles.titleLarge,
-                color = AppColors.primary
-            )
+            if(hasDeleteIcon) {
+                Icon(
+                    modifier = Modifier
+                        .padding(end = Dimen.appPadding)
+                        .clickable(onClick = { onDeleteClick?.invoke() }),
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    tint = AppColors.error
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
 
-        if(hasDeleteIcon) {
-            Icon(
-                modifier = Modifier
-                    .padding(end = Dimen.appPadding)
-                    .clickable(onClick = { onDeleteClick?.invoke() }),
-                imageVector = Icons.Default.Delete,
-                contentDescription = null,
-                tint = AppColors.error
-            )
-        }
     }
+
+
 }
 
 @AppPreview
@@ -124,7 +134,7 @@ fun CarItemPreviewWithDeleteIcon() {
                     id = 1,
                     plateNumber = "AA123BB"
                 ),
-                hasDeleteIcon = true
+                onClick = {}
             )
         }
     }

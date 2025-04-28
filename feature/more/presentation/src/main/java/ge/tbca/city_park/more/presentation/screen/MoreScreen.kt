@@ -37,14 +37,14 @@ fun MoreScreenRoot(
     val scrollState = rememberScrollState()
 
     CollectSideEffect(flow = viewModel.effect) { effect ->
-        when(effect) {
+        when (effect) {
             MoreEffect.NavigateToSettings -> navigateToSettings()
             MoreEffect.NavigateToCars -> navigateToCars()
             MoreEffect.NavigateToCards -> navigateToCards()
             MoreEffect.NavigateToProfile -> navigateToProfile()
         }
     }
-    
+
     MoreScreen(
         scrollState = scrollState,
         onEvent = viewModel::onEvent
@@ -66,41 +66,42 @@ private fun MoreScreen(
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        Column {
-            SettingItem(
-                title = stringResource(R.string.settings),
-                hasUnderline = true,
-                icon = Icons.Rounded.Settings,
-                onClick = { onEvent(MoreEvent.NavigateToSettings) }
-            )
 
-            Spacer(modifier = Modifier.height(Dimen.size8))
+        SettingItem(
+            title = stringResource(R.string.profile),
+            hasUnderline = true,
+            icon = Icons.Rounded.Person,
+            onClick = { onEvent(MoreEvent.NavigateToProfile) }
+        )
 
-            SettingItem(
-                title = stringResource(R.string.my_cars),
-                hasUnderline = true,
-                icon = Icons.Rounded.DirectionsCar,
-                onClick = { onEvent(MoreEvent.NavigateToCars) }
-            )
 
-            Spacer(modifier = Modifier.height(Dimen.size8))
+        Spacer(modifier = Modifier.height(Dimen.size8))
 
-            SettingItem(
-                title = stringResource(R.string.my_cards),
-                hasUnderline = true,
-                icon = Icons.Rounded.CreditCard,
-                onClick = { onEvent(MoreEvent.NavigateToCards) }
-            )
+        SettingItem(
+            title = stringResource(R.string.my_cars),
+            hasUnderline = true,
+            icon = Icons.Rounded.DirectionsCar,
+            onClick = { onEvent(MoreEvent.NavigateToCars) }
+        )
 
-            Spacer(modifier = Modifier.height(Dimen.size8))
+        Spacer(modifier = Modifier.height(Dimen.size8))
 
-            SettingItem(
-                title = stringResource(R.string.profile),
-                hasUnderline = false,
-                icon = Icons.Rounded.Person,
-                onClick = { onEvent(MoreEvent.NavigateToProfile) }
-            )
-        }
+        SettingItem(
+            title = stringResource(R.string.my_cards),
+            hasUnderline = true,
+            icon = Icons.Rounded.CreditCard,
+            onClick = { onEvent(MoreEvent.NavigateToCards) }
+        )
+
+        Spacer(modifier = Modifier.height(Dimen.size8))
+
+        SettingItem(
+            title = stringResource(R.string.settings),
+            hasUnderline = false,
+            icon = Icons.Rounded.Settings,
+            onClick = { onEvent(MoreEvent.NavigateToSettings) }
+        )
+
     }
 }
 

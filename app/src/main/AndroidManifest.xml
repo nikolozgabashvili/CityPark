@@ -37,6 +37,10 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/white" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <service
             android:name="androidx.work.impl.foreground.SystemForegroundService"
             android:permission="android.permission.FOREGROUND_SERVICE"

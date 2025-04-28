@@ -3,7 +3,12 @@ plugins {
     alias(libs.plugins.cityPark.dagger.hilt)
 }
 
-dependencies{
+dependencies {
     implementation(libs.kotlinx.coroutines.core)
+}
+
+
+dependencies {
     implementation(projects.core.domain)
+    implementation(projects.feature.user.domain)
 }

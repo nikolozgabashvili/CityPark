@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zone_with_value">ზონა: %1$s</string>
+    <string name="city_with_value">ქალაქი: %1$s</string>
+    <string name="district_with_value">უბანი: %1$s</string>
+    <string name="address_with_value">მისამართი: %1$s</string>
+    <string name="parking_spot_amount">ადგილების რაოდენობა: %1$s</string>
+    <string name="available_parking_spot_amount">თავისუფალი ადგილი: %1$s</string>
+    <string name="start_parking">დაიწყე პარკირება</string>
+    <string name="select_car">აირჩიე ავტომობილი</string>
+    <string name="selected_car">არჩეული ავტომობილი</string>
+    <string name="parking_started">პარკირება ჩაირთო</string>
+    <string name="add_balance">შეავსე ბალანსი</string>
+    <string name="cancel">გათიშვა</string>
+    <string name="please_add_balance_to_start_parking">შეავსე ბალანსი რათა დაიწყო პარკირება</string>
+</resources>

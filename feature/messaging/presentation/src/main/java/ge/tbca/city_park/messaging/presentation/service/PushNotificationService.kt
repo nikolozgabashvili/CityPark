@@ -89,10 +89,12 @@ class PushNotificationService : FirebaseMessagingService() {
         val notification = baseNotification
             .setContentTitle(notificationData.title)
             .setContentText(notificationData.body)
+            .setWhen(System.currentTimeMillis())
+            .setShowWhen(true)
             .setContentIntent(pendingIntent)
             .build()
-        val unqueTag = UUID.randomUUID().toString()
-        notificationManager.notify(unqueTag, 1, notification)
+        val uniqueTag = UUID.randomUUID().toString()
+        notificationManager.notify(uniqueTag, 1, notification)
 
     }
 

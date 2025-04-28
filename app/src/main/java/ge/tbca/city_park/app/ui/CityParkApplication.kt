@@ -81,9 +81,10 @@ fun CityParkApplication(
                 startDestination = startDestination,
                 onSuccessfulAuth = onSuccessfulAuth,
                 onShowSnackBar = { message ->
-                    coroutineScope.launch {
-                        snackbarHostState.showSnackbar(message, withDismissAction = true)
-                    }
+                    if (snackbarHostState.currentSnackbarData == null)
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(message, withDismissAction = true)
+                        }
                 })
         }
 

@@ -17,6 +17,8 @@ import ge.tbca.city_park.cars.presentation.navigation.CarsScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.carNavGraph
 import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
 import ge.tbca.city_park.more.presentation.navigation.moreNavGraph
+import ge.tbca.city_park.parking.presentation.navigation.MapScreenRoute
+import ge.tbca.city_park.parking.presentation.navigation.mapNavGraph
 import ge.tbca.city_park.payment.presentation.navigation.AddBalanceScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.AddCardScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.CardsScreenRoute
@@ -87,7 +89,11 @@ fun AppNavHost(
         reservationsNavGraph(
             onShowSnackBar = onShowSnackBar,
             navigateToMap = {
-
+                navController.navigate(MapScreenRoute){
+                    popUpTo(CreateReservationRoute) {
+                        inclusive = true
+                    }
+                }
             },
             navigateBack = { navController.navigateUp() },
             navigateToCreateReservation = { navController.navigate(CreateReservationRoute) },
@@ -123,6 +129,16 @@ fun AppNavHost(
             navigateToAddCard = {
                 navController.navigate(AddCardScreenRoute)
             }
+        )
+
+        mapNavGraph(
+            onShowSnackBar = onShowSnackBar,
+            navigateToAddCar = {
+                navController.navigate(AddCarScreenRoute)
+            },
+            navigateToAddBalance = {
+                navController.navigate(AddBalanceScreenRoute)
+            },
         )
 
         moreNavGraph(

@@ -30,6 +30,8 @@ out/
 build/
 generated/
 
+secrets.properties
+
 
 
 # Eclipse project files

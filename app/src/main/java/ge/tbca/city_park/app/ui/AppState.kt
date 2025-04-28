@@ -15,6 +15,7 @@ import ge.tba.city_park.reservation.presentation.navigation.ReservationsRoute
 import ge.tbca.city_park.app.navigation.TopLevelDestination
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.more.presentation.navigation.MoreScreenRoute
+import ge.tbca.city_park.parking.presentation.navigation.MapScreenRoute
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -68,6 +69,7 @@ data class AppState(
                 TopLevelDestination.HOME -> navController.navigate(HomeScreenRoute, topLevelNavOptions)
                 TopLevelDestination.MORE -> navController.navigate(MoreScreenRoute, topLevelNavOptions)
                 TopLevelDestination.RESERVATION -> navController.navigate(ReservationsRoute, topLevelNavOptions)
+                TopLevelDestination.MAP -> navController.navigate(MapScreenRoute,topLevelNavOptions)
             }
 
     }

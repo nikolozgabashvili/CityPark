@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
+import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
@@ -44,12 +45,14 @@ fun UserBalanceCard(
         ) {
             Column {
                 Text(
-                    style = TextStyles.labelMedium,
+                    style = TextStyles.labelLarge,
                     fontWeight = FontWeight.ExtraBold,
+                    color = AppColors.primary,
                     text = stringResource(R.string.balance)
                 )
                 Text(
                     style = TextStyles.titleLarge,
+                    color = AppColors.primary,
                     fontWeight = FontWeight.ExtraBold,
                     text = stringResource(
                         R.string.balance_formatted_gel,

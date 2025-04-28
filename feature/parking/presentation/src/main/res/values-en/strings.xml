@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="district_with_value">District: %1$s</string>
+    <string name="address_with_value">address: %1$s</string>
+    <string name="zone_with_value">zone: %1$s</string>
+    <string name="city_with_value">city: %1$s</string>
+    <string name="parking_spot_amount">Spot amount: %1$s</string>
+    <string name="available_parking_spot_amount">Free: %1$s</string>
+    <string name="start_parking">Start parkng</string>
+    <string name="select_car">Select car</string>
+    <string name="selected_car">Selected Car</string>
+    <string name="parking_started">parking started</string>
+    <string name="add_balance">Add balance</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_add_balance_to_start_parking">add balence in order to start parking</string>
+</resources>

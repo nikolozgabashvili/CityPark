@@ -66,34 +66,32 @@ private fun SettingsScreen(
         TopNavigationBar(
             title = stringResource(R.string.settings),
             startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
-            onStartIconClick = {onEvent(SettingsEvent.BackButtonClicked)}
+            onStartIconClick = { onEvent(SettingsEvent.BackButtonClicked) }
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 
-        Column {
-            SettingItem(
-                title = stringResource(R.string.language),
-                description = state.currentLanguage.displayName(),
-                hasUnderline = true,
-                icon = Icons.Rounded.Language,
-                onClick = {
-                    onEvent(SettingsEvent.NavigateToLanguageSettings)
-                }
-            )
-            Spacer(modifier = Modifier.height(Dimen.size8))
+        SettingItem(
+            title = stringResource(R.string.language),
+            description = state.currentLanguage.displayName(),
+            hasUnderline = true,
+            icon = Icons.Rounded.Language,
+            onClick = {
+                onEvent(SettingsEvent.NavigateToLanguageSettings)
+            }
+        )
+        Spacer(modifier = Modifier.height(Dimen.size8))
 
-            SettingItem(
-                title = stringResource(R.string.display_mode),
-                description = state.currentThemeMode.displayName(),
-                hasUnderline = false,
-                icon = Icons.Rounded.Highlight,
-                onClick = {
-                    onEvent(SettingsEvent.NavigateToThemeSettings)
-                }
-            )
+        SettingItem(
+            title = stringResource(R.string.display_mode),
+            description = state.currentThemeMode.displayName(),
+            hasUnderline = false,
+            icon = Icons.Rounded.Highlight,
+            onClick = {
+                onEvent(SettingsEvent.NavigateToThemeSettings)
+            }
+        )
 
-        }
     }
 }
 

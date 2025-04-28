@@ -9,21 +9,23 @@ espressoCore = "3.6.1"
 kotlinxCoroutinesTest = "1.10.2"
 lottie = "6.6.0"
 coil = "2.7.0"
+mapsCompose = "6.2.1"
 mockk = "1.14.0"
 okhttp = "4.12.0"
 ksp = "2.1.20-1.0.31"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
-composeBom = "2025.04.00"
+composeBom = "2025.04.01"
 hiltNavigationCompose = "1.2.0"
 materialIconsExtendedAndroid = "1.7.8"
 navigationCompose = "2.8.9"
+playServicesMaps = "19.2.0"
 serialization = "2.1.10"
 kotlinxSerializationJson = "1.8.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
-datastore = "1.1.4"
+datastore = "1.1.5"
 daggerHilt = "2.56"
-uiTextGoogleFonts = "1.7.8"
+uiTextGoogleFonts = "1.8.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.2.0"
 credentials = "1.5.0"
@@ -31,7 +33,7 @@ credentialsPlayServicesAuth = "1.5.0"
 googleid = "1.1.1"
 firebaseDatabase = "21.0.0"
 jetbrainsKotlinJvm = "2.1.20"
-androidTools = "31.9.1"
+androidTools = "31.9.2"
 appcompat = "1.7.0"
 material = "1.12.0"
 kotlinxCoroutinesCore = "1.10.2"
@@ -39,6 +41,8 @@ workRuntimeKtx = "2.10.1"
 splashScreen = "1.0.1"
 firebaseMessaging = "24.1.1"
 accompanist = "0.37.0"
+secretsPlugin = "2.0.1"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -64,9 +68,12 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
+maps-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "mapsCompose" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 preferences-datastore = {group = "androidx.datastore",name ="datastore-preferences",version.ref = "datastore"}
-preferences-datastore-jvm = {group = "androidx.datastore",name ="datastore-preferences-core-jvm",version.ref = "datastore"}
+preferences-datastore-jvm = {group = "androidx.datastore",name ="datastore-preferences-core",version.ref = "datastore"}
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 compose-lottie = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
@@ -109,6 +116,8 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin" }
+
 
 
 #project defined plugins

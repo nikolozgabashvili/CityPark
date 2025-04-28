@@ -3,23 +3,18 @@
 package ge.tba.city_park.reservation.presentation.screen.create_reservation
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -34,7 +29,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.SecondaryButton
-import com.example.core.designsystem.components.button.text_button.TertiaryButton
 import com.example.core.designsystem.components.divider.Divider
 import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
 import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
@@ -46,6 +40,7 @@ import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tba.city_park.reservation.presentation.R
+import ge.tbca.city_park.cars.presentation.component.CarsBottomSheet
 import ge.tbca.citi_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.cars.presentation.component.car_item.CarItem
 
@@ -60,7 +55,7 @@ fun CreateReservationScreenRoot(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val successText = stringResource(R.string.reservation_added)
     val noCarSelectedError = stringResource(R.string.select_car)
 
@@ -197,46 +192,21 @@ private fun CreateReservationScreen(
         }
     }
     if (state.showBottomSheet)
-        ModalBottomSheet(
+        CarsBottomSheet(
+            onDismissRequest = {
+                onEvent(CreateReservationEvent.CloseBottomSheet)
+            },
+            onCarSelected = {
+                onEvent(CreateReservationEvent.CarSelected(it))
+            },
+            onAddCar = {
+                onEvent(CreateReservationEvent.NavigateToAddCar)
+            },
+            cars = state.carsList,
             sheetState = sheetState,
-            onDismissRequest = { onEvent(CreateReservationEvent.CloseBottomSheet) }
-        ) {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Dimen.size12),
-                contentPadding = PaddingValues(horizontal = Dimen.size20)
-            ) {
-                items(state.carsList, key = { it.id }) { car ->
-                    CarItem(
-                        car = car,
-                        onClick = {
-                            onEvent(CreateReservationEvent.CarSelected(car.id))
-                        }
-                    )
-                }
+        )
 
-                if (state.carsList.isNotEmpty()) {
-                    item {
-                        Divider(text = stringResource(R.string.or))
-                    }
-                }
 
-                item {
-                    TertiaryButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        buttonSize = ButtonSize.LARGE,
-                        text = stringResource(R.string.add_car),
-                        enabled = !state.isLoading,
-                        onClick = {
-                            onEvent(CreateReservationEvent.NavigateToAddCar)
-                        }
-                    )
-                }
-
-                item {
-                    Spacer(modifier = Modifier.height(Dimen.size16))
-                }
-            }
-        }
 }
 
 @AppPreview

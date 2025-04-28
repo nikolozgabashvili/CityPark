@@ -1,5 +1,6 @@
 package com.example.core.designsystem.theme
 
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 
@@ -19,9 +20,9 @@ internal val errorLight = Color(0xFFBC0100)
 internal val onErrorLight = Color(0xFFFFFFFF)
 internal val errorContainerLight = Color(0xFFEB0000)
 internal val onErrorContainerLight = Color(0xFFFFFBFF)
-internal val backgroundLight = Color(0xFFF9F9F9)
+internal val backgroundLight = Color(0xFFF7F7F7)
 internal val onBackgroundLight = Color(0xFF1B1B1B)
-internal val surfaceLight = Color(0xFFCCCCCC)
+internal val surfaceLight = Color(0xFFFFFFFF)
 internal val onSurfaceLight = Color(0xFF1B1B1B)
 internal val surfaceVariantLight = Color(0xFFEBE0E1)
 internal val onSurfaceVariantLight = Color(0xFF4C4546)
@@ -38,6 +39,7 @@ internal val surfaceContainerLowLight = Color(0xFFF3F3F3)
 internal val surfaceContainerLight = Color(0xFFEEEEEE)
 internal val surfaceContainerHighLight = Color(0xFFE8E8E8)
 internal val surfaceContainerHighestLight = Color(0xFFE2E2E2)
+internal val successLight = Color(0xFF4CAF50)
 
 internal val primaryDark = Color(0xFFC6C6C6)
 internal val onPrimaryDark = Color(0xFF303030)
@@ -57,7 +59,7 @@ internal val errorContainerDark = Color(0xFFFF5540)
 internal val onErrorContainerDark = Color(0xFF360000)
 internal val backgroundDark = Color(0xFF131313)
 internal val onBackgroundDark = Color(0xFFE2E2E2)
-internal val surfaceDark = Color(0xFF4D4D4D)
+internal val surfaceDark = Color(0xFF222222)
 internal val onSurfaceDark = Color(0xFFE2E2E2)
 internal val surfaceVariantDark = Color(0xFF4C4546)
 internal val onSurfaceVariantDark = Color(0xFFCFC4C5)
@@ -75,5 +77,18 @@ internal val surfaceContainerDark = Color(0xFF1F1F1F)
 internal val surfaceContainerHighDark = Color(0xFF2A2A2A)
 internal val surfaceContainerHighestDark = Color(0xFF353535)
 
+internal val successDark = Color(0xFF4BB24F)
+internal val markerColorLight = Color(0xFFF5F5F5)
+internal val markerColorDark = Color(0xFF1C1C1C)
+
 internal val colorTransparent = Color(0x00000000)
 
+
+val LocalColors = compositionLocalOf {
+    AdditionalColor()
+}
+
+data class AdditionalColor(
+    val success: Color = Color.Unspecified,
+    val markerColor: Color = Color.Unspecified,
+)
