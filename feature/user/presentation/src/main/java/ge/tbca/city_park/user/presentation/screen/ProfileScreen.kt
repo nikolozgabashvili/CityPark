@@ -107,11 +107,13 @@ private fun ProfileScreen(
                     Text(
                         style = TextStyles.labelMedium,
                         fontWeight = FontWeight.ExtraBold,
+                        color = AppColors.primary,
                         text = stringResource(R.string.balance)
                     )
                     Text(
                         style = TextStyles.titleLarge,
                         fontWeight = FontWeight.ExtraBold,
+                        color = AppColors.primary,
                         text = stringResource(
                             R.string.balance_formatted_gel,
                             String.format(locale = Locale.US, "%.2f", it)

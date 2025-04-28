@@ -7,6 +7,9 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.accompanist.permissions)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)

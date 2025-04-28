@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -15,6 +14,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,16 +28,21 @@ import com.example.core.designsystem.util.isDeviceDarkTheme
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
+import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.clustering.Clustering
 import com.google.maps.android.compose.rememberCameraPositionState
 import ge.tba.city_park.parking.presentation.R
 import ge.tbca.city_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.parking.presentation.component.CircleClusterContent
 import ge.tbca.city_park.parking.presentation.component.MapBottomSheetContent
 import ge.tbca.city_park.parking.presentation.component.ParkingMarker
 import ge.tbca.city_park.parking.presentation.constant.MapConstants
+import ge.tbca.city_park.parking.presentation.location.LocationHelper.rememberLocationState
+import ge.tbca.city_park.parking.presentation.location.LocationPermissionManager
 
 @Composable
 fun MapScreenRoot(
@@ -51,6 +56,14 @@ fun MapScreenRoot(
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val successReservationText = stringResource(R.string.parking_started)
 
+
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(
+            MapConstants.TBILISI_LOCATION,
+            MapConstants.DEFAULT_ZOOM_LEVEL
+        )
+    }
+
     CollectSideEffect(flow = viewModel.effect) { effect ->
         when (effect) {
             is MapEffect.Error -> {
@@ -61,15 +74,34 @@ fun MapScreenRoot(
 
             is MapEffect.NavigateToAddBalance -> navigateToAddBalance()
             is MapEffect.NavigateToAddCar -> navigateToAddCar()
-            MapEffect.ReservationCreated -> {
+            is MapEffect.ReservationCreated -> {
                 onShowSnackBar(successReservationText)
+            }
+
+            is MapEffect.ZoomToLocation -> {
+                cameraPositionState.animate(
+                    update = CameraUpdateFactory.newLatLngZoom(
+                        effect.location,
+                        MapConstants.CLUSTER_ZOOM_LEVEL
+                    ),
+                    durationMs = MapConstants.ZOOM_ANIMATION_DURATION
+                )
             }
         }
     }
 
+    LocationPermissionManager(
+        onDismissRequest = {viewModel.onEvent(MapEvent.DismissPermissionDialog)},
+        showPermissionDialog = viewModel.state.canShowLocationPermissionDialog,
+        onPermissionChanged = {
+            viewModel.onEvent(MapEvent.OnPermissionChanged(it))
+        }
+    )
+
     MapScreen(
         state = viewModel.state,
         bottomSheetState = bottomSheetState,
+        cameraPositionState = cameraPositionState,
         onEvent = viewModel::onEvent
     )
 }
@@ -78,16 +110,12 @@ fun MapScreenRoot(
 private fun MapScreen(
     state: MapState,
     bottomSheetState: SheetState,
+    cameraPositionState: CameraPositionState,
     onEvent: (MapEvent) -> Unit
 ) {
 
+    val isLocationEnabled by rememberLocationState()
 
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(
-            MapConstants.TBILISI_LOCATION,
-            MapConstants.DEFAULT_ZOOM_LEVEL
-        )
-    }
 
     LaunchedEffect(state.selectedParkingSpot) {
         state.selectedParkingSpot?.let {
@@ -103,9 +131,13 @@ private fun MapScreen(
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         GoogleMap(
+            uiSettings = MapUiSettings(zoomControlsEnabled = false),
+
             cameraPositionState = cameraPositionState,
             modifier = Modifier.fillMaxSize(),
             properties = MapProperties(
+
+                isMyLocationEnabled = state.locationPermissionGranted && isLocationEnabled,
                 maxZoomPreference = MapConstants.MAX_ZOOM_LEVEL,
                 mapStyleOptions = getMapStyleOptions()
             ),
@@ -118,11 +150,7 @@ private fun MapScreen(
             Clustering(
                 items = state.parkingClusters,
                 clusterContent = {
-                    Box(
-                        modifier = Modifier
-                            .size(Dimen.size6)
-                            .background(AppColors.error)
-                    )
+                    CircleClusterContent(it)
                 },
                 clusterItemContent = {
                     ParkingMarker(
@@ -130,8 +158,11 @@ private fun MapScreen(
                     )
                 },
                 onClusterItemClick = {
-
                     onEvent(MapEvent.OnParkingSpotClick(it.parkingSpot.id))
+                    true
+                },
+                onClusterClick = {
+                    onEvent(MapEvent.OnClusterClick(it.position))
                     true
                 }
             )
@@ -143,7 +174,7 @@ private fun MapScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppColors.surface.copy(alpha = 0.5f)),
+                .background(AppColors.surface.copy(alpha = 0.6f)),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(color = AppColors.primary)
@@ -218,6 +249,7 @@ private fun MapScreenPreview() {
     MapScreen(
         state = MapState(),
         onEvent = {},
-        bottomSheetState = rememberModalBottomSheetState()
+        bottomSheetState = rememberModalBottomSheetState(),
+        cameraPositionState = rememberCameraPositionState(),
     )
 }

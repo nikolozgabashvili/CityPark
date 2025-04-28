@@ -17,7 +17,6 @@ import com.example.core.designsystem.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import ge.tbca.city_park.app.ui.CityParkApplication
 import ge.tbca.city_park.app.ui.rememberAppState
-import ge.tbca.city_park.app.util.ManageNotificationPermission
 import ge.tbca.city_park.app.util.languageManager
 import ge.tbca.city_park.auth.presentation.navigation.AuthNavGraphRoute
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
@@ -54,7 +53,7 @@ class MainActivity : ComponentActivity() {
                 ) { showDarkTheme },
             )
 
-            ManageNotificationPermission()
+
             viewModel.state.isAuthorized?.let { isAuthorized ->
                 val startDestination =
                     if (isAuthorized) HomeScreenRoute::class else AuthNavGraphRoute::class

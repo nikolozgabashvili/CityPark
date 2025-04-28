@@ -11,5 +11,8 @@
     <string name="no">არა</string>
     <string name="my_cars">ჩემი ავტომობილები</string>
     <string name="start_parking">დაიწყე პარკირება</string>
+    <string name="notification_permission_required">საჭიროა უფლება</string>
+    <string name="notification_permission_required_message">შეტყობინებების ნებართვა საჭიროა იმისთვის, რომ დროულად მიიღოთ მნიშვნელოვანი ინფორმაცია</string>
     <string name="my_cards">ჩემი ბარათები</string>
+    <string name="settings">პარამეტრები</string>
 </resources>

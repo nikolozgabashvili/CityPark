@@ -16,6 +16,8 @@ dependencies {
 
     implementation(libs.maps.compose)
     implementation(libs.maps.compose.utils)
+
+    implementation(libs.accompanist.permissions)
 }
 
 dependencies {

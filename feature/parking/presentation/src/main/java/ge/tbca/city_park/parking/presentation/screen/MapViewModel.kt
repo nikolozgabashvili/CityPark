@@ -1,15 +1,15 @@
 package ge.tbca.city_park.parking.presentation.screen
 
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.city_park.core.ui.base.BaseViewModel
-import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
 import ge.tbca.city_park.cars.presentation.mapper.toPresenter
 import ge.tbca.city_park.core.domain.util.ApiError
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
-import ge.tbca.city_park.parking.domain.usecase.GetParkingSpotByZoneCodeUseCase
+import ge.tbca.city_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.parking.domain.usecase.GetParkingSpotsUseCase
 import ge.tbca.city_park.parking.presentation.mapper.toPresenter
 import ge.tbca.city_park.parking.presentation.model.ParkingClusterUi
@@ -21,7 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val getParkingSpotsUseCase: GetParkingSpotsUseCase,
-    private val getParkingSpotByZoneCodeUseCase: GetParkingSpotByZoneCodeUseCase,
     private val getAllCarsUseCase: GetAllCarsUseCase,
     private val createReservationUseCase: CreateReservationUseCase
 ) : BaseViewModel<MapState, MapEffect, MapEvent>(MapState()) {
@@ -40,8 +39,25 @@ class MapViewModel @Inject constructor(
             is MapEvent.ShowCarBottomSheet -> showCarBottomSheet()
             is MapEvent.StartParking -> startParking()
             is MapEvent.DismissAlertDialog -> dismissAlertDialog()
+            is MapEvent.OnClusterClick -> zoomToCluster(event.location)
+            is MapEvent.DismissPermissionDialog -> dismissPermissionDialog()
+            is MapEvent.OnPermissionChanged -> onPermissionChanged(event.isGranted)
         }
 
+    }
+
+    private fun onPermissionChanged(granted: Boolean) {
+        updateState { copy(locationPermissionGranted = granted) }
+    }
+
+    private fun dismissPermissionDialog() {
+        updateState { copy(canShowLocationPermissionDialog = false) }
+    }
+
+    private fun zoomToCluster(location: LatLng) {
+        viewModelScope.launch {
+            sendSideEffect(MapEffect.ZoomToLocation(location))
+        }
     }
 
     private fun dismissAlertDialog() {
@@ -189,19 +205,6 @@ class MapViewModel @Inject constructor(
                         sendSideEffect(MapEffect.Error(error))
                     }
 
-                    is Resource.Loading -> Unit
-                }
-            }
-        }
-    }
-
-    private fun getParkingSpotByZoneCode(zoneCode: String) {
-        viewModelScope.launch {
-            getParkingSpotByZoneCodeUseCase(zoneCode).collect { resource ->
-                updateState { copy(parkingSpotsLoading = resource.isLoading()) }
-                when (resource) {
-                    is Resource.Success -> {}
-                    is Resource.Error -> {}
                     is Resource.Loading -> Unit
                 }
             }

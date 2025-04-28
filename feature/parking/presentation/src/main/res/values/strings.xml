@@ -13,4 +13,7 @@
     <string name="add_balance">შეავსე ბალანსი</string>
     <string name="cancel">გათიშვა</string>
     <string name="please_add_balance_to_start_parking">შეავსე ბალანსი რათა დაიწყო პარკირება</string>
+    <string name="location_permission_required">ლოკაციაზე წვდომა</string>
+    <string name="location_permission_required_message">"აპლიკაცია ითხოვს თქვენი ლოკაციის წვდომის უფლებას, რათა შეძლოს რუკაზე თქვენი მიმდინარე ადგილმდებარეობის ჩვენება. "</string>
+    <string name="allow_location_permission">ჩართვა</string>
 </resources>

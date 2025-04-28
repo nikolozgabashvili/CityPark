@@ -1,4 +1,4 @@
-package ge.tbca.city_park.app.util
+package ge.tbca.city_park.home.presentation.notification
 
 import android.content.Intent
 import android.os.Build
@@ -7,16 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.example.core.designsystem.components.dialog.PermissionDialog
+import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import ge.tbca.city_park.R
+import ge.tbca.city_park.home.presentation.R
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun ManageNotificationPermission() {
+fun NotificationPermissionManager() {
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
 
@@ -37,13 +37,13 @@ fun ManageNotificationPermission() {
                 notificationPermissionState.launchPermissionRequest()
             }
         } else {
-            PermissionDialog(
+            BaseAlertDialog(
                 title = stringResource(R.string.notification_permission_required),
                 message = stringResource(R.string.notification_permission_required_message),
                 positiveButtonText = stringResource(R.string.settings),
-                onDismissRequest = {},
-                canDismiss = false,
-                onConfirm = {
+                onDismiss = {},
+                setDismissible = false,
+                onPositiveButtonClick = {
                     context.startActivity(intent)
                 }
             )

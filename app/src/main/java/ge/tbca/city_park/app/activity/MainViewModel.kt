@@ -67,7 +67,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             getUserInfoUseCase().collect {
                 if (it is Resource.Success) {
-                    if (it.data.fcmToken == null) {
+                    if (it.data.fcmToken.isNullOrEmpty()) {
                         updateMessagingToken()
                     }
                 }

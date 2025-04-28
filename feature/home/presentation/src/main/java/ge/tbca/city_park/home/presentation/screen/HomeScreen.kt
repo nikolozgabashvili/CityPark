@@ -32,6 +32,7 @@ import com.example.core.designsystem.util.AppPreview
 import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.home.presentation.R
 import ge.tbca.city_park.home.presentation.component.ActiveReservationCard
+import ge.tbca.city_park.home.presentation.notification.NotificationPermissionManager
 import ge.tbca.city_park.user.presentation.component.UserBalanceCard
 
 @Composable
@@ -47,6 +48,8 @@ fun HomeScreenRoot(
     val state = viewModel.state
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+
+    NotificationPermissionManager()
 
     CollectSideEffect(viewModel.effect) { effect ->
         when (effect) {

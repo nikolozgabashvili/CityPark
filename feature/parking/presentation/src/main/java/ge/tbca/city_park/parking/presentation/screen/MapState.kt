@@ -16,6 +16,8 @@ data class MapState(
     val selectedCarId: Int? = null,
     val selectedParkingSpotId: Int? = null,
     val reservationLoading: Boolean = false,
+    val canShowLocationPermissionDialog: Boolean = true,
+    val locationPermissionGranted: Boolean = false,
     val showInsufficientBalanceDialog: Boolean = false,
 
     val showCarBottomSheet: Boolean = false,
