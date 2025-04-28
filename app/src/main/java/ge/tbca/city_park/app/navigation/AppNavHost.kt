@@ -16,6 +16,8 @@ import ge.tbca.city_park.cars.presentation.navigation.AddCarScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.CarsScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.carNavGraph
 import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
+import ge.tbca.city_park.messaging.presentation.navigation.NotificationsScreenRoute
+import ge.tbca.city_park.messaging.presentation.navigation.notificationsNavGraph
 import ge.tbca.city_park.more.presentation.navigation.moreNavGraph
 import ge.tbca.city_park.parking.presentation.navigation.MapScreenRoute
 import ge.tbca.city_park.parking.presentation.navigation.mapNavGraph
@@ -73,8 +75,8 @@ fun AppNavHost(
             navigateToAddBalance = {
                 navController.navigate(AddBalanceScreenRoute)
             },
-            navigateToProfile = {
-                navController.navigate(ProfileScreenRoute)
+            navigateToNotificationsScreen = {
+                navController.navigate(NotificationsScreenRoute)
             },
             navigateToAddReservation = {
                 navController.navigate(CreateReservationRoute)
@@ -89,7 +91,7 @@ fun AppNavHost(
         reservationsNavGraph(
             onShowSnackBar = onShowSnackBar,
             navigateToMap = {
-                navController.navigate(MapScreenRoute){
+                navController.navigate(MapScreenRoute) {
                     popUpTo(CreateReservationRoute) {
                         inclusive = true
                     }
@@ -164,6 +166,13 @@ fun AppNavHost(
             },
             navigateToChangePassword = {
                 navController.navigate(ChangePasswordScreenRoute)
+            }
+        )
+
+        notificationsNavGraph(
+            onShowSnackBar = onShowSnackBar,
+            navigateBack = {
+                navController.navigateUp()
             }
         )
     }

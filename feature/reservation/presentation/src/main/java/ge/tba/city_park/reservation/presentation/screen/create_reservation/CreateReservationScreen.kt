@@ -219,7 +219,7 @@ private fun CreateReservationScreen(
             },
             positiveButtonText = stringResource(R.string.add_balance),
             negativeButtonText = stringResource(R.string.cancel),
-            title = stringResource(ge.tbca.city_park.core.ui.R.string.insufficient_balance),
+            title = stringResource(R.string.insufficient_balance),
             message = stringResource(R.string.please_add_balance_to_start_parking)
         )
     }

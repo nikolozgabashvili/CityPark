@@ -9,7 +9,7 @@ fun NavGraphBuilder.homeNavGraph(
     navigateToCars: () -> Unit,
     onShowSnackBar: (String) -> Unit,
     navigateToAddBalance: () -> Unit,
-    navigateToProfile: () -> Unit,
+    navigateToNotificationsScreen: () -> Unit,
     navigateToAddReservation: () -> Unit,
     navigateToCards: () -> Unit
 ) {
@@ -19,7 +19,7 @@ fun NavGraphBuilder.homeNavGraph(
             navigateToCars = navigateToCars,
             onShowSnackBar = onShowSnackBar,
             navigateToAddBalance = navigateToAddBalance,
-            navigateToProfile = navigateToProfile,
+            navigateToNotificationsScreen = navigateToNotificationsScreen,
             navigateToAddReservation = navigateToAddReservation,
             navigateToCards = navigateToCards
         )

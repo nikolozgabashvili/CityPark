@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ge.tbca.city_park.messaging.data.service.NotificationApiService
 import ge.tbca.city_park.messaging.data.service.TokenApiService
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -26,5 +27,11 @@ object NetworkModule {
     @Singleton
     fun providesFirebaseMessaging(): FirebaseMessaging {
         return FirebaseMessaging.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationApiService(retrofit: Retrofit): NotificationApiService {
+        return retrofit.create(NotificationApiService::class.java)
     }
 }

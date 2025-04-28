@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
         when (event) {
             is HomeEvent.Refresh -> refresh()
             is HomeEvent.NavigateToAddBalance -> navigateToAddBalance()
-            is HomeEvent.NavigateToProfile -> navigateToProfile()
+            is HomeEvent.NavigateToNotificationsScreen -> navigateToNotificationsScreen()
             is HomeEvent.OnFinishRequest -> showDialog()
             is HomeEvent.DismissParkingDialog -> dismissDialog()
             is HomeEvent.FinishParking -> finishParking()
@@ -153,9 +153,9 @@ class HomeViewModel @Inject constructor(
         checkActiveReservation()
     }
 
-    private fun navigateToProfile() {
+    private fun navigateToNotificationsScreen() {
         viewModelScope.launch {
-            sendSideEffect(HomeEffect.NavigateToProfile)
+            sendSideEffect(HomeEffect.NavigateToNotificationsScreen)
         }
     }
 

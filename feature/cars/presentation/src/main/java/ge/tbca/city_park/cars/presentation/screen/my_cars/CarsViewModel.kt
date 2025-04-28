@@ -26,15 +26,10 @@ class CarsViewModel @Inject constructor(
     override fun onEvent(event: CarsEvent) {
         when (event) {
             is CarsEvent.BackButtonClicked -> navigateBack()
-
             is CarsEvent.AddCarButtonClicked -> navigateToAddCar()
-
             is CarsEvent.Refresh -> fetchCars()
-
             is CarsEvent.DeleteCarClicked -> showDeleteDialog(event.carId)
-
             is CarsEvent.DismissDeleteCarDialog -> dismissDeleteDialog()
-
             is CarsEvent.DeleteCar -> deleteCar()
         }
     }

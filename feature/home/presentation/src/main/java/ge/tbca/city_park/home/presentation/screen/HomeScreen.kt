@@ -14,7 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.LocalParking
-import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.NotificationsNone
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,7 +40,7 @@ fun HomeScreenRoot(
     navigateToCars: () -> Unit,
     navigateToCards: () -> Unit,
     navigateToAddBalance: () -> Unit,
-    navigateToProfile: () -> Unit,
+    navigateToNotificationsScreen: () -> Unit,
     navigateToAddReservation: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -56,13 +56,9 @@ fun HomeScreenRoot(
             }
 
             is HomeEffect.NavigateToAddBalance -> navigateToAddBalance()
-
-            is HomeEffect.NavigateToProfile -> navigateToProfile()
-
+            is HomeEffect.NavigateToNotificationsScreen -> navigateToNotificationsScreen()
             is HomeEffect.NavigateToCars -> navigateToCars()
-
             is HomeEffect.NavigateToAddReservation -> navigateToAddReservation()
-
             is HomeEffect.NavigateToCards -> navigateToCards()
         }
 
@@ -91,8 +87,8 @@ private fun HomeScreen(
             TopNavigationBar(
                 modifier = Modifier.padding(Dimen.appPadding),
                 title = stringResource(R.string.home),
-                endIcon = Icons.Rounded.Person,
-                onEndIconClick = { onEvent(HomeEvent.NavigateToProfile) },
+                endIcon = Icons.Rounded.NotificationsNone,
+                onEndIconClick = { onEvent(HomeEvent.NavigateToNotificationsScreen) },
             )
 
             Column(

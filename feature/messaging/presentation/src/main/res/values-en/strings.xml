@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="date_with_created_at">Date: %1$s</string>
+    <string name="title_with_title">Title: %1$s</string>
+    <string name="notification_with_message">Notification: %1$s</string>
+    <string name="do_you_really_wish_to_delete_all_notifications">Do you really wish to delete all notifications?</string>
+    <string name="delete">Delete</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="notifications_history">Notifications History</string>
+</resources>
