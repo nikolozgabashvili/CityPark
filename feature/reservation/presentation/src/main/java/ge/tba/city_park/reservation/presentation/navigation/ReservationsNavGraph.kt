@@ -11,6 +11,7 @@ fun NavGraphBuilder.reservationsNavGraph(
     navigateToMap: () -> Unit,
     navigateBack: () -> Unit,
     navigateToCreateReservation: () -> Unit,
+    navigateToAddBalance: () -> Unit,
     navigateToAddCar: () -> Unit
 ) {
     composable<ReservationsRoute> {
@@ -25,7 +26,8 @@ fun NavGraphBuilder.reservationsNavGraph(
             onShowSnackBar = onShowSnackBar,
             navigateBack = navigateBack,
             navigateToMap = navigateToMap,
-            navigateToAddCar = navigateToAddCar
+            navigateToAddCar = navigateToAddCar,
+            navigateToAddBalance = navigateToAddBalance
         )
     }
 }

@@ -9,6 +9,6 @@
     <string name="car_already_exists">ავტომობილი უკვე არის დამატებული</string>
     <string name="card_already_exists">ბარათი უკვე არის დამატებული</string>
     <string name="card_expired">ბარათი ვადაგასულია</string>
-    <string name="insufficient_balance">ბარათზე არ არის საკმარისი თანხა</string>
+    <string name="insufficient_balance">ბალანსზე არ არის საკმარისი თანხა</string>
     <string name="network_error">დაფიქსირდა ინტერნეტის პრობლემა</string>
 </resources>

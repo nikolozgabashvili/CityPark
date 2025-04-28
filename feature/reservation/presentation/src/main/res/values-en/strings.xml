@@ -21,4 +21,8 @@
     <string name="add_car">Add car</string>
     <string name="select_car">Select your car</string>
     <string name="selected_car">Selected Car</string>
+    <string name="add_balance">Add balance</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_add_balance_to_start_parking">Add balance in order to start parking</string>
+    <string name="insufficient_balance">You do not have enough balance</string>
 </resources>

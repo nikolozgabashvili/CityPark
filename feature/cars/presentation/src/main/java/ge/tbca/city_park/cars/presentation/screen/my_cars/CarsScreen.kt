@@ -77,7 +77,7 @@ private fun CarsScreen(
 
     PullToRefreshWrapper(
         isRefreshing = state.carsLoading,
-        onRefresh = { onEvent(CarsEvent.Refresh) },
+        onRefresh = { onEvent(CarsEvent.Refresh) }
     ) {
 
         Column(
@@ -142,11 +142,11 @@ private fun CarsScreen(
                     }
 
                 } else if (state.cars.isNotEmpty()) {
-                    items(state.cars) { car ->
+                    items(state.cars, key = { it.id }) { car ->
                         CarItem(
+                            modifier = Modifier.padding(vertical = Dimen.size6),
                             car = car,
                             enabled = !state.carsLoading,
-                            modifier = Modifier.padding(vertical = Dimen.size6),
                             hasDeleteIcon = true,
                             onDeleteClick = { onEvent(CarsEvent.DeleteCarClicked(car.id)) }
                         )
@@ -164,7 +164,7 @@ private fun CarsScreen(
                     positiveButtonText = stringResource(R.string.yes),
                     negativeButtonText = stringResource(R.string.no),
                     title = stringResource(R.string.delete),
-                    message = stringResource(R.string.do_you_really_wish_to_delete_car),
+                    message = stringResource(R.string.do_you_really_wish_to_delete_car)
                 )
             }
         }

@@ -7,6 +7,8 @@ sealed interface CreateReservationEvent {
     data object ShowBottomSheet : CreateReservationEvent
     data object Retry : CreateReservationEvent
     data object NavigateToAddCar : CreateReservationEvent
+    data object DismissAlertDialog: CreateReservationEvent
+    data object NavigateToAddBalance : CreateReservationEvent
     data class CarSelected(val id: Int) : CreateReservationEvent
     data object CreateReservationButtonClicked : CreateReservationEvent
     data class ZoneCodeChanged(val zoneCode: String) : CreateReservationEvent

@@ -9,4 +9,5 @@ sealed interface CreateReservationEffect {
     data object NavigateBack : CreateReservationEffect
     data object NavigateToMap : CreateReservationEffect
     data object NavigateToAddCar : CreateReservationEffect
+    data object NavigateToAddBalance : CreateReservationEffect
 }

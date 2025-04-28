@@ -2,4 +2,12 @@
 <resources>
     <string name="default_notification_channel_id" translatable="false">Push notification channel</string>
     <string name="push_notification_channel_name" translatable="false">Firebase Push Notification</string>
+    <string name="date_with_created_at">თარიღი: %1$s</string>
+    <string name="title_with_title">სათაური: %1$s</string>
+    <string name="notification_with_message">შეტყობინება: %1$s</string>
+    <string name="do_you_really_wish_to_delete_all_notifications">ნამდვილად გსურთ ყველა შეტყობინების წაშლა?</string>
+    <string name="delete">წაშლა</string>
+    <string name="no">არა</string>
+    <string name="yes">დიახ</string>
+    <string name="notifications_history">შეტყობინებების ისტორია</string>
 </resources>

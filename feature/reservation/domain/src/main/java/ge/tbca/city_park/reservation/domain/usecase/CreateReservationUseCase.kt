@@ -41,7 +41,7 @@ class CreateReservationUseCase @Inject constructor(
                 }
             }
 
-            // this should newer happen since user info result is filtered not to include loading
+            // this should never happen since user info result is filtered not to include loading
             else -> {
                 emit(Resource.Error(ApiError.UNKNOWN_ERROR))
             }

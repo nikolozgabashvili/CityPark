@@ -10,6 +10,7 @@ data class CreateReservationState(
     val error:GenericString? = null,
     val showBottomSheet: Boolean = false,
     val showZoneCodeError: Boolean = false,
+    val showInsufficientBalanceDialog: Boolean = false,
     val isLoading: Boolean = false
 ) {
     val selectedCar: CarUi?
