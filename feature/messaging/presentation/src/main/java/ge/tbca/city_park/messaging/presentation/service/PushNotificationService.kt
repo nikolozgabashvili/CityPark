@@ -48,9 +48,32 @@ class PushNotificationService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        message.notification?.let {
-            showNotification(it)
+        val action = message.data[ACTION]
+
+
+        when (action) {
+            PARKING_FINISHED -> {
+                applicationContext.startService(
+                    ActiveParkingService.createStopIntent(applicationContext)
+                )
+
+
+            }
+
+            PARKING_STARTED -> {
+                applicationContext.startService(
+                    ActiveParkingService.createStartIntent(applicationContext)
+                )
+
+            }
+
+
         }
+
+        message.notification?.let {
+            showNotification(it )
+        }
+
 
     }
 
@@ -113,5 +136,11 @@ class PushNotificationService : FirebaseMessagingService() {
     override fun onDestroy() {
         super.onDestroy()
         scope.cancel()
+    }
+
+    companion object {
+        private const val ACTION = "ACTION"
+        private const val PARKING_FINISHED = "PARKING_FINISHED"
+        private const val PARKING_STARTED = "PARKING_STARTED"
     }
 }

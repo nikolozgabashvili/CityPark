@@ -1,8 +1,7 @@
 package ge.tbca.city_park.app.navigation
 
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import ge.tba.city_park.reservation.presentation.navigation.CreateReservationRoute
@@ -19,7 +18,6 @@ import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
 import ge.tbca.city_park.messaging.presentation.navigation.NotificationsScreenRoute
 import ge.tbca.city_park.messaging.presentation.navigation.notificationsNavGraph
 import ge.tbca.city_park.more.presentation.navigation.moreNavGraph
-import ge.tbca.city_park.parking.presentation.navigation.MapScreenRoute
 import ge.tbca.city_park.parking.presentation.navigation.mapNavGraph
 import ge.tbca.city_park.payment.presentation.navigation.AddBalanceScreenRoute
 import ge.tbca.city_park.payment.presentation.navigation.AddCardScreenRoute
@@ -46,10 +44,10 @@ fun AppNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        enterTransition = { fadeIn(tween(400)) },
-        exitTransition = { fadeOut(tween(400)) },
-        popEnterTransition = { fadeIn(tween(400)) },
-        popExitTransition = { fadeOut(tween(400)) }
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None }
 
 
     ) {
@@ -91,11 +89,8 @@ fun AppNavHost(
         reservationsNavGraph(
             onShowSnackBar = onShowSnackBar,
             navigateToMap = {
-                navController.navigate(MapScreenRoute) {
-                    popUpTo(CreateReservationRoute) {
-                        inclusive = true
-                    }
-                }
+                navController.popBackStack()
+                appState.navigateToTopLevelDestination(TopLevelDestination.MAP)
             },
             navigateBack = { navController.navigateUp() },
             navigateToCreateReservation = { navController.navigate(CreateReservationRoute) },

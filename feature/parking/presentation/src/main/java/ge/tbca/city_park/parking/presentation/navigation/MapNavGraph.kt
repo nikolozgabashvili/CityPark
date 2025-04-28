@@ -11,7 +11,9 @@ fun NavGraphBuilder.mapNavGraph(
     navigateToAddCar: () -> Unit,
 ) {
 
-    composable<MapScreenRoute> {
+    composable<MapScreenRoute>(
+
+    ) {
         MapScreenRoot(
             onShowSnackBar = onShowSnackBar,
             navigateToAddBalance = navigateToAddBalance,

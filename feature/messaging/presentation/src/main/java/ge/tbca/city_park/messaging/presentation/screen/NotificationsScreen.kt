@@ -93,7 +93,7 @@ private fun NotificationsScreen(
                     item {
                         EmptyDataIndicator(
                             icon = Icons.Rounded.Notifications,
-                            text = "შეტყობინებები არ გაქვს"
+                            text = stringResource(R.string.you_do_not_have_notifications_yet),
                         )
                     }
                 } else if (state.error != null) {

@@ -23,26 +23,23 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
-import com.example.core.designsystem.components.button.icon_button.SecondaryIconButton
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.TertiaryButton
-import com.example.core.designsystem.components.divider.Divider
 import com.example.core.designsystem.components.text_field.PasswordTextField
 import com.example.core.designsystem.components.text_field.TextInputField
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
-import com.example.core.designsystem.theme.GoogleIcon
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.auth.presentation.R
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 
 @Composable
 fun LoginScreenRoot(
     onShowSnackBar: (String) -> Unit,
     navigateToRegister: () -> Unit,
-    onSuccessfulAuth:() -> Unit,
+    onSuccessfulAuth: () -> Unit,
     navigateToRecovery: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
@@ -96,20 +93,6 @@ private fun LoginScreen(
             color = AppColors.primary,
             style = TextStyles.headlineLarge
         )
-
-        Spacer(modifier = Modifier.height(Dimen.size32))
-
-
-        SecondaryIconButton(
-            enabled = !state.isLoading,
-            modifier = Modifier.fillMaxWidth(),
-            icon = GoogleIcon,
-            onClick = { onEvent(LoginEvent.GoogleLoginButtonClicked) }
-        )
-
-        Spacer(modifier = Modifier.height(Dimen.size32))
-
-        Divider(text = stringResource(R.string.or))
 
         Spacer(modifier = Modifier.height(Dimen.size32))
 

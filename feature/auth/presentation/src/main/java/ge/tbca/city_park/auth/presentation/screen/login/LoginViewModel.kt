@@ -24,16 +24,12 @@ class LoginViewModel @Inject constructor(
             is LoginEvent.EmailChanged -> updateEmail(event.email)
             is LoginEvent.PasswordRecoveryClicked -> navigateToRecoveryScreen()
             is LoginEvent.LoginButtonClicked -> login()
-            is LoginEvent.GoogleLoginButtonClicked -> loginWithGoogle()
             is LoginEvent.PasswordChanged -> updatePassword(event.password)
             is LoginEvent.PasswordVisibilityChanged -> updatePasswordVisibility()
             is LoginEvent.RegisterHereClicked -> navigateToRegister()
         }
     }
 
-    private fun loginWithGoogle() {
-        //todo probably remove this
-    }
 
     private fun navigateToRegister() {
         viewModelScope.launch {

@@ -27,7 +27,6 @@ class RegisterViewModel @Inject constructor(
             is RegisterEvent.PasswordChanged -> updatePassword(event.password)
             is RegisterEvent.PasswordVisibilityChanged -> updatePasswordVisibility()
             is RegisterEvent.RegisterButtonClicked -> register()
-            is RegisterEvent.GoogleButtonClicked -> signUpWithGoogle()
             is RegisterEvent.BackButtonClicked -> navigateBack()
             is RegisterEvent.RepeatPasswordChanged -> updateRepeatPassword(event.repeatPassword)
             is RegisterEvent.RepeatPasswordVisibilityChanged -> updateRepeatPasswordVisibility()
@@ -120,11 +119,6 @@ class RegisterViewModel @Inject constructor(
                 isRepeatPasswordVisible = !isRepeatPasswordVisible
             )
         }
-    }
-
-    private fun signUpWithGoogle() {
-        //todo probably remove this
-
     }
 
 }

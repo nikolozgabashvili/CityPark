@@ -2,6 +2,7 @@
 <resources>
     <string name="default_notification_channel_id" translatable="false">Push notification channel</string>
     <string name="push_notification_channel_name" translatable="false">Firebase Push Notification</string>
+    <string name="foreground_service_channel_name" translatable="false">Active Parking Channel</string>
     <string name="date_with_created_at">თარიღი: %1$s</string>
     <string name="title_with_title">სათაური: %1$s</string>
     <string name="notification_with_message">შეტყობინება: %1$s</string>
@@ -10,4 +11,6 @@
     <string name="no">არა</string>
     <string name="yes">დიახ</string>
     <string name="notifications_history">შეტყობინებების ისტორია</string>
+    <string name="active_parking">აქტიური პარკირება</string>
+    <string name="you_do_not_have_notifications_yet">შეტყობინებები არ გაქვს</string>
 </resources>

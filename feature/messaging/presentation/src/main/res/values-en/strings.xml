@@ -8,4 +8,6 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="notifications_history">Notifications History</string>
+    <string name="active_parking">Active Parking</string>
+    <string name="you_do_not_have_notifications_yet">you do not have any notifications</string>
 </resources>

@@ -21,20 +21,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
-import com.example.core.designsystem.components.button.icon_button.SecondaryIconButton
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
-import com.example.core.designsystem.components.divider.Divider
-import ge.tbca.city_park.auth.presentation.component.password_requirement.PasswordRequirement
 import com.example.core.designsystem.components.text_field.PasswordTextField
 import com.example.core.designsystem.components.text_field.TextInputField
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
-import com.example.core.designsystem.theme.GoogleIcon
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.auth.domain.model.PasswordValidationState
 import ge.tbca.city_park.auth.presentation.R
+import ge.tbca.city_park.auth.presentation.component.password_requirement.PasswordRequirement
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 
 @Composable
 fun RegisterScreenRoot(
@@ -88,22 +85,6 @@ private fun RegisterScreen(
             title = stringResource(R.string.register),
             startIcon = Icons.AutoMirrored.Rounded.ArrowBack,
             onStartIconClick = { onEvent(RegisterEvent.BackButtonClicked) },
-        )
-
-        Spacer(modifier = Modifier.height(Dimen.size16))
-
-        SecondaryIconButton(
-            enabled = !state.isLoading,
-            modifier = Modifier.fillMaxWidth(),
-            icon = GoogleIcon,
-            onClick = { onEvent(RegisterEvent.GoogleButtonClicked) }
-        )
-
-        Spacer(modifier = Modifier.height(Dimen.size32))
-
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.or)
         )
 
         Spacer(modifier = Modifier.height(Dimen.size32))

@@ -82,7 +82,7 @@ class MapViewModel @Inject constructor(
     }
 
     private fun dismissMapBottomSheet() {
-        updateState { copy(selectedParkingSpotId = null) }
+        updateState { copy(selectedParkingSpotId = null, selectedCarId = null) }
     }
 
     private fun parkingSpotClicked(id: Int) {

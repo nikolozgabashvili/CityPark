@@ -91,7 +91,7 @@ fun MapScreenRoot(
     }
 
     LocationPermissionManager(
-        onDismissRequest = {viewModel.onEvent(MapEvent.DismissPermissionDialog)},
+        onDismissRequest = { viewModel.onEvent(MapEvent.DismissPermissionDialog) },
         showPermissionDialog = viewModel.state.canShowLocationPermissionDialog,
         onPermissionChanged = {
             viewModel.onEvent(MapEvent.OnPermissionChanged(it))
