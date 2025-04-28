@@ -40,7 +40,7 @@ fun CarItem(
         shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
         onClick = { onClick?.invoke() },
         color = containerColor,
-        enabled = enabled
+        enabled = enabled && onClick != null
 
     ) {
         Row(
