@@ -34,7 +34,7 @@ import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.clustering.Clustering
 import com.google.maps.android.compose.rememberCameraPositionState
 import ge.tba.city_park.parking.presentation.R
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.parking.presentation.component.MapBottomSheetContent
 import ge.tbca.city_park.parking.presentation.component.ParkingMarker
 import ge.tbca.city_park.parking.presentation.constant.MapConstants

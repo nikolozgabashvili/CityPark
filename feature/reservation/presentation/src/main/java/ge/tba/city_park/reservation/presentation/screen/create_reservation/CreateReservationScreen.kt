@@ -41,7 +41,7 @@ import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tba.city_park.reservation.presentation.R
 import ge.tbca.city_park.cars.presentation.component.CarsBottomSheet
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.cars.presentation.component.car_item.CarItem
 
 @Composable

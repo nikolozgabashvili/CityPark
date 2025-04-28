@@ -2,8 +2,8 @@ package ge.tbca.city_park.parking.presentation.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
-import ge.tbca.citi_park.core.ui.mapper.toGenericString
+import ge.tbca.city_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
 import ge.tbca.city_park.cars.presentation.mapper.toPresenter
 import ge.tbca.city_park.core.domain.util.ApiError

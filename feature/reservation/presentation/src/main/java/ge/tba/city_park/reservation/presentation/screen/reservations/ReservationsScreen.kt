@@ -31,7 +31,7 @@ import com.example.core.designsystem.util.AppPreview
 import ge.tba.city_park.reservation.presentation.R
 import ge.tba.city_park.reservation.presentation.component.ReservationItem
 import ge.tba.city_park.reservation.presentation.model.ReservationUi
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 
 @Composable
 fun ReservationsScreenRoot(

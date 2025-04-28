@@ -2,8 +2,8 @@ package ge.tbca.city_park.cars.presentation.screen.my_cars
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
-import ge.tbca.citi_park.core.ui.mapper.toGenericString
+import ge.tbca.city_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.usecase.DeleteCarByIdUseCase
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
 import ge.tbca.city_park.cars.presentation.mapper.toPresenter

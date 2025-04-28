@@ -2,7 +2,7 @@ package ge.tbca.city_park.settings.presentation.settings.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.base.BaseViewModel
 import ge.tbca.city_park.settings.domain.usecase.GetSavedLanguageUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedThemeUseCase
 import kotlinx.coroutines.launch

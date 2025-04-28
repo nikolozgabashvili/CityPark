@@ -1,6 +1,6 @@
 package ge.tbca.city_park.cars.presentation.screen.my_cars
 
-import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.city_park.core.ui.util.GenericString
 import ge.tbca.city_park.cars.presentation.model.CarUi
 
 data class CarsState(

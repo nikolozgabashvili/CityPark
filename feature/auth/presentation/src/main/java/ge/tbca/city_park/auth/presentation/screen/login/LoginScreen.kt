@@ -35,7 +35,7 @@ import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.GoogleIcon
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.auth.presentation.R
 
 @Composable

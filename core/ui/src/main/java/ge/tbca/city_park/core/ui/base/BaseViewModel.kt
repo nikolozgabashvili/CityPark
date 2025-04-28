@@ -1,4 +1,4 @@
-package ge.tbca.citi_park.core.ui.base
+package ge.tbca.city_park.core.ui.base
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

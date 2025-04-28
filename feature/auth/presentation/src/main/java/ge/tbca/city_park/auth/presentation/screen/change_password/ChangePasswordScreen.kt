@@ -25,7 +25,7 @@ import com.example.core.designsystem.components.top_navigation_bar.TopNavigation
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.auth.presentation.R
 import ge.tbca.city_park.auth.presentation.component.password_requirement.PasswordRequirement
 

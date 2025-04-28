@@ -2,8 +2,8 @@ package ge.tbca.city_park.cars.presentation.screen.add_car
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
-import ge.tbca.citi_park.core.ui.mapper.toGenericString
+import ge.tbca.city_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.cars.domain.model.AddCarRequestDomain
 import ge.tbca.city_park.cars.domain.usecase.AddCarUseCase
 import ge.tbca.city_park.cars.domain.usecase.ValidateCarNameUseCase

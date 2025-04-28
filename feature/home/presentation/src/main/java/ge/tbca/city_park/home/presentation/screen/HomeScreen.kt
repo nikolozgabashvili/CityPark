@@ -29,7 +29,7 @@ import com.example.core.designsystem.components.top_navigation_bar.TopNavigation
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.home.presentation.R
 import ge.tbca.city_park.home.presentation.component.ActiveReservationCard
 import ge.tbca.city_park.user.presentation.component.UserBalanceCard

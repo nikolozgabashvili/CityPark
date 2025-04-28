@@ -1,6 +1,6 @@
 package ge.tba.city_park.reservation.presentation.screen.create_reservation
 
-import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.city_park.core.ui.util.GenericString
 import ge.tbca.city_park.cars.presentation.model.CarUi
 
 data class CreateReservationState(

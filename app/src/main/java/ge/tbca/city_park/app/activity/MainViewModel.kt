@@ -2,7 +2,7 @@ package ge.tbca.city_park.app.activity
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.base.BaseViewModel
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.messaging.domain.usecase.GetAndUpdateMessagingTokenUseCase
 import ge.tbca.city_park.settings.domain.usecase.GetSavedLanguageUseCase

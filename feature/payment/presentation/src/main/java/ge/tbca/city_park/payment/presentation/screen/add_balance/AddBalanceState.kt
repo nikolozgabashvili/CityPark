@@ -1,6 +1,6 @@
 package ge.tbca.city_park.payment.presentation.screen.add_balance
 
-import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.city_park.core.ui.util.GenericString
 import ge.tbca.city_park.payment.presentation.model.CreditCardUi
 
 data class AddBalanceState(

@@ -1,7 +1,7 @@
 package ge.tbca.city_park.more.presentation.screen
 
 import androidx.lifecycle.viewModelScope
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

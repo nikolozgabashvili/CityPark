@@ -45,7 +45,7 @@ import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.payment.presentation.R
 import ge.tbca.city_park.payment.presentation.component.card_item.CardItem
 import ge.tbca.city_park.payment.presentation.transformation.TransactionAmountTextTransformation

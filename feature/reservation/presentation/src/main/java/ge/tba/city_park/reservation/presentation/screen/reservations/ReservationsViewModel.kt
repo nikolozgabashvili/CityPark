@@ -3,8 +3,8 @@ package ge.tba.city_park.reservation.presentation.screen.reservations
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tba.city_park.reservation.presentation.mapper.toPresenter
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
-import ge.tbca.citi_park.core.ui.mapper.toGenericString
+import ge.tbca.city_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.mapper.toGenericString
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.reservation.domain.model.ReservationDomain

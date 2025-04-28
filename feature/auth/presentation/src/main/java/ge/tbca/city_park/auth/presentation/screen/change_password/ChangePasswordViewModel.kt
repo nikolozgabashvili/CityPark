@@ -2,7 +2,7 @@ package ge.tbca.city_park.auth.presentation.screen.change_password
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tbca.citi_park.core.ui.base.BaseViewModel
+import ge.tbca.city_park.core.ui.base.BaseViewModel
 import ge.tbca.city_park.auth.domain.usecase.ChangePasswordUseCase
 import ge.tbca.city_park.auth.domain.usecase.ValidatePasswordUseCase
 import ge.tbca.city_park.auth.presentation.extension.toGenericString

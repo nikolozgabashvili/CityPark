@@ -26,7 +26,7 @@ import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.util.AppPreview
-import ge.tbca.citi_park.core.ui.util.CollectSideEffect
+import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.settings.domain.model.AppLanguage
 import ge.tbca.city_park.settings.presentation.R
 import ge.tbca.city_park.settings.presentation.language_settings.extension.displayName

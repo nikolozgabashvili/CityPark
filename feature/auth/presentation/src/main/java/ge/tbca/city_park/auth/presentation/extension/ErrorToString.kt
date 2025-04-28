@@ -1,6 +1,6 @@
 package ge.tbca.city_park.auth.presentation.extension
 
-import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.city_park.core.ui.util.GenericString
 import ge.tbca.city_park.auth.domain.error.AuthError
 import ge.tbca.city_park.auth.presentation.R
 

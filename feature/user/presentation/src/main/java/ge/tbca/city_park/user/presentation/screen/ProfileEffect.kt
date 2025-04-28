@@ -1,6 +1,6 @@
 package ge.tbca.city_park.user.presentation.screen
 
-import ge.tbca.citi_park.core.ui.util.GenericString
+import ge.tbca.city_park.core.ui.util.GenericString
 
 sealed interface ProfileEffect {
     data class Error(val error: GenericString) : ProfileEffect
