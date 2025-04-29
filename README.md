@@ -25,7 +25,7 @@ City Park is a feature-rich, modular Android application that streamlines parkin
 - **Data Persistence:** Preferences DataStore
 - **Background Work:** WorkManager
 - **Authentication & Maps:** Google Play Services
-- - **Foreground Service** to track active parking reservations
+- **Foreground Service** to track active parking reservations
 
 ---
 
