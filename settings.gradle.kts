@@ -1,5 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":feature:fines:domain")
+
+
+include(":feature:fines")
+
+
 
 
 pluginManagement {
