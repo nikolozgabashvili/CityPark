@@ -27,7 +27,7 @@ interface FineApiService {
 
         private const val FINES = "fines"
         private const val PAY_FINES = "fines/pay"
-        private const val GET_FINES_ID = "fines/pay/{id}"
+        private const val GET_FINES_ID = "fines/{id}"
 
 
     }
