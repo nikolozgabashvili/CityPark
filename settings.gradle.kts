@@ -1,12 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":feature:fines:domain")
-
-
-include(":feature:fines")
-
-
-
 
 pluginManagement {
     includeBuild("build-logic")
@@ -70,6 +63,7 @@ include(":feature:messaging:presentation")
 include(":feature:messaging:domain")
 include(":feature:messaging:data")
 
+include(":feature:user:presentation")
 include(":feature:user:domain")
 include(":feature:user:data")
 
@@ -80,4 +74,8 @@ include(":feature:parking:data")
 
 include(":feature:more:presentation")
 include(":feature:more")
-include(":feature:user:presentation")
+
+
+include(":feature:fines:domain")
+include(":feature:fines:data")
+
