@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface FinesRepository {
     fun getParkingFines(): Flow<Resource<List<ParkingFineDomain>, ApiError>>
     fun payFine(payFineRequest: PayFineRequest): Flow<Resource<Unit, ApiError>>
+    fun getFineById(fineId: Int): Flow<Resource<ParkingFineDomain, ApiError>>
 }
