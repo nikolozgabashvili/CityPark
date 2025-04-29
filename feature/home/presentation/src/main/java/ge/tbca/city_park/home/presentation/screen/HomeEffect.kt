@@ -9,4 +9,5 @@ sealed interface HomeEffect {
     data object NavigateToCars : HomeEffect
     data object NavigateToCards : HomeEffect
     data object NavigateToAddReservation : HomeEffect
+    data object NavigateToFines : HomeEffect
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fines">Fines</string>
+    <string name="you_dont_have_fines">You don\'t have fines</string>
+    <string name="paid">Paid</string>
+    <string name="to_be_paid">To be paid</string>
+</resources>

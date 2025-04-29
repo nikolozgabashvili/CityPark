@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fines">ჯარიმები</string>
+    <string name="you_dont_have_fines">ჯარიმები არ გაქვს</string>
+    <string name="paid">გადახდილია</string>
+    <string name="to_be_paid">გადასახდელია</string>
+</resources>

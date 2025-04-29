@@ -7,6 +7,7 @@ sealed interface HomeEvent {
     data object NavigateToAddReservation : HomeEvent
     data object NavigateToCars : HomeEvent
     data object NavigateToCards : HomeEvent
+    data object NavigateToFines : HomeEvent
     data object OnFinishRequest : HomeEvent
     data object DismissParkingDialog : HomeEvent
     data object FinishParking : HomeEvent

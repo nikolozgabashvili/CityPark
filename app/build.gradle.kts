@@ -97,4 +97,7 @@ dependencies {
     implementation(projects.feature.parking.data)
 
     implementation(projects.feature.more.presentation)
+
+    implementation(projects.feature.fines.presentation)
+    implementation(projects.feature.fines.domain)
 }
