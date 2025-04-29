@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":feature:fines:presentation")
+
+
 include(":feature:fines:domain")
 
 
