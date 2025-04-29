@@ -73,9 +73,10 @@ include(":feature:parking:data")
 
 
 include(":feature:more:presentation")
-include(":feature:more")
 
 
+include(":feature:fines:presentation")
 include(":feature:fines:domain")
 include(":feature:fines:data")
+
 
