@@ -5,5 +5,8 @@ plugins {
 
 dependencies{
     implementation(libs.kotlinx.coroutines.core)
+}
+
+dependencies{
     implementation(projects.core.domain)
 }

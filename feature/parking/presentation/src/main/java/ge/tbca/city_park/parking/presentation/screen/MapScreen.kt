@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.core.designsystem.components.NoNetworkScreen
 import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.Dimen
@@ -129,110 +130,117 @@ private fun MapScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        GoogleMap(
-            uiSettings = MapUiSettings(zoomControlsEnabled = false),
+    if (state.isOnline) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            GoogleMap(
+                uiSettings = MapUiSettings(zoomControlsEnabled = false),
 
-            cameraPositionState = cameraPositionState,
-            modifier = Modifier.fillMaxSize(),
-            properties = MapProperties(
+                cameraPositionState = cameraPositionState,
+                modifier = Modifier.fillMaxSize(),
+                properties = MapProperties(
 
-                isMyLocationEnabled = state.locationPermissionGranted && isLocationEnabled,
-                maxZoomPreference = MapConstants.MAX_ZOOM_LEVEL,
-                mapStyleOptions = getMapStyleOptions()
-            ),
-            onMapLoaded = {
-                onEvent(MapEvent.MapLoaded)
-            }
-
-        ) {
-
-            Clustering(
-                items = state.parkingClusters,
-                clusterContent = {
-                    CircleClusterContent(it)
-                },
-                clusterItemContent = {
-                    ParkingMarker(
-                        parkingSpots = it.parkingSpot
-                    )
-                },
-                onClusterItemClick = {
-                    onEvent(MapEvent.OnParkingSpotClick(it.parkingSpot.id))
-                    true
-                },
-                onClusterClick = {
-                    onEvent(MapEvent.OnClusterClick(it.position))
-                    true
+                    isMyLocationEnabled = state.locationPermissionGranted && isLocationEnabled,
+                    maxZoomPreference = MapConstants.MAX_ZOOM_LEVEL,
+                    mapStyleOptions = getMapStyleOptions()
+                ),
+                onMapLoaded = {
+                    onEvent(MapEvent.MapLoaded)
                 }
-            )
 
-        }
-    }
+            ) {
 
-    if (state.isLoading) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(AppColors.surface.copy(alpha = 0.6f)),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(color = AppColors.primary)
+                Clustering(
+                    items = state.parkingClusters,
+                    clusterContent = {
+                        CircleClusterContent(it)
+                    },
+                    clusterItemContent = {
+                        ParkingMarker(
+                            parkingSpots = it.parkingSpot
+                        )
+                    },
+                    onClusterItemClick = {
+                        onEvent(MapEvent.OnParkingSpotClick(it.parkingSpot.id))
+                        true
+                    },
+                    onClusterClick = {
+                        onEvent(MapEvent.OnClusterClick(it.position))
+                        true
+                    }
+                )
 
-        }
-    }
-
-    state.selectedParkingSpot?.let {
-        ModalBottomSheet(
-            sheetState = bottomSheetState,
-            onDismissRequest = {
-                onEvent(MapEvent.DismissBottomSheet)
             }
-        ) {
+        }
 
-            MapBottomSheetContent(
+        if (state.isLoading) {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Dimen.size20),
-                state = state,
-                onStartParking = {
-                    onEvent(MapEvent.StartParking)
-                },
-                onCarSelected = {
-                    onEvent(MapEvent.OnCarSelected(it))
-                },
-                onShowCarBottomSheet = {
-                    onEvent(MapEvent.ShowCarBottomSheet)
-                },
-                onAddCar = {
-                    onEvent(MapEvent.NavigateToAddCar)
-                },
-                dismissCarBottomSheet = {
-                    onEvent(MapEvent.HideCarBottomSheet)
-                }
-            )
+                    .fillMaxSize()
+                    .background(AppColors.surface.copy(alpha = 0.6f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = AppColors.primary)
 
-
+            }
         }
+
+        state.selectedParkingSpot?.let {
+            ModalBottomSheet(
+                sheetState = bottomSheetState,
+                onDismissRequest = {
+                    onEvent(MapEvent.DismissBottomSheet)
+                }
+            ) {
+
+                MapBottomSheetContent(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Dimen.size20),
+                    state = state,
+                    onStartParking = {
+                        onEvent(MapEvent.StartParking)
+                    },
+                    onCarSelected = {
+                        onEvent(MapEvent.OnCarSelected(it))
+                    },
+                    onShowCarBottomSheet = {
+                        onEvent(MapEvent.ShowCarBottomSheet)
+                    },
+                    onAddCar = {
+                        onEvent(MapEvent.NavigateToAddCar)
+                    },
+                    dismissCarBottomSheet = {
+                        onEvent(MapEvent.HideCarBottomSheet)
+                    }
+                )
+
+
+            }
+        }
+
+        if (state.showInsufficientBalanceDialog) {
+            BaseAlertDialog(
+                onDismiss = { onEvent(MapEvent.DismissAlertDialog) },
+                setDismissible = true,
+                onPositiveButtonClick = {
+                    onEvent(MapEvent.NavigateToAddBalance)
+                },
+                onNegativeButtonClick = {
+                    onEvent(MapEvent.DismissAlertDialog)
+                },
+                positiveButtonText = stringResource(R.string.add_balance),
+                negativeButtonText = stringResource(R.string.cancel),
+                title = stringResource(ge.tbca.city_park.core.ui.R.string.insufficient_balance),
+                message = stringResource(R.string.please_add_balance_to_start_parking)
+            )
+        }
+    } else {
+        NoNetworkScreen()
     }
 
-    if (state.showInsufficientBalanceDialog) {
-        BaseAlertDialog(
-            onDismiss = { onEvent(MapEvent.DismissAlertDialog) },
-            setDismissible = true,
-            onPositiveButtonClick = {
-                onEvent(MapEvent.NavigateToAddBalance)
-            },
-            onNegativeButtonClick = {
-                onEvent(MapEvent.DismissAlertDialog)
-            },
-            positiveButtonText = stringResource(R.string.add_balance),
-            negativeButtonText = stringResource(R.string.cancel),
-            title = stringResource(ge.tbca.city_park.core.ui.R.string.insufficient_balance),
-            message = stringResource(R.string.please_add_balance_to_start_parking)
-        )
-    }
+
 }
+
 
 @Composable
 private fun getMapStyleOptions(): MapStyleOptions? {

@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.tbca.city_park.cars.domain.usecase.GetAllCarsUseCase
 import ge.tbca.city_park.cars.presentation.mapper.toPresenter
+import ge.tbca.city_park.core.domain.usecase.IsNetworkAvailableUseCase
 import ge.tbca.city_park.core.domain.util.ApiError
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
@@ -15,6 +16,7 @@ import ge.tbca.city_park.parking.presentation.mapper.toPresenter
 import ge.tbca.city_park.parking.presentation.model.ParkingClusterUi
 import ge.tbca.city_park.reservation.domain.model.ReservationRequest
 import ge.tbca.city_park.reservation.domain.usecase.CreateReservationUseCase
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +24,8 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val getParkingSpotsUseCase: GetParkingSpotsUseCase,
     private val getAllCarsUseCase: GetAllCarsUseCase,
-    private val createReservationUseCase: CreateReservationUseCase
+    private val createReservationUseCase: CreateReservationUseCase,
+    private val isNetworkAvailableUseCase: IsNetworkAvailableUseCase,
 ) : BaseViewModel<MapState, MapEffect, MapEvent>(MapState()) {
 
 
@@ -44,6 +47,18 @@ class MapViewModel @Inject constructor(
             is MapEvent.OnPermissionChanged -> onPermissionChanged(event.isGranted)
         }
 
+    }
+
+    init {
+        observeNetwork()
+    }
+
+    private fun observeNetwork() {
+        viewModelScope.launch {
+            isNetworkAvailableUseCase().distinctUntilChanged().collect { isOnline ->
+                updateState { copy(isOnline = isOnline) }
+            }
+        }
     }
 
     private fun onPermissionChanged(granted: Boolean) {

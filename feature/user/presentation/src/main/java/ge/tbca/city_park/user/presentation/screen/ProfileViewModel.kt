@@ -2,8 +2,8 @@ package ge.tbca.city_park.user.presentation.screen
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.tba.city_park.reservation.presentation.mapper.toPresenter
 import ge.tbca.city_park.auth.domain.usecase.SignOutUseCase
+import ge.tbca.city_park.auth.presentation.extension.toGenericString
 import ge.tbca.city_park.core.domain.util.Resource
 import ge.tbca.city_park.core.domain.util.isLoading
 import ge.tbca.city_park.core.ui.base.BaseViewModel
@@ -35,8 +35,13 @@ class ProfileViewModel @Inject constructor(
             is ProfileEvent.ChangePasswordButtonClicked -> navigateToChangePassword()
             is ProfileEvent.SignOutButtonClicked -> checkActiveReservation()
             is ProfileEvent.DismissActiveReservationDialog -> dismissActiveReservationDialog()
-            is ProfileEvent.FinishParking -> signOut()
+            is ProfileEvent.FinishParking -> finishAndSignOut()
+            ProfileEvent.Refresh -> refresh()
         }
+    }
+
+    private fun refresh() {
+        fetchUserInfo()
     }
 
     private fun fetchUserInfo() {
@@ -49,6 +54,7 @@ class ProfileViewModel @Inject constructor(
                         updateState {
                             copy(
                                 userEmail = userInfo.email,
+                                error = null,
                                 userBalance = userInfo.parkingBalance
                             )
                         }
@@ -56,6 +62,7 @@ class ProfileViewModel @Inject constructor(
 
                     is Resource.Error -> {
                         val error = resource.error.toGenericString()
+                        updateState { copy(error = error) }
                         sendSideEffect(ProfileEffect.Error(error))
                     }
 
@@ -79,45 +86,25 @@ class ProfileViewModel @Inject constructor(
 
     private fun signOut() {
         viewModelScope.launch {
-            val activeReservation = state.activeReservation
-
-            if (activeReservation != null) {
-                updateState { copy(showActiveReservationDialog = false) }
-
-                var shouldProceedToSignOut = true
-                finishParkingUseCase(FinishReservationRequest(reservationId = activeReservation.id)).collect { resource ->
+            updateState { copy(isLoading = true) }
+            val removeTokenResponse = deleteMessagingTokenUseCase()
+            if (removeTokenResponse is Resource.Success) {
+                signOutUseCase().collect { resource ->
                     updateState { copy(isLoading = resource.isLoading()) }
-
                     when (resource) {
+                        is Resource.Success -> Unit
+
                         is Resource.Error -> {
                             val error = resource.error.toGenericString()
                             sendSideEffect(ProfileEffect.Error(error))
-                            shouldProceedToSignOut = false
                         }
 
-                        is Resource.Success -> Unit
                         is Resource.Loading -> Unit
                     }
                 }
-
-                if (!shouldProceedToSignOut) return@launch
-            }
-
-            updateState { copy(isLoading = true) }
-
-            when (val request = deleteMessagingTokenUseCase()) {
-                is Resource.Success -> {
-                    signOutUseCase().collect {
-                        updateState { copy(isLoading = false) }
-                    }
-                }
-
-                is Resource.Error -> {
-                    updateState { copy(isLoading = false) }
-                    sendSideEffect(ProfileEffect.Error(request.error.toGenericString()))
-                }
-
-                is Resource.Loading -> Unit
+            } else if (removeTokenResponse is Resource.Error) {
+                val error = removeTokenResponse.error.toGenericString()
+                sendSideEffect(ProfileEffect.Error(error))
             }
         }
     }
@@ -127,34 +114,58 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun checkActiveReservation() {
+
         viewModelScope.launch {
             getActiveReservationUseCase().collect { resource ->
                 updateState { copy(isLoading = resource.isLoading()) }
 
                 when (resource) {
-                    is Resource.Error -> {
-                        val error = resource.error.toGenericString()
-                        updateState { copy(error = error) }
-                    }
 
                     is Resource.Success -> {
-                        val reservation = resource.data?.toPresenter()
-
-                        if (reservation != null) {
-                            updateState {
-                                copy(
-                                    activeReservation = reservation,
-                                    showActiveReservationDialog = true
-                                )
-                            }
+                        val activeReservation = resource.data
+                        if (activeReservation != null) {
+                            updateState { copy(activeReservationId = activeReservation.id) }
+                            updateState { copy(showActiveReservationDialog = true) }
                         } else {
                             signOut()
                         }
                     }
 
+                    is Resource.Error -> {
+                        val error = resource.error.toGenericString()
+                        sendSideEffect(ProfileEffect.Error(error))
+                    }
+
                     is Resource.Loading -> Unit
                 }
 
+
+            }
+        }
+
+    }
+
+    private fun finishAndSignOut() {
+        viewModelScope.launch {
+            val activeReservationId = state.activeReservationId
+            if (activeReservationId != null) {
+                finishParkingUseCase(FinishReservationRequest(activeReservationId)).collect { resource ->
+                    updateState { copy(isLoading = resource.isLoading()) }
+                    when (resource) {
+                        is Resource.Success -> {
+                            signOut()
+                        }
+
+                        is Resource.Error -> {
+                            val error = resource.error.toGenericString()
+                            sendSideEffect(ProfileEffect.Error(error))
+                        }
+
+                        is Resource.Loading -> Unit
+                    }
+                }
+            } else {
+                signOut()
             }
         }
     }

@@ -1,12 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":feature:more:presentation")
-
-
-include(":feature:more")
-
-
-include(":feature:user:presentation")
 
 
 pluginManagement {
@@ -77,3 +70,8 @@ include(":feature:user:data")
 include(":feature:parking:presentation")
 include(":feature:parking:domain")
 include(":feature:parking:data")
+
+
+include(":feature:more:presentation")
+include(":feature:more")
+include(":feature:user:presentation")

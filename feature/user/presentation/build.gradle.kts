@@ -18,6 +18,7 @@ dependencies {
     implementation(projects.feature.user.domain)
     implementation(projects.feature.messaging.domain)
     implementation(projects.feature.auth.domain)
+    implementation(projects.feature.auth.presentation)
     implementation(projects.feature.reservation.domain)
     implementation(projects.feature.reservation.presentation)
 }

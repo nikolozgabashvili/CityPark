@@ -25,6 +25,7 @@ import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.SecondaryButton
 import com.example.core.designsystem.components.dialog.BaseAlertDialog
+import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
@@ -96,6 +97,14 @@ private fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(Dimen.size16))
 
+        state.error?.let {
+            ErrorWrapper(
+                error = it.getString(),
+                enabled = !state.isLoading,
+                onRetry = { onEvent(ProfileEvent.Refresh) }
+            )
+        }
+
         state.userBalance?.let {
             Surface(
                 modifier = Modifier.fillMaxWidth(),
@@ -146,7 +155,7 @@ private fun ProfileScreen(
             onClick = { onEvent(ProfileEvent.SignOutButtonClicked) }
         )
 
-        if(state.showActiveReservationDialog) {
+        if (state.showActiveReservationDialog) {
             BaseAlertDialog(
                 onDismiss = { onEvent(ProfileEvent.DismissActiveReservationDialog) },
                 onPositiveButtonClick = { onEvent(ProfileEvent.FinishParking) },

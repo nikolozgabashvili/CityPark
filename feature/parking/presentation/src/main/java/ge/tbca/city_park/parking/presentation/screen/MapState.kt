@@ -19,6 +19,7 @@ data class MapState(
     val canShowLocationPermissionDialog: Boolean = true,
     val locationPermissionGranted: Boolean = false,
     val showInsufficientBalanceDialog: Boolean = false,
+    val isOnline: Boolean = true,
 
     val showCarBottomSheet: Boolean = false,
 ) {
