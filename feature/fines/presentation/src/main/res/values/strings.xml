@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fine_details">ჯარიმის დეტალები</string>
+    <string name="status">სტატუსი</string>
+    <string name="date">თარიღი</string>
+    <string name="cost_with_gel_symbol" translatable="false">%1$s ₾</string>
+    <string name="cost_amount">ჯარიმის ოდენობა</string>
+    <string name="description">აღწერა</string>
+    <string name="address">მისამართი</string>
+    <string name="car_number">სახელმწიფო ნომერი</string>
+    <string name="pay_fine">გადაიხადე ჯარიმა</string>
+    <string name="select_card">აირჩიე ბარათი</string>
+</resources>

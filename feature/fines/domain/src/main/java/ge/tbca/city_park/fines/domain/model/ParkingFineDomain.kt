@@ -3,7 +3,6 @@ package ge.tbca.city_park.fines.domain.model
 data class ParkingFineDomain(
     val id: Int,
     val userId: String,
-    val location: String,
     val address: String,
     val carNumber: String,
     val price: Double,

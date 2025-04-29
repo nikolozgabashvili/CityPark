@@ -7,7 +7,6 @@ fun ParkingFineDTO.toDomain(): ParkingFineDomain {
     return ParkingFineDomain(
         id = id,
         userId = userId,
-        location = location,
         address = address,
         carNumber = carNumber,
         price = price,
