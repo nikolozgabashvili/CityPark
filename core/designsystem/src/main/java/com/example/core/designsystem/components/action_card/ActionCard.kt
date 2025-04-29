@@ -1,5 +1,7 @@
 package com.example.core.designsystem.components.action_card
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,10 +37,16 @@ fun ActionCard(
     val isEnabled = if (loading) false else enabled
 
     Surface(
-        modifier = modifier.shimmer(loading),
+        modifier = modifier
+            .shimmer(loading)
+            .border(
+                border = BorderStroke(Dimen.size1, AppColors.secondary), shape = RoundedCornerShape(
+                    Dimen.roundedCornerMediumSize
+                )
+            ),
         onClick = onclick,
         enabled = isEnabled,
-        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
+        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize)
     ) {
         Box(
             modifier = Modifier

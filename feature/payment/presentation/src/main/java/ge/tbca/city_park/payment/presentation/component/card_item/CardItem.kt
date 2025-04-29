@@ -1,7 +1,9 @@
 package ge.tbca.city_park.payment.presentation.component.card_item
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,6 +46,11 @@ fun CardItem(
             .background(
                 color = AppColors.surface,
                 shape = RoundedCornerShape(Dimen.roundedCornerMediumSize)
+            )
+            .border(
+                border = BorderStroke(Dimen.size1, AppColors.secondary), shape = RoundedCornerShape(
+                    Dimen.roundedCornerMediumSize
+                )
             )
             .padding(Dimen.appPadding)
             .clickable(
@@ -88,7 +95,7 @@ fun CardItem(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        if(hasDeleteIcon) {
+        if (hasDeleteIcon) {
             Icon(
                 modifier = Modifier.clickable(onClick = { onDeleteClick?.invoke() }),
                 imageVector = Icons.Default.Delete,

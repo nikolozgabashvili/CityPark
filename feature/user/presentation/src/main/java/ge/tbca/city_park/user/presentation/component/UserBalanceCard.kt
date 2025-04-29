@@ -1,5 +1,7 @@
 package ge.tbca.city_park.user.presentation.component
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,13 +32,19 @@ import java.util.Locale
 fun UserBalanceCard(
     modifier: Modifier = Modifier,
     balance: Double,
-    enabled:Boolean = true,
+    enabled: Boolean = true,
     onAddBalanceClick: () -> Unit,
 ) {
 
     Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize)
+        modifier = modifier
+            .border(
+                border = BorderStroke(Dimen.size1, AppColors.secondary), shape = RoundedCornerShape(
+                    Dimen.roundedCornerMediumSize
+                )
+            ),
+        shape = RoundedCornerShape(Dimen.roundedCornerMediumSize),
+        shadowElevation = Dimen.size2
     ) {
 
         Row(
