@@ -6,4 +6,7 @@
     <string name="profile">პროფილი</string>
     <string name="change_password">პაროლის შეცვლა</string>
     <string name="sign_out">ანგარიშიდან გამოსვლა</string>
+    <string name="yes">დიახ</string>
+    <string name="no">არა</string>
+    <string name="sign_out_dialog">ნამდვილად გსურთ ანგარიშიდან გასვლა? გასვლის შემთხვევაში გაგიუქმდებათ მიმდინარე პარკირება</string>
 </resources>

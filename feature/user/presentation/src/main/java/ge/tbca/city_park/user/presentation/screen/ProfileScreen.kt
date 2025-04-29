@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.SecondaryButton
+import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.example.core.designsystem.components.top_navigation_bar.TopNavigationBar
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
@@ -144,6 +145,18 @@ private fun ProfileScreen(
             text = stringResource(R.string.sign_out),
             onClick = { onEvent(ProfileEvent.SignOutButtonClicked) }
         )
+
+        if(state.showActiveReservationDialog) {
+            BaseAlertDialog(
+                onDismiss = { onEvent(ProfileEvent.DismissActiveReservationDialog) },
+                onPositiveButtonClick = { onEvent(ProfileEvent.FinishParking) },
+                onNegativeButtonClick = { onEvent(ProfileEvent.DismissActiveReservationDialog) },
+                positiveButtonText = stringResource(R.string.yes),
+                negativeButtonText = stringResource(R.string.no),
+                title = stringResource(R.string.sign_out),
+                message = stringResource(R.string.sign_out_dialog),
+            )
+        }
     }
 }
 

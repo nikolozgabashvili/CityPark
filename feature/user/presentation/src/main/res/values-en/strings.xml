@@ -5,4 +5,7 @@
     <string name="profile">Profile</string>
     <string name="change_password">Change password</string>
     <string name="sign_out">Sign out</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="sign_out_dialog">Do you really wish to sign out? You have active parking reservation and it will be cancelled if you proceed</string>
 </resources>

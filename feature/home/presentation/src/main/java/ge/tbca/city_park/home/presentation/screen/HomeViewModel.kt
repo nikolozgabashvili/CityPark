@@ -83,7 +83,7 @@ class HomeViewModel @Inject constructor(
                             refresh()
                         }
 
-                        Resource.Loading -> Unit
+                        is Resource.Loading -> Unit
                     }
 
                 }

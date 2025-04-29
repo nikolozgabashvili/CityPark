@@ -8,9 +8,8 @@ data class HomeState(
     val isLoading: Boolean = false,
     val activeReservation: ReservationUi? = null,
     val error: GenericString? = null,
-    val showActiveReservationBottomSheet: Boolean = false,
     val showParkingFinishDialog: Boolean = false
-){
-    val clickEnabled:Boolean
-        get () = !isLoading
+) {
+    val clickEnabled: Boolean
+        get() = !isLoading
 }

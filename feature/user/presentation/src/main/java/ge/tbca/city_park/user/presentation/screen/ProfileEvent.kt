@@ -4,4 +4,6 @@ sealed interface ProfileEvent {
     data object BackButtonClicked : ProfileEvent
     data object ChangePasswordButtonClicked : ProfileEvent
     data object SignOutButtonClicked : ProfileEvent
+    data object DismissActiveReservationDialog: ProfileEvent
+    data object FinishParking: ProfileEvent
 }
