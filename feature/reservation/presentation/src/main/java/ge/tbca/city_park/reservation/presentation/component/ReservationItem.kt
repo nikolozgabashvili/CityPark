@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation.component
+package ge.tbca.city_park.reservation.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +18,8 @@ import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
-import ge.tba.city_park.reservation.presentation.R
-import ge.tba.city_park.reservation.presentation.model.ReservationUi
+import ge.tbca.city_park.reservation.presentation.R
+import ge.tbca.city_park.reservation.presentation.model.ReservationUi
 import java.util.Locale
 
 @Composable

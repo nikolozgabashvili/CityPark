@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation.screen.create_reservation
+package ge.tbca.city_park.reservation.presentation.screen.create_reservation
 
 import ge.tbca.city_park.core.ui.util.GenericString
 

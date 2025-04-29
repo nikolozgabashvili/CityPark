@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation.screen.create_reservation
+package ge.tbca.city_park.reservation.presentation.screen.create_reservation
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

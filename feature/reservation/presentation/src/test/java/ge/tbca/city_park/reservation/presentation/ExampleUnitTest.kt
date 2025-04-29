@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation
+package ge.tbca.city_park.reservation.presentation
 
 import org.junit.Test
 

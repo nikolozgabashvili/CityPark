@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "ge.tba.city_park.parking.presentation"
+    namespace = "ge.tbca.city_park.parking.presentation"
 }
 
 dependencies {

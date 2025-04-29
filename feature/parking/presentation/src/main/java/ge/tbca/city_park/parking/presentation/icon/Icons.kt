@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.example.core.designsystem.util.isDeviceDarkTheme
-import ge.tba.city_park.parking.presentation.R
+import ge.tbca.city_park.parking.presentation.R
 
 val MapMarkerBackground: ImageVector
     @Composable

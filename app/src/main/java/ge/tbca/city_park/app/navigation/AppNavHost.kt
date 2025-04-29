@@ -4,8 +4,8 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import ge.tba.city_park.reservation.presentation.navigation.CreateReservationRoute
-import ge.tba.city_park.reservation.presentation.navigation.reservationsNavGraph
+import ge.tbca.city_park.reservation.presentation.navigation.CreateReservationRoute
+import ge.tbca.city_park.reservation.presentation.navigation.reservationsNavGraph
 import ge.tbca.city_park.app.ui.AppState
 import ge.tbca.city_park.auth.presentation.navigation.ChangePasswordScreenRoute
 import ge.tbca.city_park.auth.presentation.navigation.RecoverPasswordScreenRoute

@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation.screen.reservations
+package ge.tbca.city_park.reservation.presentation.screen.reservations
 
 sealed interface ReservationsEvent {
     data object AddReservationButtonClicked : ReservationsEvent

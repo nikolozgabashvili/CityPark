@@ -1,4 +1,4 @@
-package ge.tba.city_park.reservation.presentation.model
+package ge.tbca.city_park.reservation.presentation.model
 
 data class ReservationUi(
     val id: Int,

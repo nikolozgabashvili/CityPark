@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package ge.tba.city_park.reservation.presentation.screen.reservations
+package ge.tbca.city_park.reservation.presentation.screen.reservations
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,9 +28,9 @@ import com.example.core.designsystem.components.top_navigation_bar.TopNavigation
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.util.AppPreview
-import ge.tba.city_park.reservation.presentation.R
-import ge.tba.city_park.reservation.presentation.component.ReservationItem
-import ge.tba.city_park.reservation.presentation.model.ReservationUi
+import ge.tbca.city_park.reservation.presentation.R
+import ge.tbca.city_park.reservation.presentation.component.ReservationItem
+import ge.tbca.city_park.reservation.presentation.model.ReservationUi
 import ge.tbca.city_park.core.ui.util.CollectSideEffect
 
 @Composable

@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.core.designsystem.components.dialog.BaseAlertDialog
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import ge.tba.city_park.parking.presentation.R
+import ge.tbca.city_park.parking.presentation.R
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable

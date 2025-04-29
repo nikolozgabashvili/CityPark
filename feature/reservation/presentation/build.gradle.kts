@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "ge.tba.city_park.reservation.presentation"
+    namespace = "ge.tbca.city_park.reservation.presentation"
 }
 
 dependencies {

@@ -11,7 +11,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import ge.tba.city_park.reservation.presentation.navigation.ReservationsRoute
+import ge.tbca.city_park.reservation.presentation.navigation.ReservationsRoute
 import ge.tbca.city_park.app.navigation.TopLevelDestination
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.more.presentation.navigation.MoreScreenRoute

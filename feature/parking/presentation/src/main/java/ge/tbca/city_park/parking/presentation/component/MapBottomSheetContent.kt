@@ -29,7 +29,7 @@ import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import com.google.android.gms.maps.model.LatLng
-import ge.tba.city_park.parking.presentation.R
+import ge.tbca.city_park.parking.presentation.R
 import ge.tbca.city_park.cars.presentation.component.CarsBottomSheet
 import ge.tbca.city_park.cars.presentation.component.car_item.CarItem
 import ge.tbca.city_park.parking.presentation.model.ParkingSpot

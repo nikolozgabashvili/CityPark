@@ -11,7 +11,7 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
-import ge.tba.city_park.reservation.presentation.navigation.ReservationsRoute
+import ge.tbca.city_park.reservation.presentation.navigation.ReservationsRoute
 import ge.tbca.city_park.R
 import ge.tbca.city_park.home.presentation.navigation.HomeScreenRoute
 import ge.tbca.city_park.more.presentation.navigation.MoreScreenRoute
