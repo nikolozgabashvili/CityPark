@@ -3,23 +3,18 @@
 package ge.tbca.city_park.payment.presentation.screen.add_balance
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.AccountBalanceWallet
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -34,8 +29,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.designsystem.components.button.base.ButtonSize
 import com.example.core.designsystem.components.button.text_button.PrimaryButton
 import com.example.core.designsystem.components.button.text_button.SecondaryButton
-import com.example.core.designsystem.components.button.text_button.TertiaryButton
-import com.example.core.designsystem.components.divider.Divider
 import com.example.core.designsystem.components.error_wrapper.ErrorWrapper
 import com.example.core.designsystem.components.pull_to_refresh.PullToRefreshWrapper
 import com.example.core.designsystem.components.text_field.TextInputField
@@ -47,6 +40,7 @@ import com.example.core.designsystem.theme.TextStyles
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.payment.presentation.R
+import ge.tbca.city_park.payment.presentation.component.card_bottomsheet.CardBottomSheet
 import ge.tbca.city_park.payment.presentation.component.card_item.CardItem
 import ge.tbca.city_park.payment.presentation.transformation.TransactionAmountTextTransformation
 
@@ -192,43 +186,18 @@ private fun AddBalanceScreen(
     }
 
     if (state.showBottomSheet)
-        ModalBottomSheet(
+        CardBottomSheet(
             sheetState = sheetState,
-            onDismissRequest = { onEvent(AddBalanceEvent.CloseBottomSheet) }
-        ) {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Dimen.size12),
-                contentPadding = PaddingValues(horizontal = Dimen.size20)
-            ) {
-                items(state.cards, key = { it.id }) { card ->
-                    CardItem(
-                        card = card,
-                        enabled = !state.loading,
-                        onClick = { onEvent(AddBalanceEvent.CardSelected(card.id)) }
-                    )
-                }
-
-                if (state.cards.isNotEmpty()) {
-                    item {
-                        Divider(text = stringResource(R.string.or))
-                    }
-                }
-
-                item {
-                    TertiaryButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        buttonSize = ButtonSize.LARGE,
-                        text = stringResource(R.string.add_card),
-                        enabled = !state.loading,
-                        onClick = { onEvent(AddBalanceEvent.NavigateToAddCard) }
-                    )
-                }
-
-                item {
-                    Spacer(modifier = Modifier.height(Dimen.size16))
-                }
+            onDismiss = { onEvent(AddBalanceEvent.CloseBottomSheet) },
+            loading = state.loading,
+            cards = state.cards,
+            onCardClick = { cardId ->
+                onEvent(AddBalanceEvent.CardSelected(cardId))
+            },
+            onAddCardClick = {
+                onEvent(AddBalanceEvent.NavigateToAddCard)
             }
-        }
+        )
 }
 
 @AppPreview
