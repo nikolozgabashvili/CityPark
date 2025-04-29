@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.CityPark" parent="android:Theme.Material.Light.NoActionBar" />
-
     <style name="Theme.CityPark.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_color</item>
         <item name="postSplashScreenTheme">@style/Theme.CityPark</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_city_park</item>
     </style>
 </resources>
