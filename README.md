@@ -1,13 +1,13 @@
 # City Park
 
-City Park is a modular Android app designed for effortless parking reservations, vehicle tracking, and secure payment handling. Built with Jetpack Compose and structured using Clean Architecture and MVI, it offers a modern and intuitive user experience.
+City Park is a feature-rich, modular Android application that streamlines parking reservations, vehicle management, and payment processing. Powered by Jetpack Compose and built on a robust Clean Architecture + MVI foundation, it delivers a seamless and modern user experience.
 
 ---
 
 ## 🚀 Features
 
 - **Parking Reservations**: Browse, select, and reserve available parking spots.
-- **Vehicle Management**: Add, edit, and remove vehicles linked to your account.
+- **Vehicle Management**: Add and remove vehicles linked to your account.
 - **Payment Methods**: Securely add and store credit cards for fast checkout.
 - **User Profiles**: View and update personal information and preferences.
 - **Notifications**: Receive real-time notifications and see their history.
@@ -25,8 +25,7 @@ City Park is a modular Android app designed for effortless parking reservations,
 - **Data Persistence:** Preferences DataStore
 - **Background Work:** WorkManager
 - **Authentication & Maps:** Google Play Services
-- **Secrets Management:** Maps Secrets Plugin
-- **Testing:** JUnit, MockK
+- - **Foreground Service** to track active parking reservations
 
 ---
 
@@ -77,7 +76,6 @@ All data exchanges between the client and server are performed via RESTful APIs 
 
 City Park uses:
 - **DataStore** for local preference persistence  
-- **Caching strategies** to reduce API calls where applicable  
 - **WorkManager** for background sync and retries
 
 ---
