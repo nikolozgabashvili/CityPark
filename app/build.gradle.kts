@@ -98,5 +98,7 @@ dependencies {
 
     implementation(projects.feature.more.presentation)
 
+    implementation(projects.feature.fines.presentation)
+    implementation(projects.feature.fines.domain)
     implementation(projects.feature.fines.data)
 }

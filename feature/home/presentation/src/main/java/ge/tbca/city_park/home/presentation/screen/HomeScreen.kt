@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.LocalParking
+import androidx.compose.material.icons.filled.Report
 import androidx.compose.material.icons.rounded.NotificationsNone
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -43,6 +44,7 @@ fun HomeScreenRoot(
     navigateToAddBalance: () -> Unit,
     navigateToNotificationsScreen: () -> Unit,
     navigateToAddReservation: () -> Unit,
+    navigateToFines: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state
@@ -63,6 +65,7 @@ fun HomeScreenRoot(
             is HomeEffect.NavigateToCars -> navigateToCars()
             is HomeEffect.NavigateToAddReservation -> navigateToAddReservation()
             is HomeEffect.NavigateToCards -> navigateToCards()
+            is HomeEffect.NavigateToFines -> navigateToFines()
         }
 
     }
@@ -151,6 +154,14 @@ private fun HomeScreen(
                     loading = state.isLoading,
                     startIcon = Icons.Default.CreditCard,
                     onclick = { onEvent(HomeEvent.NavigateToCards) }
+                )
+
+                ActionCard(
+                    text = "ჯარიმები",
+                    enabled = state.clickEnabled,
+                    loading = state.isLoading,
+                    startIcon = Icons.Default.Report,
+                    onclick = { onEvent(HomeEvent.NavigateToFines) }
                 )
             }
         }

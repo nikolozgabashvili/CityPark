@@ -10,4 +10,8 @@
     <string name="car_number">სახელმწიფო ნომერი</string>
     <string name="pay_fine">გადაიხადე ჯარიმა</string>
     <string name="select_card">აირჩიე ბარათი</string>
+    <string name="fines">ჯარიმები</string>
+    <string name="you_dont_have_fines">ჯარიმები არ გაქვს</string>
+    <string name="paid">გადახდილია</string>
+    <string name="to_be_paid">გადასახდელია</string>
 </resources>
