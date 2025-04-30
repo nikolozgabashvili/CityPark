@@ -39,6 +39,7 @@ class HomeViewModel @Inject constructor(
             is HomeEvent.NavigateToCars -> navigateToCars()
             is HomeEvent.NavigateToAddReservation -> navigateToAddReservation()
             is HomeEvent.NavigateToCards -> navigateToCards()
+            is HomeEvent.NavigateToFines -> navigateToFines()
         }
 
     }
@@ -165,4 +166,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun navigateToFines() {
+        viewModelScope.launch {
+            sendSideEffect(HomeEffect.NavigateToFines)
+        }
+    }
 }

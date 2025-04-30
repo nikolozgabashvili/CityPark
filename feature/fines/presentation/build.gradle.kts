@@ -15,5 +15,7 @@ dependencies {
 
 dependencies {
     implementation(projects.feature.fines.domain)
+    implementation(projects.feature.payment.presentation)
+    implementation(projects.feature.payment.domain)
     implementation(projects.core.domain)
 }

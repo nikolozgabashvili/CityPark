@@ -6,6 +6,7 @@ import ge.tbca.city_park.fines.data.model.ParkingFineDTO
 import ge.tbca.city_park.fines.data.model.PayFineRequestDTO
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface FineApiService {
@@ -15,7 +16,7 @@ interface FineApiService {
     suspend fun getFines(): BaseResponse<List<ParkingFineDTO>>
 
     @UserId
-    @GET(PAY_FINES)
+    @POST(PAY_FINES)
     suspend fun payFines(@Body body: PayFineRequestDTO): BaseResponse<Unit>
 
     @UserId

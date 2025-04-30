@@ -11,7 +11,8 @@ fun NavGraphBuilder.homeNavGraph(
     navigateToAddBalance: () -> Unit,
     navigateToNotificationsScreen: () -> Unit,
     navigateToAddReservation: () -> Unit,
-    navigateToCards: () -> Unit
+    navigateToCards: () -> Unit,
+    navigateToFines: () -> Unit
 ) {
 
     composable<HomeScreenRoute> {
@@ -21,7 +22,8 @@ fun NavGraphBuilder.homeNavGraph(
             navigateToAddBalance = navigateToAddBalance,
             navigateToNotificationsScreen = navigateToNotificationsScreen,
             navigateToAddReservation = navigateToAddReservation,
-            navigateToCards = navigateToCards
+            navigateToCards = navigateToCards,
+            navigateToFines = navigateToFines
         )
     }
 

@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 data class ParkingFineDTO(
     val id: Int,
     val userId: String,
-    val location: String,
     val address: String,
     val carNumber: String,
     val price: Double,

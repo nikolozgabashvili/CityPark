@@ -39,7 +39,7 @@ internal val surfaceContainerLowLight = Color(0xFFF3F3F3)
 internal val surfaceContainerLight = Color(0xFFEEEEEE)
 internal val surfaceContainerHighLight = Color(0xFFE8E8E8)
 internal val surfaceContainerHighestLight = Color(0xFFE2E2E2)
-internal val successLight = Color(0xFF4CAF50)
+internal val successLight = Color(0xFF279A2C)
 
 internal val primaryDark = Color(0xFFC6C6C6)
 internal val onPrimaryDark = Color(0xFF303030)
@@ -78,8 +78,6 @@ internal val surfaceContainerHighDark = Color(0xFF2A2A2A)
 internal val surfaceContainerHighestDark = Color(0xFF353535)
 
 internal val successDark = Color(0xFF4BB24F)
-internal val markerColorLight = Color(0xFFF5F5F5)
-internal val markerColorDark = Color(0xFF1C1C1C)
 
 internal val colorTransparent = Color(0x00000000)
 
@@ -90,5 +88,4 @@ val LocalColors = compositionLocalOf {
 
 data class AdditionalColor(
     val success: Color = Color.Unspecified,
-    val markerColor: Color = Color.Unspecified,
 )

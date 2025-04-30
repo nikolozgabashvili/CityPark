@@ -13,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
 import com.example.core.designsystem.theme.TextStyles
+import com.example.core.designsystem.theme.additionalColors
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.city_park.reservation.presentation.R
 import ge.tbca.city_park.reservation.presentation.model.ReservationUi
@@ -53,7 +55,8 @@ fun ReservationItem(
                         R.string.ended
                     ),
                     style = TextStyles.bodyMedium,
-                    color = AppColors.primary
+                    fontWeight = FontWeight.Bold,
+                    color = if (reservation.active) AppColors.additionalColors.success else AppColors.primary
                 )
             }
 

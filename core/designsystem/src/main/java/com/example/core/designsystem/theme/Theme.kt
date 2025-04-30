@@ -88,11 +88,9 @@ private val darkScheme = darkColorScheme(
 
 private val additionalColorsLight = AdditionalColor(
     success = successLight,
-    markerColor = markerColorLight
 )
 private val additionalColorsDark = AdditionalColor(
     success = successDark,
-    markerColor = markerColorDark
 )
 
 val AppColors: ColorScheme

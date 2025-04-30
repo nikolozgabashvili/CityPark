@@ -97,7 +97,11 @@ fun CardItem(
 
         if (hasDeleteIcon) {
             Icon(
-                modifier = Modifier.clickable(onClick = { onDeleteClick?.invoke() }),
+                modifier = Modifier.clickable(
+                    onClick = { onDeleteClick?.invoke() },
+                    indication = null,
+                    interactionSource = null
+                ),
                 imageVector = Icons.Default.Delete,
                 contentDescription = null,
                 tint = AppColors.error

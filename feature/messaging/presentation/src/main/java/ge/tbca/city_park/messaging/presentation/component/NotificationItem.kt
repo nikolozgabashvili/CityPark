@@ -88,7 +88,7 @@ fun NotificationItem(
             if (hasDeleteIcon) {
                 Icon(
                     modifier = Modifier
-                        .clickable(onClick = { onDeleteClick?.invoke() }),
+                        .clickable(onClick = { onDeleteClick?.invoke() }, indication = null, interactionSource = null),
                     imageVector = Icons.Default.Delete,
                     contentDescription = null,
                     tint = AppColors.error

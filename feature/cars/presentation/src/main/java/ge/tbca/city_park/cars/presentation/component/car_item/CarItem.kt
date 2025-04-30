@@ -32,7 +32,7 @@ fun CarItem(
     modifier: Modifier = Modifier,
     car: CarUi,
     enabled: Boolean = true,
-    containerColor : Color = AppColors.surface,
+    containerColor: Color = AppColors.surface,
     onClick: (() -> Unit)? = null,
     hasDeleteIcon: Boolean = false,
     onDeleteClick: (() -> Unit)? = null,
@@ -81,11 +81,15 @@ fun CarItem(
             }
             Spacer(modifier = Modifier.weight(1f))
 
-            if(hasDeleteIcon) {
+            if (hasDeleteIcon) {
                 Icon(
                     modifier = Modifier
                         .padding(end = Dimen.appPadding)
-                        .clickable(onClick = { onDeleteClick?.invoke() }),
+                        .clickable(
+                            onClick = { onDeleteClick?.invoke() },
+                            indication = null,
+                            interactionSource = null
+                        ),
                     imageVector = Icons.Default.Delete,
                     contentDescription = null,
                     tint = AppColors.error
