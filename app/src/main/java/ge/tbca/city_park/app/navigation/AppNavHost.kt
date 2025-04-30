@@ -14,6 +14,7 @@ import ge.tbca.city_park.auth.presentation.navigation.authNavGraph
 import ge.tbca.city_park.cars.presentation.navigation.AddCarScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.CarsScreenRoute
 import ge.tbca.city_park.cars.presentation.navigation.carNavGraph
+import ge.tbca.city_park.fines.presentation.navigation.FineDetailScreenRoute
 import ge.tbca.city_park.fines.presentation.navigation.FinesScreenRoute
 import ge.tbca.city_park.fines.presentation.navigation.finesNavGraph
 import ge.tbca.city_park.home.presentation.navigation.homeNavGraph
@@ -177,8 +178,15 @@ fun AppNavHost(
 
         finesNavGraph(
             onShowSnackBar = onShowSnackBar,
-            navigateToFineDetail = {},
-            navigateBack = { navController.navigateUp() }
+            navigateToFineDetail = {navController.navigate(FineDetailScreenRoute(it))},
+            navigateBack = { navController.navigateUp() },
+            onSuccessFinePayment = {
+                navController.popBackStack(FinesScreenRoute, inclusive = true)
+                navController.navigate(FinesScreenRoute)
+            },
+            navigateToAddCard = {
+                navController.navigate(AddCardScreenRoute)
+            }
         )
     }
 }

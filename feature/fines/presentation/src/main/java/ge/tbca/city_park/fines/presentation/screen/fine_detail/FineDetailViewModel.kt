@@ -50,6 +50,7 @@ class FineDetailViewModel @AssistedInject constructor(
     }
 
     private fun selectCard(cardId: Int) {
+        closeDropdown()
         updateState { copy(selectedCardId = cardId) }
 
     }

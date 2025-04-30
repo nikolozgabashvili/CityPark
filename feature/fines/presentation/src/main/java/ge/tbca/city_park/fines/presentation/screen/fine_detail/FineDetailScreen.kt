@@ -2,8 +2,9 @@
 
 package ge.tbca.city_park.fines.presentation.screen.fine_detail
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -42,6 +44,7 @@ import com.example.core.designsystem.components.top_navigation_bar.TopNavigation
 import com.example.core.designsystem.theme.AppColors
 import com.example.core.designsystem.theme.AppTheme
 import com.example.core.designsystem.theme.Dimen
+import com.example.core.designsystem.theme.additionalColors
 import com.example.core.designsystem.util.AppPreview
 import ge.tbca.city_park.core.ui.util.CollectSideEffect
 import ge.tbca.city_park.fines.presentation.R
@@ -119,28 +122,25 @@ private fun FineDetailScreen(
             )
 
             Spacer(modifier = Modifier.height(Dimen.size32))
-
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(Dimen.roundedCornerMediumSize)
-            ) {
-
-                if (state.isLoading) {
-                    CircularProgressIndicator(color = AppColors.primary)
-                }
-
-                Column(
+            state.fine?.let { fine ->
+                Surface(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(Dimen.size12)
+                    border = BorderStroke(Dimen.size1, AppColors.secondary),
+                    shape = RoundedCornerShape(Dimen.roundedCornerMediumSize)
                 ) {
-                    state.fine?.let { fine ->
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(Dimen.size16),
+                    ) {
                         FineDetailItem(
                             icon = Icons.Rounded.DirectionsCar,
                             label = stringResource(R.string.car_number),
                             value = fine.carNumber
                         )
 
-
+                        Spacer(modifier = Modifier.height(Dimen.size16))
 
                         FineDetailItem(
                             icon = Icons.Rounded.LocationOn,
@@ -148,6 +148,7 @@ private fun FineDetailScreen(
                             value = fine.address
                         )
 
+                        Spacer(modifier = Modifier.height(Dimen.size16))
 
                         FineDetailItem(
                             icon = Icons.Rounded.Description,
@@ -155,12 +156,15 @@ private fun FineDetailScreen(
                             value = fine.description
                         )
 
+                        Spacer(modifier = Modifier.height(Dimen.size16))
 
                         FineDetailItem(
                             icon = Icons.Rounded.Payments,
                             label = stringResource(R.string.cost_amount),
                             value = stringResource(R.string.cost_with_gel_symbol, fine.price)
                         )
+
+                        Spacer(modifier = Modifier.height(Dimen.size16))
 
 
                         FineDetailItem(
@@ -169,25 +173,31 @@ private fun FineDetailScreen(
                             value = fine.createdAt
                         )
 
+                        Spacer(modifier = Modifier.height(Dimen.size16))
+
                         FineDetailItem(
                             icon = if (fine.isPaid) Icons.Rounded.Check else Icons.Rounded.Cancel,
-                            label = stringResource(R.string.date),
-                            value = fine.createdAt,
+                            label = stringResource(R.string.status),
+                            valueColor = if (fine.isPaid) AppColors.additionalColors.success else AppColors.error,
+                            value = if (fine.isPaid) stringResource(R.string.paid) else stringResource(
+                                R.string.to_be_paid
+                            ),
                         )
 
                     }
-
-                    state.error?.let {
-                        ErrorWrapper(
-                            error = it.getString(),
-                            enabled = state.isLoading,
-                            onRetry = { onEvent(FineDetailEvent.OnRetry) },
-                        )
-                    }
-
 
                 }
             }
+
+            state.error?.let {
+                ErrorWrapper(
+                    error = it.getString(),
+                    enabled = state.isLoading,
+                    onRetry = { onEvent(FineDetailEvent.OnRetry) },
+                )
+            }
+
+
             Spacer(modifier = Modifier.weight(1f))
 
             state.selectedCard?.let { card ->
@@ -198,32 +208,42 @@ private fun FineDetailScreen(
             }
 
             Spacer(modifier = Modifier.height(Dimen.size12))
-            if (state.fine?.isPaid != true) {
+            state.fine?.isPaid?.let { paid ->
+                if (!paid) {
 
-                TertiaryButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.select_card),
-                    buttonSize = ButtonSize.LARGE,
-                    startIcon = Icons.Rounded.CreditCard,
-                    loading = state.paymentInProgress,
-                    enabled = !state.isLoading,
-                    onClick = { onEvent(FineDetailEvent.SelectCardClicked) }
-                )
+                    TertiaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.select_card),
+                        buttonSize = ButtonSize.LARGE,
+                        startIcon = Icons.Rounded.CreditCard,
+                        loading = state.paymentInProgress,
+                        enabled = !state.isLoading,
+                        onClick = { onEvent(FineDetailEvent.SelectCardClicked) }
+                    )
 
-                Spacer(modifier = Modifier.height(Dimen.size12))
+                    Spacer(modifier = Modifier.height(Dimen.size12))
 
-                PrimaryButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(R.string.pay_fine),
-                    buttonSize = ButtonSize.LARGE,
-                    loading = state.paymentInProgress,
-                    enabled = state.paymentButtonEnabled,
-                    onClick = { onEvent(FineDetailEvent.OnPaymentClicked) }
-                )
+                    PrimaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.pay_fine),
+                        buttonSize = ButtonSize.LARGE,
+                        loading = state.paymentInProgress,
+                        enabled = state.paymentButtonEnabled,
+                        onClick = { onEvent(FineDetailEvent.OnPaymentClicked) }
+                    )
+
+                }
             }
 
             Spacer(modifier = Modifier.height(Dimen.size12))
         }
+
+        if (state.isLoading) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(color = AppColors.primary)
+            }
+        }
+
     }
 
     if (state.showCardsBottomSheet) {

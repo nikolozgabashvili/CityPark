@@ -16,7 +16,7 @@
     <string name="choose_card">Select card</string>
     <string name="or">Or</string>
     <string name="card_added_successfully">Card Added Successfully</string>
-    <string name="enter_transaction_amount">enter transaction amount</string>
+    <string name="enter_transaction_amount">Enter transaction amount</string>
     <string name="balance_added_successfully">Balance added successfully</string>
     <string name="please_fill_amount">Field must not be empty </string>
     <string name="selected_card">Selected card</string>

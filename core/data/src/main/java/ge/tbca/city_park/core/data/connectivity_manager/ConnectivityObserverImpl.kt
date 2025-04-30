@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkRequest.Builder
 import androidx.core.content.getSystemService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.tbca.city_park.core.domain.connectivity_manager.ConnectivityObserver
@@ -36,16 +35,23 @@ class ConnectivityObserverImpl @Inject constructor(
             override fun onAvailable(network: Network) {
                 channel.trySend(true)
             }
+
             override fun onLost(network: Network) {
                 channel.trySend(false)
             }
+
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
+                super.onCapabilitiesChanged(network, networkCapabilities)
+                val connected = networkCapabilities.hasCapability(
+                    NetworkCapabilities.NET_CAPABILITY_VALIDATED
+                )
+                trySend(connected)
+            }
         }
-
-
-        val request = Builder()
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-        connectivityManager.registerNetworkCallback(request, callback)
+        connectivityManager.registerDefaultNetworkCallback(callback)
 
         channel.trySend(connectivityManager.isCurrentlyConnected())
 
