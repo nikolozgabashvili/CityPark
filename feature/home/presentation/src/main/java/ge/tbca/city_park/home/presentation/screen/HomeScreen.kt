@@ -157,7 +157,7 @@ private fun HomeScreen(
                 )
 
                 ActionCard(
-                    text = "ჯარიმები",
+                    text = stringResource(R.string.fines),
                     enabled = state.clickEnabled,
                     loading = state.isLoading,
                     startIcon = Icons.Default.Report,
