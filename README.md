@@ -3,13 +3,30 @@
 City Park is a feature-rich, modular Android application that streamlines parking reservations, vehicle management, and payment processing. Powered by Jetpack Compose and built on a robust Clean Architecture + MVI foundation, it delivers a seamless and modern user experience.
 
 ---
+## Auth
 
-<img src="https://github.com/user-attachments/assets/05783ec9-336d-4608-b8ec-2183f946b5b4" width="300px">
-<img src="https://github.com/user-attachments/assets/e7c82e37-cb25-4e60-be6e-118a24a9311b" width="300px">
-<img src="https://github.com/user-attachments/assets/e68ce5aa-c74b-4344-820d-4275f92b36f6" width="300px">
-<img src="https://github.com/user-attachments/assets/4e814beb-92de-4cc8-a675-637bd3ae4b2b" width="300px">
-<img src="https://github.com/user-attachments/assets/3a9e04d7-3865-49ca-814b-1f6b92d79cc4" width="300px">
-<img src="https://github.com/user-attachments/assets/57515e4a-4e39-49cd-90f2-641b3f23060f" width="300px"/>
+<img src="https://github.com/user-attachments/assets/57515e4a-4e39-49cd-90f2-641b3f23060f" width="230px"/>
+<img src="https://github.com/user-attachments/assets/49d1ba34-6467-4342-80c5-4df48c0e563b" width="230px"/>
+<img src="https://github.com/user-attachments/assets/d50db821-ad5b-4b8a-8e50-74d71a94f06e" width="230px"/>
+
+---
+## Parking
+
+<img src="https://github.com/user-attachments/assets/7f22f41d-f645-40b8-8937-0b7646c53315" width="230px"/>
+<img src="https://github.com/user-attachments/assets/c8242980-3699-4704-a778-faf19d469795" width="230px"/>
+<img src="https://github.com/user-attachments/assets/fd6e2cfa-b232-46ab-899c-b4b082e92445" width="230px"/>
+<img src="https://github.com/user-attachments/assets/1d299ef7-1461-4fb0-9252-886a35e9fe00" width="230px"/>
+<img src="https://github.com/user-attachments/assets/0760eb51-7d42-448a-9da9-87e136d25258" width="230px"/>
+
+---
+
+## More
+<img src="https://github.com/user-attachments/assets/a496c0e3-b877-492d-b29f-1c1f46bf48fe" width="230px"/>
+<img src="https://github.com/user-attachments/assets/e15fceb4-386b-4b59-bb0a-84dc3b7ec14a" width="230px"/>
+<img src="https://github.com/user-attachments/assets/6ba21a44-63a3-49f0-922d-d2ef72326c75" width="230px"/>
+<img src="https://github.com/user-attachments/assets/5d155df5-20e8-4d11-b987-199d9255752e" width="230px"/>
+<img src="https://github.com/user-attachments/assets/7018c81c-dd35-4526-a54c-062a349b8455" width="230px"/>
+
 
 ---
 
