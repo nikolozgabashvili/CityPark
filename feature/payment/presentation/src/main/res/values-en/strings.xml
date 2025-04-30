@@ -21,8 +21,8 @@
     <string name="please_fill_amount">Field must not be empty </string>
     <string name="selected_card">Selected card</string>
     <string name="your_cards">Your credit cards</string>
-    <string name="yes">დიახ</string>
-    <string name="no">არა</string>
-    <string name="delete">წაშლა</string>
-    <string name="do_you_really_wish_to_delete_card">ნამდვილად გსურთ ბარათის წაშლა?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete">Delete</string>
+    <string name="do_you_really_wish_to_delete_card">Do you really wish to delete the card?</string>
 </resources>
