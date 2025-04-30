@@ -36,7 +36,7 @@ class ProfileViewModel @Inject constructor(
             is ProfileEvent.SignOutButtonClicked -> checkActiveReservation()
             is ProfileEvent.DismissActiveReservationDialog -> dismissActiveReservationDialog()
             is ProfileEvent.FinishParking -> finishAndSignOut()
-            ProfileEvent.Refresh -> refresh()
+            is ProfileEvent.Refresh -> refresh()
         }
     }
 
@@ -129,6 +129,7 @@ class ProfileViewModel @Inject constructor(
                         } else {
                             signOut()
                         }
+
                     }
 
                     is Resource.Error -> {
@@ -141,6 +142,7 @@ class ProfileViewModel @Inject constructor(
 
 
             }
+
         }
 
     }
@@ -163,10 +165,15 @@ class ProfileViewModel @Inject constructor(
 
                         is Resource.Loading -> Unit
                     }
+
                 }
+
             } else {
                 signOut()
             }
+
         }
+
     }
+
 }
